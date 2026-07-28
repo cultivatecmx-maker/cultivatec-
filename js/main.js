@@ -18,6 +18,7 @@ const App = {
     this.year();
     this.heroParallax();
     this.heroForm();
+    this.aurora();
   },
 
   isMobile: () => window.matchMedia('(max-width: 960px)').matches,
@@ -345,6 +346,87 @@ const App = {
 
     card.addEventListener('pointermove', move);
     card.addEventListener('pointerleave', reset);
+  },
+
+  /* --- Aurora que persigue al cursor ---
+     Tres velos con inercia distinta (0.10 / 0.06 / 0.035). El retardo
+     escalonado es lo que da sensación de aurora en lugar de un foco pegado
+     al puntero. Un solo bucle de rAF, que se detiene solo al alcanzar el
+     cursor para no gastar batería. */
+  aurora() {
+    const zona = document.querySelector('.hero');
+    const capas = [...document.querySelectorAll('.aurora span')];
+    if (!zona || !capas.length) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const inercia = [0.10, 0.06, 0.035];
+    const pos = capas.map(() => ({ x: 0, y: 0 }));
+    let destino = null, activo = false, quieto = 0;
+
+    const pinta = () => capas.forEach((c, i) =>
+      c.style.transform = `translate3d(${pos[i].x.toFixed(1)}px, ${pos[i].y.toFixed(1)}px, 0)`);
+
+    const bucle = () => {
+      if (!destino) { activo = false; return; }
+      let resto = 0;
+      capas.forEach((_, i) => {
+        pos[i].x += (destino.x - pos[i].x) * inercia[i];
+        pos[i].y += (destino.y - pos[i].y) * inercia[i];
+        resto += Math.abs(destino.x - pos[i].x) + Math.abs(destino.y - pos[i].y);
+      });
+      pinta();
+      quieto = resto < 1 ? quieto + 1 : 0;
+      if (quieto > 20) { activo = false; return; }
+      requestAnimationFrame(bucle);
+    };
+
+    zona.addEventListener('pointermove', e => {
+      const r = zona.getBoundingClientRect();
+      destino = { x: e.clientX - r.left, y: e.clientY - r.top };
+      quieto = 0;
+      if (!activo) { activo = true; requestAnimationFrame(bucle); }
+    });
+
+    // Arranca centrada, un poco por encima del medio
+    const r = zona.getBoundingClientRect();
+    destino = { x: r.width / 2, y: r.height * 0.42 };
+    pos.forEach(p => { p.x = destino.x; p.y = destino.y; });
+    pinta();
+  },
+
+  /* --- Correo del hero: sin backend, abre el cliente de correo --- */
+  heroForm() {
+    const form = document.getElementById('hero-demo');
+    if (!form) return;
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const correo = (form.elements['correo']?.value || '').trim();
+      const btn = form.querySelector('button');
+      const original = btn.innerHTML;
+
+      const cuerpo = [
+        'Hola CultivaTec, quiero una demo de la plataforma.',
+        '',
+        'Mi correo: ' + correo,
+        'Escuela: ',
+        'Número de grupos: ',
+        'Ciudad: '
+      ].join('\n');
+
+      btn.innerHTML = '<i class="ph-bold ph-circle-notch spin"></i> Abriendo…';
+      btn.disabled = true;
+
+      location.href = 'mailto:contacto@cultivatec.com.mx'
+        + '?subject=' + encodeURIComponent('Solicitud de demo')
+        + '&body=' + encodeURIComponent(cuerpo);
+
+      setTimeout(() => {
+        btn.innerHTML = '<i class="ph-bold ph-check-circle"></i> Revisa tu correo';
+        setTimeout(() => { form.reset(); btn.innerHTML = original; btn.disabled = false; }, 3500);
+      }, 1000);
+    });
   },
 
   year() {

@@ -284,99 +284,170 @@
 
 <!-- ==================== HERO ==================== -->
 <header class="hero">
-  <div class="container">
 
-    <div class="hero-card">
+  <!-- Fondo: puntos y trazos de circuito animados -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-dots"></div>
+    <svg class="hero-traces" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <path class="trace"    d="M-20 210 H180 a16 16 0 0 0 16-16 V120 a16 16 0 0 1 16-16 H420"/>
+      <path class="trace c2" d="M1460 250 H1250 a16 16 0 0 1-16-16 V150 a16 16 0 0 0-16-16 H1020"/>
+      <path class="trace c3" d="M-20 690 H240 a16 16 0 0 1 16 16 V790 a16 16 0 0 0 16 16 H520"/>
+      <path class="trace"    d="M1460 660 H1210 a16 16 0 0 0-16 16 V760 a16 16 0 0 1-16 16 H940"/>
+      <path class="trace c2" d="M720 -20 V70"/>
+      <circle class="trace-dot" cx="420" cy="104" r="3.5"/>
+      <circle class="trace-dot" cx="1020" cy="134" r="3.5" style="animation-delay:.8s"/>
+      <circle class="trace-dot" cx="520" cy="806" r="3.5" style="animation-delay:1.4s"/>
+      <circle class="trace-dot" cx="940" cy="776" r="3.5" style="animation-delay:.4s"/>
+    </svg>
+  </div>
 
-      <!-- Panel azul -->
-      <div class="hero-left">
-        <div class="hero-tools hero-an hero-an-1">
-          <a href="plataforma.html#simuladores" class="hero-tool on" aria-label="Simuladores"><i class="ph-fill ph-circuitry"></i></a>
-          <a href="plataforma.html#ia" class="hero-tool" aria-label="Tutor de IA"><i class="ph-fill ph-brain"></i></a>
-          <a href="kits.html" class="hero-tool" aria-label="Kits de robótica"><i class="ph-fill ph-toolbox"></i></a>
-          <span class="spacer"></span>
-          <span class="hero-sede">Mexicali &middot; Monterrey</span>
-        </div>
+  <!-- Chip con LEDs -->
+  <div class="bot bot-chip" aria-hidden="true">
+    <svg viewBox="0 0 120 120" class="b-flota" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#93C5FD" stroke-width="3" stroke-linecap="round">
+        <path d="M30 24V10M50 24V10M70 24V10M90 24V10M30 110V96M50 110V96M70 110V96M90 110V96"/>
+        <path d="M24 30H10M24 50H10M24 70H10M24 90H10M110 30H96M110 50H96M110 70H96M110 90H96"/>
+      </g>
+      <rect x="24" y="24" width="72" height="72" rx="14" fill="#DBEAFE" stroke="#2563EB" stroke-width="3"/>
+      <rect x="38" y="38" width="44" height="44" rx="9" fill="#2563EB" opacity=".16"/>
+      <circle class="b-led"   cx="47" cy="52" r="5" fill="#22D3EE"/>
+      <circle class="b-led b-led-2" cx="60" cy="52" r="5" fill="#34D399"/>
+      <circle class="b-led b-led-3" cx="73" cy="52" r="5" fill="#FBBF24"/>
+      <rect x="44" y="66" width="32" height="5" rx="2.5" fill="#2563EB" opacity=".4"/>
+    </svg>
+  </div>
 
-        <a href="plataforma.html" class="hero-pill hero-an hero-an-2">
-          <p>Conoce la plataforma<br>que usa tu escuela</p>
-          <i class="ph-bold ph-arrow-up-right"></i>
-        </a>
+  <!-- Brazo robótico con engranes -->
+  <div class="bot bot-brazo" aria-hidden="true">
+    <svg viewBox="0 0 140 140" class="b-flota-2" xmlns="http://www.w3.org/2000/svg">
+      <g class="b-engrane" style="transform-origin:44px 44px">
+        <circle cx="44" cy="44" r="22" fill="none" stroke="#2563EB" stroke-width="4"/>
+        <g fill="#2563EB">
+          <rect x="40" y="14" width="8" height="10" rx="2"/><rect x="40" y="64" width="8" height="10" rx="2"/>
+          <rect x="14" y="40" width="10" height="8" rx="2"/><rect x="64" y="40" width="10" height="8" rx="2"/>
+        </g>
+        <circle cx="44" cy="44" r="7" fill="#DBEAFE"/>
+      </g>
+      <g class="b-engrane-inv" style="transform-origin:98px 92px">
+        <circle cx="98" cy="92" r="16" fill="none" stroke="#22D3EE" stroke-width="4"/>
+        <g fill="#22D3EE">
+          <rect x="94" y="70" width="8" height="8" rx="2"/><rect x="94" y="106" width="8" height="8" rx="2"/>
+          <rect x="76" y="88" width="8" height="8" rx="2"/><rect x="112" y="88" width="8" height="8" rx="2"/>
+        </g>
+        <circle cx="98" cy="92" r="5" fill="#CFFAFE"/>
+      </g>
+      <path d="M44 44 L98 92" stroke="#93C5FD" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+    </svg>
+  </div>
 
-        <h1>
-          <span class="ln"><span>Robótica y STEM</span></span>
-          <span class="ln"><span><em>con inteligencia artificial</em></span></span>
-        </h1>
+  <!-- Rover con sensor -->
+  <div class="bot bot-rover" aria-hidden="true">
+    <svg viewBox="0 0 210 150" class="b-flota-2" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="105" cy="142" rx="66" ry="7" fill="#2563EB" opacity=".1"/>
+      <!-- ondas del sensor -->
+      <g fill="none" stroke="#34D399" stroke-width="4" stroke-linecap="round" style="transform-origin:170px 62px">
+        <path class="b-onda"   d="M172 48a20 20 0 0 1 0 28"/>
+        <path class="b-onda b-onda-2" d="M180 40a32 32 0 0 1 0 44"/>
+        <path class="b-onda b-onda-3" d="M188 32a44 44 0 0 1 0 60"/>
+      </g>
+      <!-- chasis -->
+      <rect x="30" y="52" width="140" height="52" rx="18" fill="#fff" stroke="#2563EB" stroke-width="5"/>
+      <rect x="44" y="64" width="60" height="28" rx="10" fill="#1E40AF"/>
+      <g class="b-escanea"><rect x="52" y="72" width="16" height="12" rx="4" fill="#7DD3FC"/></g>
+      <circle class="b-led" cx="124" cy="70" r="5" fill="#22D3EE"/>
+      <circle class="b-led b-led-2" cx="140" cy="70" r="5" fill="#FBBF24"/>
+      <rect x="118" y="84" width="34" height="6" rx="3" fill="#2563EB" opacity=".3"/>
+      <!-- sensor frontal -->
+      <rect x="158" y="54" width="14" height="18" rx="5" fill="#34D399"/>
+      <!-- ruedas -->
+      <g class="b-rueda" style="transform-origin:64px 112px">
+        <circle cx="64" cy="112" r="24" fill="#DBEAFE" stroke="#2563EB" stroke-width="5"/>
+        <g stroke="#2563EB" stroke-width="4" stroke-linecap="round">
+          <path d="M64 94v10M64 120v10M46 112h10M72 112h10"/>
+        </g>
+        <circle cx="64" cy="112" r="5" fill="#2563EB"/>
+      </g>
+      <g class="b-rueda" style="transform-origin:142px 112px">
+        <circle cx="142" cy="112" r="24" fill="#DBEAFE" stroke="#2563EB" stroke-width="5"/>
+        <g stroke="#2563EB" stroke-width="4" stroke-linecap="round">
+          <path d="M142 94v10M142 120v10M124 112h10M150 112h10"/>
+        </g>
+        <circle cx="142" cy="112" r="5" fill="#2563EB"/>
+      </g>
+    </svg>
+  </div>
 
-        <p class="hero-lead hero-an hero-an-3">
-          Simuladores de electrónica, programación y diseño 3D, un tutor socrático que nunca
-          da la respuesta, y un copiloto que planea las clases por ti.
-        </p>
-
-        <div class="hero-actions hero-an hero-an-3">
-          <a href="contacto.html" class="btn btn-white btn-lg"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
-          <a href="cursos.html" class="btn btn-glass btn-lg"><i class="ph-bold ph-graduation-cap"></i> Ver cursos</a>
-        </div>
-      </div>
-
-      <!-- Panel de la foto -->
-      <div class="hero-right">
-        <div class="hero-shot">
-          <picture>
-            <source media="(max-width: 640px)" srcset="img/hero-taller-sm.jpg">
-            <img src="img/hero-taller.jpg"
-                 alt="Cuatro alumnos en un taller de CultivaTec: sueldan una placa, programan en una laptop y arman robots móviles sobre la mesa"
-                 width="1100" height="1061" fetchpriority="high">
-          </picture>
-        </div>
-
-        <div class="fcard fcard-stat" data-par="16">
-          <div class="top">
-            <span class="badge"><i class="ph-fill ph-trend-up"></i> +18%</span>
-            <span>avance del grupo</span>
-          </div>
-          <b>1,000<i>+</i></b>
-          <div class="bar"><em style="--w:78%"></em></div>
-          <small>alumnos formados en Mexicali y Monterrey</small>
-        </div>
-
-        <div class="fcard fcard-chart" data-par="24">
-          <div class="hd"><span>retos completados</span><span>este mes</span></div>
-          <div class="bars">
-            <i style="height:38%;animation-delay:1.05s"></i>
-            <i style="height:56%;animation-delay:1.12s"></i>
-            <i style="height:44%;animation-delay:1.19s"></i>
-            <i style="height:72%;animation-delay:1.26s"></i>
-            <i style="height:61%;animation-delay:1.33s"></i>
-            <i style="height:88%;animation-delay:1.4s"></i>
-            <i style="height:100%;animation-delay:1.47s"></i>
-          </div>
-          <p>Circuitos &middot; Bloques &middot; Diseño 3D</p>
-        </div>
-
-        <div class="fcard fcard-tag" data-par="12">
-          <i class="ph-fill ph-brain"></i>
-          <div><small>tutor socrático</small><b>Chip te pregunta</b></div>
-        </div>
-
-        <span class="fdot fdot-a" data-par="30" aria-hidden="true"><i class="ph-fill ph-lightning"></i></span>
-        <span class="fdot fdot-b" data-par="20" aria-hidden="true"><i class="ph-fill ph-cube"></i></span>
-      </div>
-
+  <!-- Contenido -->
+  <div class="container hero-inner">
+    <div class="hero-badge hero-an hero-an-1">
+      <b><i class="ph-fill ph-sparkle"></i> Nuevo</b>
+      Plataforma escolar impulsada por IA
     </div>
 
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-lbl">Simuladores integrados</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Tutor de IA disponible</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">2</div><div class="hero-stat-lbl">Sedes: Mexicali y Monterrey</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-lbl">Web, sin instalación</div></div>
+    <h1 class="hero-an hero-an-2">Robótica y STEM <em>con inteligencia artificial</em></h1>
+
+    <p class="hero-lead hero-an hero-an-3">
+      Simuladores de electrónica, programación y diseño 3D. Un tutor socrático que nunca da la
+      respuesta. Y un copiloto que planea las clases por ti.
+    </p>
+
+    <div class="hero-actions hero-an hero-an-4">
+      <a href="contacto.html" class="btn btn-primary btn-lg"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+      <a href="plataforma.html" class="btn btn-ghost btn-lg"><i class="ph-bold ph-play-circle"></i> Ver la plataforma</a>
+    </div>
+
+    <div class="hero-points hero-an hero-an-5">
+      <div class="hero-point"><i class="ph-fill ph-check-circle"></i> Sin instalar nada</div>
+      <div class="hero-point"><i class="ph-fill ph-check-circle"></i> Cualquier dispositivo</div>
+      <div class="hero-point"><i class="ph-fill ph-check-circle"></i> Mexicali y Monterrey</div>
     </div>
   </div>
 
-  <div class="hero-wave" aria-hidden="true">
-    <svg viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,72 C260,112 560,18 860,52 C1080,77 1290,86 1440,64 L1440,110 L0,110 Z" fill="#ffffff"/>
+  <!-- Robot mascota -->
+  <div class="bot bot-mascota" aria-hidden="true">
+    <svg viewBox="0 0 170 200" class="b-flota" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="85" cy="190" rx="46" ry="7" fill="#2563EB" opacity=".1"/>
+      <!-- antena -->
+      <path d="M85 40V22" stroke="#2563EB" stroke-width="5" stroke-linecap="round"/>
+      <circle class="b-antena" cx="85" cy="16" r="8" fill="#34D399" style="transform-origin:85px 16px"/>
+      <!-- cabeza -->
+      <rect x="30" y="40" width="110" height="86" rx="30" fill="#fff" stroke="#2563EB" stroke-width="5"/>
+      <rect x="44" y="56" width="82" height="54" rx="22" fill="#1E40AF"/>
+      <g fill="#7DD3FC">
+        <rect class="b-ojo" x="60" y="72" width="14" height="22" rx="7" style="transform-origin:67px 83px"/>
+        <rect class="b-ojo" x="96" y="72" width="14" height="22" rx="7" style="transform-origin:103px 83px"/>
+      </g>
+      <path d="M78 102q7 6 14 0" stroke="#7DD3FC" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <!-- orejas -->
+      <rect x="16" y="66" width="14" height="30" rx="7" fill="#93C5FD"/>
+      <rect x="140" y="66" width="14" height="30" rx="7" fill="#93C5FD"/>
+      <!-- cuerpo -->
+      <rect x="46" y="132" width="78" height="52" rx="20" fill="#DBEAFE" stroke="#2563EB" stroke-width="5"/>
+      <circle class="b-led"   cx="70" cy="152" r="5" fill="#22D3EE"/>
+      <circle class="b-led b-led-2" cx="85" cy="152" r="5" fill="#34D399"/>
+      <circle class="b-led b-led-3" cx="100" cy="152" r="5" fill="#FBBF24"/>
+      <rect x="66" y="166" width="38" height="6" rx="3" fill="#2563EB" opacity=".3"/>
+      <!-- brazo que saluda -->
+      <g class="b-saluda" style="transform-origin:132px 142px">
+        <rect x="124" y="136" width="30" height="11" rx="5.5" fill="#93C5FD"/>
+        <circle cx="156" cy="141" r="9" fill="#2563EB"/>
+      </g>
+      <rect x="16" y="136" width="30" height="11" rx="5.5" fill="#93C5FD"/>
+      <circle cx="14" cy="141" r="9" fill="#2563EB"/>
     </svg>
+  </div>
+
+  <!-- Franja inferior -->
+  <div class="hero-strip hero-an hero-an-6">
+    <div class="container">
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-lbl">Simuladores integrados</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Tutor de IA disponible</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">1,000+</div><div class="hero-stat-lbl">Alumnos formados</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-lbl">Web, sin instalación</div></div>
+      </div>
+      <div class="hero-scroll"><span>Desliza</span><i class="ph-bold ph-caret-down"></i></div>
+    </div>
   </div>
 </header>
 

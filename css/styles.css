@@ -257,300 +257,227 @@ ul,ol{list-style:none}
 .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ------------------------------------------------------------
-   6. HERO PRINCIPAL — composición centrada sobre esfera azul
-
-   Tiempos y curvas según las tablas de motion design:
-   entrada = ease-out (MD3 Emphasized), ambiente = sine 2-20s,
-   respuesta al cursor < 100ms.
+   6. HERO PRINCIPAL — robot protagonista a la derecha
 ------------------------------------------------------------ */
 .hero{
-  position:relative;
-  min-height:100svh;
+  position:relative;min-height:100svh;
   display:flex;flex-direction:column;
-  padding:calc(var(--nav-h) + 34px) 0 0;
-  background:linear-gradient(180deg,#F4F9FF 0%,#EAF3FF 40%,#F6FAFF 100%);
+  padding:calc(var(--nav-h) + 20px) 0 0;
+  background:linear-gradient(168deg,#E3EEFF 0%,#CFE0FC 50%,#E6F0FF 100%);
   overflow:hidden;isolation:isolate;
 }
 
-/* --- La esfera --- */
+/* Halo detrás del robot */
 .orbe{
-  position:absolute;left:50%;top:14%;
-  width:150vw;max-width:1900px;aspect-ratio:1;
+  position:absolute;right:-6%;top:6%;
+  width:64vw;max-width:940px;aspect-ratio:1;
   border-radius:50%;z-index:0;pointer-events:none;
-  translate:calc(-50% + var(--ox,0px)) var(--oy,0px);
+  translate:var(--ox,0px) var(--oy,0px);
   transition:translate .9s cubic-bezier(.22,1,.3,1);
-  background:
-    radial-gradient(circle at 50% 42%, #EFF6FF 0%, #DBEAFE 26%, #A9CEFB 52%, #6FA8F5 74%, #3B82F6 100%);
-  box-shadow:0 -30px 120px -40px rgba(37,99,235,.45) inset;
-  animation:orbe-late 14s ease-in-out infinite;
+  background:radial-gradient(circle at 50% 45%,
+    rgba(255,255,255,.85) 0%, rgba(219,234,254,.8) 34%,
+    rgba(147,197,253,.62) 62%, rgba(59,130,246,.28) 82%, transparent 100%);
+  animation:orbe-late 16s ease-in-out infinite;
 }
-@keyframes orbe-late{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+@keyframes orbe-late{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 
-/* Aro fino que remarca el borde */
-.orbe::after{
-  content:'';position:absolute;inset:0;border-radius:50%;
-  border:1px solid rgba(255,255,255,.55);
-}
-
-/* Aurora: dos velos de color que persiguen al cursor con retardo.
-   Se dibuja con `translate` para no competir con las animaciones de
-   `transform` y se compone en una capa propia (will-change). */
-.aurora{
-  position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
-  mix-blend-mode:screen;
-}
-.aurora span{
-  position:absolute;top:0;left:0;border-radius:50%;
-  will-change:transform;filter:blur(70px);
-}
-.aurora .a1{
-  width:46vw;height:46vw;margin:-23vw 0 0 -23vw;
-  background:radial-gradient(circle,rgba(96,165,250,.55),transparent 68%);
-}
-.aurora .a2{
-  width:34vw;height:34vw;margin:-17vw 0 0 -17vw;
-  background:radial-gradient(circle,rgba(34,211,238,.42),transparent 66%);
-}
-.aurora .a3{
-  width:26vw;height:26vw;margin:-13vw 0 0 -13vw;
-  background:radial-gradient(circle,rgba(167,139,250,.34),transparent 64%);
-}
+.aurora{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
+.aurora span{position:absolute;top:0;left:0;border-radius:50%;will-change:transform;filter:blur(72px)}
+.aurora .a1{width:42vw;height:42vw;margin:-21vw 0 0 -21vw;
+  background:radial-gradient(circle,rgba(96,165,250,.5),transparent 68%)}
+.aurora .a2{width:32vw;height:32vw;margin:-16vw 0 0 -16vw;
+  background:radial-gradient(circle,rgba(34,211,238,.4),transparent 66%)}
+.aurora .a3{width:24vw;height:24vw;margin:-12vw 0 0 -12vw;
+  background:radial-gradient(circle,rgba(167,139,250,.3),transparent 64%)}
 
 .hero-dots{
   position:absolute;inset:0;z-index:1;pointer-events:none;
-  background-image:radial-gradient(rgba(29,78,216,.16) 1px, transparent 1px);
+  background-image:radial-gradient(rgba(29,78,216,.2) 1px, transparent 1px);
   background-size:30px 30px;
-  mask-image:radial-gradient(ellipse 78% 64% at 50% 34%,#000 4%,transparent 86%);
-  -webkit-mask-image:radial-gradient(ellipse 78% 64% at 50% 34%,#000 4%,transparent 86%);
+  mask-image:linear-gradient(105deg,#000 0%,transparent 62%);
+  -webkit-mask-image:linear-gradient(105deg,#000 0%,transparent 62%);
 }
 
-/* --- Contenido centrado --- */
-/* Cables: curvas orgánicas con corriente recorriéndolas */
+/* Cables */
 .cables{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none}
-.cable{
-  fill:none;stroke-linecap:round;stroke-width:2.4;
-  opacity:.5;stroke-dasharray:1 0;
-}
-.cable-luz{
-  fill:none;stroke-linecap:round;stroke-width:3.2;
-  stroke-dasharray:22 260;
-  animation:corriente 4.4s linear infinite;
-  filter:drop-shadow(0 0 5px currentColor);
-}
-@keyframes corriente{to{stroke-dashoffset:-282}}
-.nodo{animation:nodo-late 2.6s ease-in-out infinite}
-@keyframes nodo-late{0%,100%{opacity:.35;transform:scale(.82)}50%{opacity:1;transform:scale(1.12)}}
-.conector{fill:#fff;stroke-width:2.6}
+.cable{fill:none;stroke-linecap:round;stroke-width:2.2;opacity:.42}
+.cable-luz{fill:none;stroke-linecap:round;stroke-width:3;
+  stroke-dasharray:20 260;animation:corriente 4.6s linear infinite;
+  filter:drop-shadow(0 0 5px currentColor)}
+@keyframes corriente{to{stroke-dashoffset:-280}}
+.nodo{animation:nodo-late 2.8s ease-in-out infinite}
+@keyframes nodo-late{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.14)}}
+.conector{fill:#fff;stroke-width:2.4}
 
-.hero-centro{
+/* --- Rejilla: texto | robot --- */
+.hero-grid2{
   position:relative;z-index:3;flex:1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;
+  display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:32px;align-items:center;
 }
+
+/* --- Columna de texto --- */
+.hero-copy{position:relative}
+
+/* Corchetes técnicos, como en la referencia */
+.hero-copy::before,.hero-copy::after{
+  content:'';position:absolute;width:26px;height:26px;pointer-events:none;
+  border-color:rgba(29,78,216,.4);border-style:solid;
+}
+.hero-copy::before{top:-18px;left:-22px;border-width:2px 0 0 2px;border-radius:5px 0 0 0}
+.hero-copy::after{bottom:-18px;right:8%;border-width:0 2px 2px 0;border-radius:0 0 5px 0}
 
 .hero-tag{
-  display:inline-flex;align-items:center;gap:14px;
+  display:inline-flex;align-items:center;gap:15px;
   font-family:var(--font-display);
-  font-size:clamp(1.5rem,1.1rem + 1.2vw,2.1rem);
-  font-weight:700;letter-spacing:-.035em;color:#0B1F45;line-height:1;
-  margin-bottom:26px;
+  font-size:clamp(1.9rem,1.2rem + 2.2vw,3rem);
+  font-weight:700;letter-spacing:-.04em;color:#0B1F45;line-height:1;
+  margin-bottom:22px;
 }
 .hero-tag img{
-  width:clamp(44px,3.4vw,58px);height:auto;
-  filter:drop-shadow(0 8px 18px rgba(29,78,216,.42));
-  animation:tag-late 5s ease-in-out infinite;
+  width:clamp(52px,4.4vw,72px);height:auto;
+  filter:drop-shadow(0 10px 22px rgba(29,78,216,.45));
+  animation:tag-late 5.5s ease-in-out infinite;
 }
-.hero-tag b{color:#1D4ED8;font-weight:700}
-@keyframes tag-late{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.06) rotate(-4deg)}}
+.hero-tag b{color:#1D4ED8}
+@keyframes tag-late{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.05) rotate(-4deg)}}
+
+.hero-linea{
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+  font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+  color:#1D4ED8;
+}
+.hero-linea::after{content:'';flex:1;max-width:120px;height:1px;background:rgba(29,78,216,.3)}
 
 .hero h1{
-  font-size:clamp(2.5rem,1.1rem + 5vw,4.6rem);
-  line-height:1.02;letter-spacing:-.05em;color:#0B1F45;
-  margin:0 0 20px;max-width:15ch;
+  font-size:clamp(2.2rem,1.1rem + 3.4vw,3.5rem);
+  line-height:1.02;letter-spacing:-.05em;color:#0B1F45;margin:0 0 18px;
 }
-.hero h1 em{font-style:normal;display:block;color:#1D4ED8}
-
+.hero h1 em{
+  font-style:normal;display:block;
+  background:linear-gradient(100deg,#1E40AF,#2563EB 45%,#0369A1);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
 .hero-lead{
-  font-size:clamp(1rem,.94rem + .4vw,1.1875rem);line-height:1.6;
-  color:#2C3E63;max-width:50ch;margin:0 0 32px;
+  font-size:clamp(.9688rem,.93rem + .3vw,1.0938rem);line-height:1.62;
+  color:#2C3E63;max-width:44ch;margin:0 0 26px;
 }
 
-/* --- Captura de correo en línea --- */
 .hero-form{
   display:flex;align-items:center;gap:6px;
-  padding:6px 6px 6px 22px;border-radius:var(--r-full);
-  background:rgba(255,255,255,.9);
-  border:1px solid rgba(29,78,216,.16);
-  box-shadow:0 18px 40px -18px rgba(15,42,110,.35);
-  backdrop-filter:blur(12px);
+  padding:6px 6px 6px 20px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.92);border:1px solid rgba(29,78,216,.16);
+  box-shadow:0 16px 36px -18px rgba(15,42,110,.34);
+  backdrop-filter:blur(12px);max-width:440px;
   transition:box-shadow .25s var(--ease),border-color .25s var(--ease);
 }
-.hero-form:focus-within{border-color:#3B82F6;box-shadow:0 20px 44px -16px rgba(37,99,235,.42)}
-.hero-form input{
-  border:none;background:none;outline:none;
-  font-size:.9375rem;color:#0B1F45;width:min(240px,38vw);padding:12px 0;
-}
+.hero-form:focus-within{border-color:#3B82F6;box-shadow:0 20px 42px -16px rgba(37,99,235,.4)}
+.hero-form input{border:none;background:none;outline:none;
+  font-size:.9375rem;color:#0B1F45;flex:1;min-width:0;padding:12px 0}
 .hero-form input::placeholder{color:#64748B}
 .hero-form button{
   display:inline-flex;align-items:center;gap:8px;
-  padding:13px 24px;border-radius:var(--r-full);border:none;cursor:pointer;
-  font-size:.9375rem;font-weight:600;color:#fff;white-space:nowrap;
+  padding:13px 22px;border-radius:var(--r-full);border:none;cursor:pointer;
+  font-size:.9063rem;font-weight:600;color:#fff;white-space:nowrap;
   background:linear-gradient(135deg,#1D4ED8,#2563EB);
-  box-shadow:0 10px 24px -10px rgba(29,78,216,.7);
+  box-shadow:0 10px 22px -10px rgba(29,78,216,.7);
   transition:transform 90ms cubic-bezier(.2,0,0,1),box-shadow .2s var(--ease);
 }
-.hero-form button:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(29,78,216,.85)}
-.hero-form button:active{transform:translateY(0)}
+.hero-form button:hover{transform:translateY(-2px);box-shadow:0 16px 28px -12px rgba(29,78,216,.85)}
 
-.hero-alt{margin-top:16px;font-size:.8438rem;color:#3A4E72}
+.hero-alt{margin-top:14px;font-size:.8125rem;color:#3A4E72}
 .hero-alt a{color:#1D4ED8;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
-/* --- Elementos flotantes --- */
-.flota{
-  position:absolute;z-index:4;
-  translate:var(--px,0) var(--py,0);
-  transition:translate .5s cubic-bezier(.22,1,.3,1);
+/* --- Columna del robot --- */
+.hero-robot{
+  position:relative;height:min(70svh,620px);
+  display:flex;align-items:center;justify-content:center;
 }
-.pastilla{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 20px;border-radius:var(--r-full);
-  background:rgba(255,255,255,.94);
-  border:1px solid rgba(29,78,216,.12);
-  box-shadow:0 16px 36px -16px rgba(15,42,110,.4);
-  backdrop-filter:blur(12px);
-  font-size:.875rem;font-weight:500;color:#0B1F45;white-space:nowrap;
-}
-.pastilla i{font-size:1.15rem;color:#1D4ED8}
-.flota{animation:flota-sube 8s ease-in-out infinite}
-.flota-2{animation-duration:9.5s;animation-delay:.6s}
-.flota-3{animation-duration:7.2s;animation-delay:1.2s}
-.flota-4{animation-duration:10s;animation-delay:.3s}
-@keyframes flota-sube{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.pastilla.oscura{
-  background:#0F2A6E;color:#fff;border-color:rgba(255,255,255,.14);
-}
-.pastilla.oscura i{color:#7DD3FC}
-.pastilla.oscura input{
-  border:none;background:none;outline:none;color:#fff;font-size:.875rem;width:120px;
-}
-.pastilla.oscura input::placeholder{color:rgba(255,255,255,.6)}
-
-/* Repartidas por los bordes: el texto centrado ocupa la banda del medio */
-.flota-1{top:47%;left:1.5%}
-.flota-2{top:43%;right:1.5%}
-.flota-3{bottom:19%;right:7%}
-.flota-4{bottom:19%;left:7%}
-
-/* Barras de audio animadas */
-.ondas{display:flex;align-items:center;gap:3px;height:16px}
-.ondas i{
-  display:block;width:3px;border-radius:2px;background:#1D4ED8;
-  animation:onda 1.1s ease-in-out infinite;
-}
-.ondas i:nth-child(1){height:6px;animation-delay:0s}
-.ondas i:nth-child(2){height:14px;animation-delay:.12s}
-.ondas i:nth-child(3){height:9px;animation-delay:.24s}
-.ondas i:nth-child(4){height:16px;animation-delay:.36s}
-.ondas i:nth-child(5){height:7px;animation-delay:.48s}
-@keyframes onda{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
-.pastilla.oscura .ondas i{background:#7DD3FC}
-
-/* Cursor decorativo */
-.cursor-deco{
-  position:absolute;z-index:5;width:26px;height:26px;
-  bottom:34%;right:26%;
-  filter:drop-shadow(0 4px 10px rgba(15,42,110,.4));
-  animation:cursor-mueve 6s cubic-bezier(.4,0,.2,1) infinite;
-}
-@keyframes cursor-mueve{
-  0%,100%{transform:translate(0,0)}
-  35%{transform:translate(-22px,-16px)}
-  65%{transform:translate(10px,-6px)}
-}
-
-/* --- Robot animado --- */
-/* El lienzo 3D vive dentro del mismo hueco que el robot en SVG.
-   Mientras el modelo no esté listo, se ve el SVG; al cargar, se cambia. */
-.robot{position:absolute;z-index:4;left:5%;top:15%;width:132px}
-.robot-3d{
-  position:absolute;inset:-38%;pointer-events:none;
-  opacity:0;transition:opacity .8s cubic-bezier(.22,1,.3,1);
-}
+.robot-3d{position:absolute;inset:0;opacity:0;
+  transition:opacity 1s cubic-bezier(.22,1,.3,1);pointer-events:none}
 .robot-3d canvas{width:100%!important;height:100%!important;display:block}
 .robot-3d.listo{opacity:1}
-.robot-3d.listo ~ svg,
-.robot:has(.robot-3d.listo) > svg{opacity:0;transition:opacity .5s var(--ease)}
-.robot{
-  position:absolute;z-index:4;left:5%;top:15%;width:132px;
-  translate:var(--px,0) var(--py,0);
-  transition:translate .5s cubic-bezier(.22,1,.3,1);
+
+/* Robot de reserva en SVG mientras carga el 3D */
+.robot-svg{
+  position:absolute;left:50%;top:50%;width:min(46%,240px);
+  transform:translate(-50%,-50%);
+  transition:opacity .6s var(--ease);
   animation:robot-flota 7s ease-in-out infinite;
 }
-@keyframes robot-flota{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
-.robot svg{display:block;width:100%;height:auto;
-           filter:drop-shadow(0 20px 32px rgba(15,42,110,.28))}
+.robot-3d.listo ~ .robot-svg{opacity:0}
+@keyframes robot-flota{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-56%)}}
 .r-ojo{transform-origin:center;animation:r-parpadeo 4.6s ease-in-out infinite}
 @keyframes r-parpadeo{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
 .r-antena{animation:r-pulso 2.2s ease-in-out infinite}
-@keyframes r-pulso{0%,100%{opacity:.35;r:6}50%{opacity:1;r:8}}
+@keyframes r-pulso{0%,100%{opacity:.35}50%{opacity:1}}
 .r-led{animation:r-led 1.9s ease-in-out infinite}
 .r-led-2{animation-delay:.5s}
 .r-led-3{animation-delay:1s}
 @keyframes r-led{0%,100%{opacity:.28}50%{opacity:1}}
-.r-anillo{transform-origin:center;animation:r-gira 9s linear infinite}
-@keyframes r-gira{to{transform:rotate(360deg)}}
 
-/* --- Franja de placas compatibles --- */
-.hero-placas{position:relative;z-index:3;padding:0 0 34px;text-align:center}
-.hero-placas p{
-  font-size:.8125rem;color:#3A4E72;margin-bottom:20px;
-  font-weight:500;
+/* Pedestal */
+.pedestal{
+  position:absolute;left:50%;bottom:4%;transform:translateX(-50%);
+  width:46%;height:26px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,rgba(15,42,110,.3),transparent 70%);
+  filter:blur(9px);
+  animation:pedestal-late 4.8s ease-in-out infinite;
 }
-.placas{
-  display:flex;align-items:center;justify-content:center;
-  gap:clamp(22px,4vw,58px);flex-wrap:wrap;
+@keyframes pedestal-late{0%,100%{transform:translateX(-50%) scale(1);opacity:.85}
+                         50%{transform:translateX(-50%) scale(.9);opacity:.6}}
+
+/* Etiquetas al costado del robot */
+.robot-tags{
+  position:absolute;right:0;top:50%;transform:translateY(-50%);
+  display:grid;gap:11px;text-align:right;z-index:4;
 }
-.placa{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--font-display);font-size:1.0625rem;font-weight:600;
-  color:#25406E;opacity:.72;
-  transition:opacity .2s var(--ease),transform .2s var(--ease);
+.robot-tag{
+  font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+  color:#25406E;opacity:.72;white-space:nowrap;
+  display:flex;align-items:center;gap:10px;justify-content:flex-end;
 }
+.robot-tag::before{content:'';width:16px;height:1px;background:rgba(29,78,216,.45)}
+
+/* --- Franja de placas --- */
+.hero-placas{position:relative;z-index:3;padding:0 0 28px;text-align:center}
+.hero-placas p{font-size:.8125rem;color:#3A4E72;margin-bottom:16px;font-weight:500}
+.placas{display:flex;align-items:center;justify-content:center;gap:clamp(20px,3.6vw,52px);flex-wrap:wrap}
+.placa{display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-display);font-size:1rem;font-weight:600;
+  color:#25406E;opacity:.7;transition:opacity .2s var(--ease),transform .2s var(--ease)}
 .placa:hover{opacity:1;transform:translateY(-2px)}
-.placa i{font-size:1.35rem;color:#1D4ED8}
+.placa i{font-size:1.25rem;color:#1D4ED8}
 
-/* --- Entradas ---
-   Dramatic reveal 600-1200ms para la esfera; el resto escalonado
-   con MD3 Emphasized (.05,.7,.1,1). */
+/* --- Entradas --- */
 @keyframes h-sube{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes h-orbe{from{opacity:0;transform:translateY(70px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes h-orbe{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 @keyframes h-pop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:none}}
 
 @media (prefers-reduced-motion:no-preference){
-  .orbe{animation:h-orbe 1.1s cubic-bezier(.05,.7,.1,1) both, orbe-late 14s ease-in-out 1.2s infinite}
+  .orbe{animation:h-orbe 1.2s cubic-bezier(.05,.7,.1,1) both, orbe-late 16s ease-in-out 1.3s infinite}
   .h-an{animation:h-sube .8s cubic-bezier(.05,.7,.1,1) both}
-  .h-an-1{animation-delay:.12s} .h-an-2{animation-delay:.22s}
-  .h-an-3{animation-delay:.32s} .h-an-4{animation-delay:.42s}
-  .h-an-5{animation-delay:.52s} .h-an-6{animation-delay:.86s}
-  .flota-1{animation:h-pop .7s cubic-bezier(.34,1.56,.64,1) .62s both, flota-sube 8s ease-in-out 1.4s infinite}
-  .flota-2{animation:h-pop .7s cubic-bezier(.34,1.56,.64,1) .7s both, flota-sube 9.5s ease-in-out 1.5s infinite}
-  .flota-3{animation:h-pop .7s cubic-bezier(.34,1.56,.64,1) .78s both, flota-sube 7.2s ease-in-out 1.6s infinite}
-  .flota-4{animation:h-pop .7s cubic-bezier(.34,1.56,.64,1) .86s both, flota-sube 10s ease-in-out 1.7s infinite}
-  .cables path,.cables circle{animation-play-state:running}
-  .cursor-deco{animation:h-pop .7s cubic-bezier(.34,1.56,.64,1) .94s both, cursor-mueve 6s cubic-bezier(.4,0,.2,1) 1.6s infinite}
-  .robot{animation:h-pop .8s cubic-bezier(.34,1.56,.64,1) .56s both, robot-flota 7s ease-in-out 1.4s infinite}
+  .h-an-1{animation-delay:.1s} .h-an-2{animation-delay:.2s}
+  .h-an-3{animation-delay:.3s} .h-an-4{animation-delay:.4s}
+  .h-an-5{animation-delay:.5s} .h-an-6{animation-delay:.78s}
+  .hero-robot{animation:h-pop 1s cubic-bezier(.34,1.4,.64,1) .3s both}
+  .robot-tags .robot-tag{animation:h-sube .7s cubic-bezier(.05,.7,.1,1) both}
+  .robot-tags .robot-tag:nth-child(1){animation-delay:.66s}
+  .robot-tags .robot-tag:nth-child(2){animation-delay:.74s}
+  .robot-tags .robot-tag:nth-child(3){animation-delay:.82s}
+  .robot-tags .robot-tag:nth-child(4){animation-delay:.9s}
 }
 
 /* --- Pantallas bajas --- */
 @media (min-width:961px) and (max-height:820px){
-  .hero{padding-top:calc(var(--nav-h) + 18px)}
-  .hero h1{font-size:clamp(2.1rem,1rem + 3.6vw,3.3rem);margin-bottom:14px}
-  .hero-lead{font-size:1rem;margin-bottom:24px}
-  .hero-tag{margin-bottom:16px}
-  .orbe{top:20%}
-  .robot{width:104px}
-  .hero-placas{padding-bottom:22px}
-  .hero-placas p{margin-bottom:14px}
+  .hero{padding-top:calc(var(--nav-h) + 8px)}
+  .hero-tag{font-size:2.2rem;margin-bottom:14px}
+  .hero-tag img{width:54px}
+  .hero h1{font-size:clamp(1.9rem,1rem + 2.9vw,2.7rem);margin-bottom:14px}
+  .hero-lead{font-size:.9375rem;margin-bottom:20px}
+  .hero-robot{height:min(64svh,460px)}
+  .hero-placas{padding-bottom:18px}
+  .hero-placas p{margin-bottom:10px}
 }
 
 /* ------------------------------------------------------------
@@ -1002,16 +929,18 @@ select.input{
   .nav-panel-link > i{width:36px;height:36px;font-size:1.05rem}
   .nav-panel-foot{display:none}
 
-  .hero{min-height:0;padding:calc(var(--nav-h) + 40px) 0 0}
-  .orbe{width:200vw;top:22%}
-  .hero h1{max-width:100%}
-  /* Las pastillas laterales no caben junto al texto centrado */
-  .flota-1,.flota-2{display:none}
-  .flota-3{bottom:auto;top:-4px;right:2%}
-  .flota-4{bottom:auto;top:-4px;left:2%}
-  .robot{position:static;width:112px;margin:26px auto 0;animation:robot-flota 7s ease-in-out infinite}
-  .cursor-deco{display:none}
-  .hero-placas{padding-bottom:26px}
+  .hero{min-height:0;padding:calc(var(--nav-h) + 34px) 0 0}
+  .hero-grid2{grid-template-columns:1fr;gap:30px}
+  .hero-copy{text-align:center;order:1}
+  .hero-copy::before,.hero-copy::after{display:none}
+  .hero-tag,.hero-linea{justify-content:center}
+  .hero-linea::after{display:none}
+  .hero-lead{margin-inline:auto}
+  .hero-form{margin-inline:auto}
+  .hero-robot{order:2;height:min(46svh,380px)}
+  .robot-tags{display:none}
+  .orbe{right:auto;left:50%;translate:-50% 0;top:auto;bottom:6%;width:120vw}
+  .hero-placas{padding-bottom:24px}
   .hero-form input{font-size:16px}
   .cables{opacity:.45}
   .aurora{opacity:.7}
@@ -1042,13 +971,12 @@ select.input{
 @media (max-width:560px){
   .container{padding-inline:18px}
   /* En pantallas muy estrechas sólo cabe una pastilla */
-  .flota-3{display:none}
-  .flota-4{position:static;margin:0 auto 20px;display:flex;justify-content:center}
   /* El formulario a lo ancho, y el campo a 16px: por debajo iOS hace zoom */
   .hero-form{flex-direction:column;padding:14px;gap:10px;border-radius:var(--r-lg);
              width:100%;max-width:400px;margin-inline:auto}
   .hero-form input{width:100%;text-align:center;padding:12px 0;font-size:16px}
   .hero-form button{width:100%;justify-content:center;padding:15px 24px}
+  .hero-robot{height:min(40svh,300px)}
   .placas{gap:18px}
   .placa{font-size:.9375rem}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:20px 8px}

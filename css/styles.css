@@ -426,18 +426,6 @@ body:has(.robot-3d.listo) .robot-svg{opacity:0}
 @keyframes pedestal-late{0%,100%{transform:translateX(-50%) scale(1);opacity:.85}
                          50%{transform:translateX(-50%) scale(.9);opacity:.6}}
 
-/* Etiquetas al costado del robot */
-.robot-tags{
-  position:absolute;right:0;top:50%;transform:translateY(-50%);
-  display:grid;gap:11px;text-align:right;z-index:4;
-}
-.robot-tag{
-  font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
-  color:#25406E;opacity:.72;white-space:nowrap;
-  display:flex;align-items:center;gap:10px;justify-content:flex-end;
-}
-.robot-tag::before{content:'';width:16px;height:1px;background:rgba(29,78,216,.45)}
-
 /* --- Franja de placas --- */
 .hero-placas{position:relative;z-index:3;padding:0 0 28px;text-align:center}
 .hero-placas p{font-size:.8125rem;color:#3A4E72;margin-bottom:16px;font-weight:500}
@@ -460,11 +448,6 @@ body:has(.robot-3d.listo) .robot-svg{opacity:0}
   .h-an-3{animation-delay:.3s} .h-an-4{animation-delay:.4s}
   .h-an-5{animation-delay:.5s} .h-an-6{animation-delay:.78s}
   .hero-robot{animation:h-pop 1s cubic-bezier(.34,1.4,.64,1) .3s both}
-  .robot-tags .robot-tag{animation:h-sube .7s cubic-bezier(.05,.7,.1,1) both}
-  .robot-tags .robot-tag:nth-child(1){animation-delay:.66s}
-  .robot-tags .robot-tag:nth-child(2){animation-delay:.74s}
-  .robot-tags .robot-tag:nth-child(3){animation-delay:.82s}
-  .robot-tags .robot-tag:nth-child(4){animation-delay:.9s}
 }
 
 /* --- Pantallas bajas --- */
@@ -937,7 +920,6 @@ select.input{
   .hero-lead{margin-inline:auto}
   .hero-form{margin-inline:auto}
   .hero-robot{order:2;height:min(52svh,420px);margin-top:4px}
-  .robot-tags{display:none}
   .orbe{right:auto;left:50%;translate:-50% 0;top:auto;bottom:6%;width:120vw}
   .hero-placas{padding-bottom:24px}
   .hero-form input{font-size:16px}
@@ -1248,26 +1230,31 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
    26. ROBOT VIAJERO
    El robot acompaña al scroll desde el hero hasta la sección
    siguiente. El desplazamiento vertical lo hace `position:sticky`
-   (sin JavaScript); el corrimiento horizontal y la escala los
-   interpola el módulo 3D según el avance dentro de .escena.
+   (sin JavaScript); el corrimiento horizontal lo interpola el módulo 3D
+   según el avance dentro de .escena, igual que el acercamiento a la cara.
+
+   La caja pegajosa mide lo mismo que el robot y el hero se sube con un
+   margen negativo. Así el robot se despega justo al terminar .escena y
+   se va con ella; con altura cero se quedaba flotando sobre la sección
+   siguiente y tapaba su contenido.
 ------------------------------------------------------------ */
 .escena{position:relative}
 
 .robot-viajero{
   position:sticky;
-  top:calc(50svh - 44svh);
-  height:0;                 /* no ocupa sitio en el flujo */
+  top:6svh;
+  height:88svh;
   z-index:1;                /* por detrás de las tarjetas */
   pointer-events:none;
 }
+.escena > .hero{margin-top:-88svh}
+
 .robot-caja{
   position:absolute;
   right:var(--rx,4%);
   top:0;
   width:min(46vw,620px);
-  height:88svh;
-  transform:scale(var(--rs,1));
-  transform-origin:center center;
+  height:100%;
   transition:right .35s cubic-bezier(.22,1,.3,1);
 }
 .robot-3d{
@@ -1310,6 +1297,7 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
 @media (max-width:960px){
   /* Sin viaje en móvil: el lienzo se traslada al hero por JavaScript */
   .robot-viajero{display:none}
+  .escena > .hero{margin-top:0}   /* se compensaba la caja pegajosa */
   .caminos-lista{max-width:100%;gap:20px}
   .tres-caminos .head-split{max-width:100%}
 

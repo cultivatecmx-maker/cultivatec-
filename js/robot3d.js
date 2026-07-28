@@ -56,6 +56,15 @@ export async function montarRobot3D(host) {
   const mDetalle = new THREE.MeshStandardMaterial({ color: CONTOR, roughness: 0.28, metalness: 0.25 });
   const mBrote  = cuerpoMat(BROTE);
   const mBorde  = new THREE.MeshBasicMaterial({ color: CONTOR, side: THREE.BackSide });
+  // Piezas que iluminan: ojos, LEDs y punta de antena
+  const emisivo = (c, i = 1.6) => new THREE.MeshStandardMaterial({
+    color: c, emissive: c, emissiveIntensity: i, roughness: 0.25, metalness: 0
+  });
+  const mOjo    = emisivo(0x5FD9F5, 1.1);
+  const mLedA   = emisivo(0x34D399, 2.0);
+  const mLedB   = emisivo(0xFBBF24, 2.0);
+  const mLedC   = emisivo(0x60A5FA, 2.0);
+  const mBlanco = new THREE.MeshStandardMaterial({ color: 0xF2F8FF, roughness: 0.34 });
 
   /* Casco invertido: el contorno de la mascota */
   const conBorde = (malla, grosor = 0.055) => {
@@ -117,14 +126,62 @@ export async function montarRobot3D(host) {
   panel.position.set(0, -0.6, 0.5);
   cuerpo.add(panel);
 
+  // Marco del panel, para que no parezca una calcomanía
+  const marco = new THREE.Mesh(
+    new THREE.TorusGeometry(0.66, 0.022, 8, 4, Math.PI * 2), mDetalle);
+  marco.position.set(0, -0.6, 0.52);
+  marco.rotation.z = Math.PI / 4;
+  marco.scale.set(1.28, 1.1, 1);
+  cuerpo.add(marco);
+
+  // Hombreras
+  [-1, 1].forEach(d => {
+    const hombrera = caja(0.44, 0.3, 0.72, 0.13, mVivo);
+    hombrera.position.set(d * 0.78, 0.03, 0);
+    hombrera.rotation.z = d * -0.16;
+    cuerpo.add(hombrera);
+  });
+
+  // Costuras del torso
+  const costura = (x, y, z, w, h) => {
+    const c = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.02), mDetalle);
+    c.position.set(x, y, z);
+    cuerpo.add(c);
+  };
+  costura(0, -0.02, 0.49, 1.3, 0.026);      // línea del pecho
+  costura(0, -1.2, 0.49, 1.1, 0.026);       // línea baja
+  costura(0, -0.62, -0.49, 1.2, 0.026);     // espalda
+
+  // Remaches en las esquinas del torso
+  [[-0.68, -0.08], [0.68, -0.08], [-0.68, -1.16], [0.68, -1.16]].forEach(([x, y]) => {
+    const rem = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.05, 10), mDetalle);
+    rem.position.set(x, y, 0.48);
+    rem.rotation.x = Math.PI / 2;
+    cuerpo.add(rem);
+  });
+
+  // Mochila trasera
+  const mochila = caja(1.0, 0.82, 0.26, 0.12, mMedio);
+  mochila.position.set(0, -0.6, -0.58);
+  cuerpo.add(mochila);
+  [-1, 1].forEach(d => {
+    const rejilla = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.5, 0.04), mDetalle);
+    rejilla.position.set(d * 0.2, -0.6, -0.72);
+    cuerpo.add(rejilla);
+  });
+
   // Engrane del pecho, proporcionado
   const engrane = new THREE.Group();
   engrane.position.set(0, -0.58, 0.56);
   cuerpo.add(engrane);
   const aro = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.075, 12, 28), mDetalle);
   engrane.add(aro);
-  engrane.add(new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.07, 18),
-    mClaro).rotateX(Math.PI / 2));
+  const eje = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.09, 18), mBlanco);
+  eje.rotateX(Math.PI / 2);
+  engrane.add(eje);
+  const tornillo = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.12, 8), mDetalle);
+  tornillo.rotateX(Math.PI / 2);
+  engrane.add(tornillo);
   for (let i = 0; i < 8; i++) {
     const d = new THREE.Mesh(new THREE.BoxGeometry(0.095, 0.1, 0.09), mDetalle);
     const a = (i / 8) * Math.PI * 2;
@@ -141,6 +198,14 @@ export async function montarRobot3D(host) {
     n.position.set(x, y, 0.535);
     cuerpo.add(n);
   };
+  // Tres LEDs de estado, que laten en el bucle
+  const leds = [];
+  [[-0.24, mLedA], [0, mLedB], [0.24, mLedC]].forEach(([x, m]) => {
+    const l = new THREE.Mesh(new THREE.SphereGeometry(0.058, 14, 12), m);
+    l.position.set(x, -1.08, 0.52);
+    cuerpo.add(l); leds.push(l);
+  });
+
   cuerpo.add(pista([[-0.5, -0.15, 0.53], [-0.5, -0.58, 0.53], [-0.22, -0.58, 0.53]]));
   cuerpo.add(pista([[0.5, -1.05, 0.53], [0.5, -0.62, 0.53], [0.22, -0.62, 0.53]]));
   cuerpo.add(pista([[-0.46, -1.06, 0.53], [-0.16, -1.06, 0.53]]));
@@ -185,6 +250,13 @@ export async function montarRobot3D(host) {
     const pie = caja(0.52, 0.24, 0.62, 0.11, mMedio);
     pie.position.set(d * 0.4, -2.06, 0.09);
     cuerpo.add(pie);
+    // Puntera y taco, para que el pie no sea un ladrillo
+    const puntera = caja(0.44, 0.14, 0.16, 0.06, mVivo);
+    puntera.position.set(d * 0.4, -2.1, 0.37);
+    cuerpo.add(puntera);
+    const taco = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.06, 12), mDetalle);
+    taco.position.set(d * 0.4, -2.18, -0.1);
+    cuerpo.add(taco);
   });
 
   /* ---------- cabeza ---------- */
@@ -200,15 +272,39 @@ export async function montarRobot3D(host) {
   visera.position.set(0, 0.06, 0.55);
   cabeza.add(visera);
 
+  // Marco de la visera
+  const marcoVisera = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.03, 8, 4), mDetalle);
+  marcoVisera.position.set(0, 0.06, 0.57);
+  marcoVisera.rotation.z = Math.PI / 4;
+  marcoVisera.scale.set(1.02, 0.6, 1);
+  cabeza.add(marcoVisera);
+
+  // Placa superior de la cabeza
+  const placa = caja(1.5, 0.1, 0.86, 0.05, mVivo);
+  placa.position.set(0, 0.72, 0);
+  cabeza.add(placa);
+
+  // Costura lateral de la cabeza
+  [-1, 1].forEach(d => {
+    const c = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.9, 0.6), mDetalle);
+    c.position.set(d * 0.94, 0, 0);
+    cabeza.add(c);
+  });
+
   const ojos = [];
   [-1, 1].forEach(d => {
-    const o = new THREE.Mesh(new THREE.SphereGeometry(0.165, 22, 18), mDetalle);
-    o.position.set(d * 0.4, 0.14, 0.6);
+    // Cuenca oscura + iris que ilumina + brillo
+    const cuenca = new THREE.Mesh(new THREE.SphereGeometry(0.185, 20, 16), mDetalle);
+    cuenca.position.set(d * 0.4, 0.14, 0.56);
+    cabeza.add(cuenca);
+
+    const o = new THREE.Mesh(new THREE.SphereGeometry(0.135, 22, 18), mOjo);
+    o.position.set(d * 0.4, 0.14, 0.64);
     cabeza.add(o); ojos.push(o);
-    // brillo
-    const b = new THREE.Mesh(new THREE.SphereGeometry(0.05, 12, 10),
+
+    const b = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 10),
       new THREE.MeshBasicMaterial({ color: 0xffffff }));
-    b.position.set(d * 0.4 + 0.06, 0.21, 0.72);
+    b.position.set(d * 0.4 + 0.055, 0.2, 0.74);
     cabeza.add(b);
   });
 
@@ -223,16 +319,35 @@ export async function montarRobot3D(host) {
     const or = caja(0.26, 0.54, 0.48, 0.11, mVivo);
     or.position.set(d * 1.1, 0, 0);
     cabeza.add(or);
+    // Disco y perno del módulo
+    const disco = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.07, 18), mBlanco);
+    disco.position.set(d * 1.24, 0, 0);
+    disco.rotation.z = Math.PI / 2;
+    cabeza.add(disco);
+    const perno = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.1, 10), mDetalle);
+    perno.position.set(d * 1.29, 0, 0);
+    perno.rotation.z = Math.PI / 2;
+    cabeza.add(perno);
   });
 
   const cuello = caja(0.56, 0.24, 0.48, 0.09, mMedio);
   cuello.position.y = -0.86;
   cabeza.add(cuello);
+  const anillo = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.038, 8, 22), mDetalle);
+  anillo.position.y = -0.86;
+  anillo.rotation.x = Math.PI / 2;
+  cabeza.add(anillo);
 
   /* ---------- brote ---------- */
   const brote = new THREE.Group();
   brote.position.y = 0.74;
   cabeza.add(brote);
+
+  // Maceta de la que sale el brote
+  const maceta = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.19, 0.16, 16), mVivo);
+  conBorde(maceta, 0.04);
+  maceta.position.y = -0.04;
+  brote.add(maceta);
 
   const tallo = new THREE.Mesh(new THREE.TubeGeometry(
     new THREE.CatmullRomCurve3([
@@ -257,6 +372,11 @@ export async function montarRobot3D(host) {
   };
   const hojaIzq = hoja(-1, 0.3), hojaDer = hoja(1, 0.46);
   brote.add(hojaIzq, hojaDer);
+
+  // Punta luminosa del brote
+  const puntaBrote = new THREE.Mesh(new THREE.SphereGeometry(0.055, 14, 12), emisivo(0x7FFFD8, 2.4));
+  puntaBrote.position.set(-0.02, 0.6, 0);
+  brote.add(puntaBrote);
 
   /* ---------- encuadre ---------- */
   const encuadrar = () => {
@@ -328,6 +448,13 @@ export async function montarRobot3D(host) {
       ojos.forEach(o => o.scale.y = 1 - s * 0.92);
       if (p >= 1) { proxParpadeo = t + 2.4 + Math.random() * 3.4; ojos.forEach(o => o.scale.y = 1); }
     }
+
+    // LEDs con latidos desfasados
+    leds.forEach((l, i) => {
+      l.material.emissiveIntensity = 1.1 + Math.abs(Math.sin(t * 1.6 + i * 0.8)) * 1.6;
+    });
+    puntaBrote.material.emissiveIntensity = 1.6 + Math.abs(Math.sin(t * 1.2)) * 1.4;
+    ojos.forEach(o => o.material.emissiveIntensity = 0.9 + Math.abs(Math.sin(t * 0.7)) * 0.4);
 
     engrane.rotation.z = -t * 0.5;
     brote.rotation.z = Math.sin(t * 1.1) * 0.1;

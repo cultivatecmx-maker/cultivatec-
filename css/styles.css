@@ -263,25 +263,27 @@ ul,ol{list-style:none}
   position:relative;
   min-height:100svh;
   display:flex;flex-direction:column;justify-content:center;
-  padding:calc(var(--nav-h) + 30px) 0 0;
-  background:linear-gradient(180deg,#E7F0FF 0%,#DCE9FE 46%,#E9F2FF 100%);
+  padding:calc(var(--nav-h) + 14px) 0 0;
+  /* Azul del logo (#2563EB) diluido: más saturado que antes pero sin bajar
+     de 3:1 en el titular ni de 4.5:1 en el texto corrido. */
+  background:linear-gradient(180deg,#D6E6FF 0%,#C3DAFB 48%,#D4E6FF 100%);
   overflow:hidden;isolation:isolate;
 }
 
 /* --- Malla de degradados azules en movimiento --- */
 .hero-mesh{position:absolute;inset:-15%;z-index:0;pointer-events:none;filter:blur(46px)}
-.blob{position:absolute;border-radius:50%;mix-blend-mode:multiply;opacity:.55}
+.blob{position:absolute;border-radius:50%;mix-blend-mode:multiply;opacity:.7}
 .blob-1{width:52vw;height:52vw;top:-6%;left:-8%;
-  background:radial-gradient(circle at 35% 35%,#BFDBFE,transparent 68%);
+  background:radial-gradient(circle at 35% 35%,#93C5FD,transparent 68%);
   animation:blob-a 22s ease-in-out infinite alternate}
 .blob-2{width:46vw;height:46vw;top:2%;right:-6%;
-  background:radial-gradient(circle at 60% 40%,#A5D8FF,transparent 66%);
+  background:radial-gradient(circle at 60% 40%,#7CC0FF,transparent 66%);
   animation:blob-b 26s ease-in-out infinite alternate}
 .blob-3{width:44vw;height:44vw;bottom:-12%;left:18%;
-  background:radial-gradient(circle at 50% 50%,#A5F3FC,transparent 66%);
+  background:radial-gradient(circle at 50% 50%,#8BE3F0,transparent 66%);
   animation:blob-c 30s ease-in-out infinite alternate}
 .blob-4{width:34vw;height:34vw;bottom:-6%;right:6%;
-  background:radial-gradient(circle at 45% 55%,#C7D2FE,transparent 66%);
+  background:radial-gradient(circle at 45% 55%,#A5B4FC,transparent 66%);
   animation:blob-a 24s ease-in-out infinite alternate-reverse}
 @keyframes blob-a{to{transform:translate3d(6%,4%,0) scale(1.12)}}
 @keyframes blob-b{to{transform:translate3d(-7%,6%,0) scale(1.16)}}
@@ -289,13 +291,13 @@ ul,ol{list-style:none}
 
 .hero-dots{
   position:absolute;inset:0;z-index:0;pointer-events:none;
-  background-image:radial-gradient(rgba(30,64,175,.2) 1.1px, transparent 1.1px);
+  background-image:radial-gradient(rgba(30,64,175,.28) 1.1px, transparent 1.1px);
   background-size:32px 32px;
   mask-image:radial-gradient(ellipse 90% 75% at 50% 45%,#000 8%,transparent 92%);
   -webkit-mask-image:radial-gradient(ellipse 90% 75% at 50% 45%,#000 8%,transparent 92%);
 }
 .hero-traces{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
-.trace{fill:none;stroke:#3B82F6;stroke-width:1.6;stroke-linecap:round;opacity:.42;
+.trace{fill:none;stroke:#1D4ED8;stroke-width:1.8;stroke-linecap:round;opacity:.5;
        stroke-dasharray:9 15;animation:flow 3.4s linear infinite}
 .trace.c2{stroke:#0891B2;animation-duration:4.3s}
 .trace.c3{stroke:#6366F1;animation-duration:5.2s}
@@ -306,16 +308,24 @@ ul,ol{list-style:none}
 /* --- Rejilla --- */
 .hero-grid2{
   position:relative;z-index:2;
-  display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
-  gap:56px;align-items:center;
+  display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:48px;align-items:center;
 }
 
 /* --- Columna de texto --- */
+.hero-brand{display:inline-flex;align-items:center;gap:13px;margin-bottom:20px}
+.hero-brand img{width:52px;height:52px;filter:drop-shadow(0 8px 18px rgba(29,78,216,.4))}
+.hero-brand span{
+  font-family:var(--font-display);font-size:1.75rem;font-weight:700;
+  letter-spacing:-.035em;color:#0B1F45;line-height:1;
+}
+.hero-brand b{color:#1D4ED8;font-weight:700}
+
 .hero-badge{
   display:inline-flex;align-items:center;gap:10px;
   font-size:.8125rem;font-weight:600;color:#1E3A8A;
   background:rgba(255,255,255,.86);border:1px solid rgba(37,99,235,.18);
-  padding:7px 18px 7px 7px;border-radius:var(--r-full);margin-bottom:26px;
+  padding:7px 18px 7px 7px;border-radius:var(--r-full);margin-bottom:22px;
   box-shadow:0 6px 20px -8px rgba(30,64,175,.28);backdrop-filter:blur(10px);
 }
 .hero-badge b{
@@ -326,9 +336,9 @@ ul,ol{list-style:none}
 }
 
 .hero h1{
-  font-size:clamp(2.4rem,1.1rem + 4.1vw,4rem);
+  font-size:clamp(2.2rem,1rem + 3.5vw,3.5rem);
   line-height:.98;letter-spacing:-.05em;color:#0B1F45;
-  margin:0 0 22px;max-width:13ch;
+  margin:0 0 20px;max-width:14ch;
   font-feature-settings:"ss01","cv11";
 }
 .hero h1 em{
@@ -339,8 +349,8 @@ ul,ol{list-style:none}
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
 .hero-lead{
-  font-size:clamp(1rem,.95rem + .35vw,1.125rem);line-height:1.68;
-  color:#3A4E72;max-width:46ch;margin:0 0 30px;
+  font-size:clamp(.9688rem,.92rem + .3vw,1.0625rem);line-height:1.66;
+  color:#33456A;max-width:44ch;margin:0 0 26px;
 }
 .hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin-bottom:28px}
 
@@ -361,8 +371,8 @@ ul,ol{list-style:none}
 .foto{
   position:relative;border-radius:var(--r-2xl);overflow:hidden;
   background:linear-gradient(150deg,#1D4ED8,#2563EB 45%,#0EA5E9);
-  padding:7px;
-  box-shadow:0 40px 90px -34px rgba(23,54,133,.62), 0 8px 24px -12px rgba(23,54,133,.28);
+  padding:8px;
+  box-shadow:0 46px 100px -34px rgba(15,42,110,.68), 0 10px 28px -12px rgba(15,42,110,.32);
 }
 .foto img{width:100%;height:auto;display:block;border-radius:calc(var(--r-2xl) - 8px)}
 .foto::after{
@@ -389,20 +399,21 @@ ul,ol{list-style:none}
 }
 .chip small{display:block;font-size:.625rem;color:#64748B;line-height:1.2}
 .chip b{display:block;font-family:var(--font-display);font-size:.8438rem;color:#0B1F45;line-height:1.25}
-.chip-1{top:9%;left:-40px}
+.chip-1{top:24%;left:-42px}
 .chip-1 > i{background:linear-gradient(135deg,#0891B2,#22D3EE)}
-.chip-2{bottom:14%;right:-34px}
+.chip-2{bottom:15%;right:-40px}
 .chip-2 > i{background:linear-gradient(135deg,#6D28D9,#A78BFA)}
 
 /* --- Robots --- */
 .bot{position:absolute;z-index:6;pointer-events:none;
      translate:var(--px,0) var(--py,0);transition:translate .55s var(--ease-out)}
 .bot svg{display:block;overflow:visible}
-/* -46px, no -72: a -72 la mascota invadía la columna de texto */
-.bot-mascota{left:-46px;bottom:-30px;width:146px}
-/* -30px arriba: a -56 el rover quedaba por debajo de la barra de navegación */
-.bot-rover{right:-46px;top:-30px;width:164px}
-.bot-chip{left:-96px;top:34%;width:78px;opacity:.95}
+/* Apoyados en el borde de la foto, no encima: en las esquinas hay estantería,
+   nunca las caras de los niños. */
+.bot-mascota{left:-34px;bottom:-32px;width:134px}
+/* -10px: con -24 el rover se metía 10px por debajo de la barra fija */
+.bot-rover{right:-38px;top:-10px;width:146px}
+.bot-chip{left:-24px;top:4px;width:64px;opacity:.95}
 
 /* Piezas animadas */
 .b-flota{animation:b-flota 6.5s ease-in-out infinite}
@@ -437,7 +448,7 @@ ul,ol{list-style:none}
 @keyframes b-escanea{0%,100%{transform:translateX(0)}50%{transform:translateX(22px)}}
 
 /* --- Franja de cifras --- */
-.hero-strip{position:relative;z-index:2;margin-top:auto;padding-top:42px}
+.hero-strip{position:relative;z-index:2;margin-top:auto;padding-top:24px}
 .hero-stats{
   display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
   padding:20px 12px 22px;border-top:1px solid rgba(30,64,175,.16);
@@ -485,17 +496,21 @@ ul,ol{list-style:none}
 @media (min-width:961px) and (max-height:820px){
   .hero{padding-top:calc(var(--nav-h) + 12px)}
   .hero-grid2{gap:38px}
-  .hero h1{font-size:clamp(2rem,1rem + 3.2vw,2.9rem);margin-bottom:16px}
+  .hero h1{font-size:clamp(2.1rem,1rem + 3.4vw,3.1rem);margin-bottom:14px}
   .hero-badge{margin-bottom:16px}
   .hero-lead{font-size:.9688rem;margin-bottom:20px}
   .hero-actions{margin-bottom:0}
   .hero-trust{display:none}
-  .hero-visual{max-width:318px;margin-left:auto}
+  .hero-visual{max-width:418px;margin-left:auto}
+  .hero-brand{margin-bottom:12px}
+  .hero-brand img{width:42px;height:42px}
+  .hero-brand span{font-size:1.4rem}
+  .hero-badge{display:none}
   .hero-strip{padding-top:14px}
   .hero-stats{padding:14px 12px 12px}
   .hero-scroll{display:none}
   .bot-mascota{width:96px;left:-30px;bottom:-20px}
-  .bot-rover{width:106px;right:-28px;top:-20px}
+  .bot-rover{width:106px;right:-28px;top:-6px}
   .bot-chip{display:none}
   .chip-1{left:-22px;padding:8px 13px 8px 9px}
   .chip-2{right:-20px;padding:8px 13px 8px 9px}
@@ -953,10 +968,11 @@ select.input{
   .hero{min-height:0;padding:calc(var(--nav-h) + 34px) 0 0}
   .hero-grid2{grid-template-columns:1fr;gap:44px}
   .hero-copy{text-align:center}
+  .hero-brand{justify-content:center}
   .hero h1{max-width:100%;margin-inline:auto}
   .hero-lead{margin-inline:auto}
   .hero-actions,.hero-trust{justify-content:center}
-  .hero-visual{max-width:460px;margin:0 auto}
+  .hero-visual{max-width:500px;margin:0 auto}
   .chip-1{left:-10px;top:7%}
   .chip-2{right:-8px;bottom:11%}
   .bot-mascota{left:-30px;bottom:-26px;width:112px}
@@ -1203,6 +1219,62 @@ select.input{
 
 /* Quita el destello gris al tocar en Android */
 a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
+
+/* ------------------------------------------------------------
+   25. GALERÍA DE AULA
+------------------------------------------------------------ */
+.galeria{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:18px}
+.gal{
+  position:relative;overflow:hidden;border-radius:var(--r-lg);
+  background:#0F2A6E;box-shadow:var(--sh-lg);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+}
+.gal:hover{transform:translateY(-6px);box-shadow:var(--sh-xl)}
+.gal img{width:100%;height:100%;object-fit:cover;display:block;
+         transition:transform .6s var(--ease)}
+.gal:hover img{transform:scale(1.05)}
+.gal-alta{grid-row:span 2}
+.gal::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 42%,rgba(9,26,66,.86) 100%);
+}
+.gal figcaption{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:18px 20px;color:#fff;
+}
+.gal figcaption b{
+  display:block;font-family:var(--font-display);font-size:1rem;line-height:1.25;
+}
+.gal figcaption span{display:block;font-size:.8125rem;color:rgba(255,255,255,.86);margin-top:3px}
+.gal-tag{
+  position:absolute;top:14px;left:14px;z-index:2;
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  background:rgba(255,255,255,.94);color:#1D4ED8;
+  padding:6px 12px;border-radius:var(--r-full);
+}
+
+/* Foto del taller dentro de la sección social */
+.foto-taller{
+  position:relative;border-radius:var(--r-xl);overflow:hidden;
+  border:6px solid #fff;box-shadow:var(--sh-lg);margin-bottom:20px;
+}
+.foto-taller img{width:100%;height:auto;display:block}
+.foto-taller figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:16px 20px;color:#fff;
+  font-size:.8438rem;line-height:1.45;
+  background:linear-gradient(180deg,transparent,rgba(9,26,66,.88));
+}
+
+@media (max-width:960px){
+  .galeria{grid-template-columns:1fr 1fr}
+  .gal-alta{grid-row:span 1;grid-column:span 2}
+  .gal{min-height:200px}
+}
+@media (max-width:560px){
+  .galeria{grid-template-columns:1fr}
+  .gal-alta{grid-column:span 1}
+}
 
 /* ------------------------------------------------------------
    21. MOVIMIENTO REDUCIDO

@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260728">
+<link rel="stylesheet" href="css/styles.css?v=20260728b">
 
 <script type="application/ld+json">
 {
@@ -306,16 +306,21 @@
 
     <!-- Texto -->
     <div class="hero-copy">
+      <div class="hero-brand h-an h-an-1">
+        <img src="logo.png" alt="" width="52" height="52">
+        <span>Cultiva<b>Tec</b></span>
+      </div>
+
       <div class="hero-badge h-an h-an-1">
         <b><i class="ph-fill ph-sparkle"></i> Nuevo</b>
         Plataforma escolar impulsada por IA
       </div>
 
-      <h1 class="h-an h-an-2">Robótica y STEM<em>con inteligencia artificial</em></h1>
+      <h1 class="h-an h-an-2">Democratizamos<em>la robótica</em></h1>
 
       <p class="hero-lead h-an h-an-3">
-        Simuladores de electrónica, programación y diseño 3D. Un tutor socrático que nunca da la
-        respuesta. Y un copiloto que planea las clases por ti.
+        Software con inteligencia artificial, kits y cursos para que cualquier escuela pueda
+        enseñar STEM. Y talleres gratuitos donde no hay presupuesto.
       </p>
 
       <div class="hero-actions h-an h-an-4">
@@ -619,6 +624,68 @@
   </div>
 </section>
 
+<!-- ==================== GALERÍA DE AULA ==================== -->
+<section class="section bg-sky">
+  <div class="container">
+    <div class="head-split reveal">
+      <div>
+        <span class="tag-dark">Así se ve en el aula</span>
+        <h2 class="sec-title">De la pantalla a la <span class="mark mark-sky">mesa de trabajo</span></h2>
+      </div>
+      <div class="right">
+        <div class="spark-note">
+          <i class="ph-fill ph-sparkle"></i>
+          <p>El alumno prueba en el simulador, el maestro sigue su avance desde su panel, y el
+             proyecto termina armado con el kit.</p>
+        </div>
+        <a href="plataforma.html" class="round-arrow" aria-label="Ver la plataforma"><i class="ph-bold ph-arrow-up-right"></i></a>
+      </div>
+    </div>
+
+    <div class="galeria stagger">
+      <figure class="gal gal-alta">
+        <span class="gal-tag"><i class="ph-fill ph-users-three"></i> Taller presencial</span>
+        <img src="img/hero-taller.jpg"
+             alt="Cuatro alumnos trabajando en un taller de robótica de CultivaTec con placas, laptop y robots móviles"
+             loading="lazy" width="1100" height="1061">
+        <figcaption><b>Talleres en el plantel</b><span>Instructores propios, material incluido</span></figcaption>
+      </figure>
+
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-path"></i> Alumno</span>
+        <img src="img/producto/alumno-ruta.jpg"
+             alt="Ruta de misiones del alumno en la plataforma CultivaTec, con su avance y la próxima misión"
+             loading="lazy" width="1360" height="784">
+        <figcaption><b>Ruta de misiones</b><span>Cada reto desbloquea el siguiente</span></figcaption>
+      </figure>
+
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-circuitry"></i> Simulador</span>
+        <img src="img/producto/sim-circuitos.jpg"
+             alt="Mesa de Circuitos de CultivaTec con una batería, un Arduino UNO y un LED sobre el lienzo"
+             loading="lazy" width="1360" height="784">
+        <figcaption><b>Mesa de Circuitos</b><span>Equivocarse no cuesta material</span></figcaption>
+      </figure>
+
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-chalkboard-teacher"></i> Docente</span>
+        <img src="img/producto/docente-aula.jpg"
+             alt="Panel del docente en CultivaTec con el asistente de planeación por IA y el histórico de planeaciones"
+             loading="lazy" width="1360" height="784">
+        <figcaption><b>Panel docente</b><span>La IA arma la planeación</span></figcaption>
+      </figure>
+
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-cube"></i> Diseño 3D</span>
+        <img src="img/producto/sim-3d.jpg"
+             alt="Editor Mini-CAD de CultivaTec con una pieza modelada lista para exportar a STL"
+             loading="lazy" width="1360" height="784">
+        <figcaption><b>Mini-CAD</b><span>Del modelo a la impresora 3D</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ==================== MISIÓN SOCIAL ==================== -->
 <section class="section bg-mint">
   <div class="container">
@@ -650,7 +717,14 @@
       </div>
 
       <div class="split-visual reveal-left">
-        <div class="card" style="padding:32px 30px">
+        <figure class="foto-taller">
+          <img src="img/hero-taller.jpg"
+               alt="Alumnos de un taller de CultivaTec soldando una placa, programando en una laptop y armando robots móviles"
+               loading="lazy" width="1100" height="1061">
+          <figcaption>Taller de robótica de CultivaTec: electrónica, programación y armado en la misma mesa.</figcaption>
+        </figure>
+
+        <div class="card" style="padding:28px 26px">
           <h3 style="font-size:1.15rem;margin-bottom:20px"><i class="ph-fill ph-arrows-left-right" style="color:var(--ok-dk)"></i> Cómo se financia</h3>
           <div class="subsidy" style="grid-template-columns:1fr;gap:16px">
             <div class="subsidy-box t-brand">
@@ -809,6 +883,6 @@
 </footer>
 
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
-<script src="js/main.js?v=20260728"></script>
+<script src="js/main.js?v=20260728b"></script>
 </body>
 </html>

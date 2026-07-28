@@ -392,7 +392,7 @@ export async function montarRobot3D(host) {
   host.classList.add('listo');
 
   /* ---------- movimiento ---------- */
-  const zona = host.closest('.hero') || document.body;
+  const escenaEl = host.closest('.escena') || document.body;
   const meta = { x: 0, y: 0 };
   const act = { x: 0, y: 0 };
 
@@ -403,14 +403,33 @@ export async function montarRobot3D(host) {
     meta.y = ((e.clientY / innerHeight) - 0.5) * 2 * LIMITE_Y;
   }, { passive: true });
 
-  /* Desplazamiento: el robot baja un poco y se acerca */
+  /* Avance dentro de la escena: 0 en el hero, 1 al final de la sección
+     siguiente. El descenso lo hace `position:sticky` en CSS; aquí sólo se
+     corrige el corrimiento horizontal y la escala. */
+  const caja3D = host.closest('.robot-caja');
   let avance = 0;
-  const alScroll = () => {
-    const r = zona.getBoundingClientRect();
-    avance = Math.min(1, Math.max(0, -r.top / Math.max(r.height, 1)));
+  let rxPrev = -1;
+
+  /* Se mide dentro del bucle de render, no en el evento `scroll`: va
+     sincronizado con el cuadro (más fino) y no depende de que el navegador
+     entregue eventos, que puede omitir bajo carga. */
+  const medirAvance = () => {
+    const r = escenaEl.getBoundingClientRect();
+    const recorrido = Math.max(r.height - innerHeight, 1);
+    avance = Math.min(1, Math.max(0, -r.top / recorrido));
+
+    if (!caja3D) return;
+    // Del borde derecho del hero (4%) al hueco libre de la sección (15%).
+    // Más allá de 15% el robot se metía detrás de las tarjetas y se perdía.
+    const suave = avance < .5 ? 2 * avance * avance : 1 - Math.pow(-2 * avance + 2, 2) / 2;
+    const rx = 4 + suave * 11;
+    if (Math.abs(rx - rxPrev) > 0.05) {          // sólo escribe si cambió
+      caja3D.style.setProperty('--rx', rx.toFixed(2) + '%');
+      caja3D.style.setProperty('--rs', (1 - suave * 0.14).toFixed(3));
+      rxPrev = rx;
+    }
   };
-  addEventListener('scroll', alScroll, { passive: true });
-  alScroll();
+  medirAvance();
 
   let visible = true;
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(host);
@@ -425,6 +444,8 @@ export async function montarRobot3D(host) {
     if (!visible) return;
     const t = reloj.getElapsedTime();
 
+    medirAvance();
+
     act.x += (meta.x - act.x) * INERCIA;
     act.y += (meta.y - act.y) * INERCIA;
 
@@ -433,12 +454,12 @@ export async function montarRobot3D(host) {
     cabeza.rotation.z = act.x * -0.14;
     cuerpo.rotation.y = act.x * 0.2;
 
-    // Motion scroll: baja y se acerca
+    // El descenso lo hace el CSS; aquí sólo un giro leve al avanzar
     avanceSuave += (avance - avanceSuave) * 0.09;
     const resp = Math.sin(t * 0.9) * 0.035;
-    raiz.position.y = resp - avanceSuave * 1.35;
-    raiz.scale.setScalar(1 + avanceSuave * 0.26);
-    raiz.rotation.x = avanceSuave * 0.12;
+    raiz.position.y = resp;
+    raiz.rotation.x = avanceSuave * 0.1;
+    raiz.rotation.y = avanceSuave * -0.28;   // se gira un poco hacia el texto
 
     cabeza.position.y = 0.86 + resp * 0.5;
 

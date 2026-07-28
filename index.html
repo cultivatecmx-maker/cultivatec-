@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260728h">
+<link rel="stylesheet" href="css/styles.css?v=20260728l">
 
 <script type="application/ld+json">
 {
@@ -282,6 +282,15 @@
 
 <main id="main">
 
+<!-- ==================== ESCENA DEL ROBOT ==================== -->
+<!-- El robot es sticky dentro de esta envoltura: baja con el scroll desde
+     el hero hasta la sección siguiente y ahí se queda centrado. -->
+<div class="escena">
+
+  <div class="robot-viajero" aria-hidden="true">
+    <div class="robot-caja"><div class="robot-3d"></div></div>
+  </div>
+
 <!-- ==================== HERO ==================== -->
 <header class="hero">
 
@@ -341,7 +350,6 @@
 
     <!-- Robot protagonista -->
     <div class="hero-robot">
-      <div class="robot-3d"></div>
 
       <!-- Reserva mientras carga el modelo -->
       <svg class="robot-svg" viewBox="0 0 200 210" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -400,7 +408,7 @@
 </header>
 
 <!-- ==================== TRES CAMINOS ==================== -->
-<section class="section bg-white">
+<section class="section tres-caminos">
   <div class="container">
 
     <div class="head-split reveal">
@@ -418,7 +426,7 @@
       </div>
     </div>
 
-    <div class="grid-3 stagger">
+    <div class="caminos-lista stagger">
       <article class="block-card bc-sky">
         <a href="plataforma.html" class="round-arrow" aria-label="Ver la plataforma"><i class="ph-bold ph-arrow-up-right"></i></a>
         <h3>El software</h3>
@@ -457,6 +465,8 @@
     </div>
   </div>
 </section>
+
+</div><!-- /escena -->
 
 <!-- ==================== VISTAZO AL SOFTWARE ==================== -->
 <section class="section bg-sky">
@@ -811,11 +821,11 @@
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
 <script type="module">
   // Se importa aparte y sólo si procede: el módulo decide si vale la pena
-  import('./js/robot3d.js?v=20260728h').then(m => {
+  import('./js/robot3d.js?v=20260728l').then(m => {
     const host = document.querySelector('.robot-3d');
     if (host) m.montarRobot3D(host).catch(() => {});   // si falla, se queda el SVG
   }).catch(() => {});
 </script>
-<script src="js/main.js?v=20260728h"></script>
+<script src="js/main.js?v=20260728l"></script>
 </body>
 </html>

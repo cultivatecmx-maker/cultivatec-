@@ -397,11 +397,6 @@ ul,ol{list-style:none}
   position:relative;height:min(70svh,620px);
   display:flex;align-items:center;justify-content:center;
 }
-.robot-3d{position:absolute;inset:0;opacity:0;
-  transition:opacity 1s cubic-bezier(.22,1,.3,1);pointer-events:none}
-.robot-3d canvas{width:100%!important;height:100%!important;display:block}
-.robot-3d.listo{opacity:1}
-
 /* Robot de reserva en SVG mientras carga el 3D */
 .robot-svg{
   position:absolute;left:50%;top:50%;width:min(46%,240px);
@@ -409,7 +404,7 @@ ul,ol{list-style:none}
   transition:opacity .6s var(--ease);
   animation:robot-flota 7s ease-in-out infinite;
 }
-.robot-3d.listo ~ .robot-svg{opacity:0}
+body:has(.robot-3d.listo) .robot-svg{opacity:0}
 @keyframes robot-flota{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-56%)}}
 .r-ojo{transform-origin:center;animation:r-parpadeo 4.6s ease-in-out infinite}
 @keyframes r-parpadeo{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
@@ -1247,6 +1242,75 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
 @media (max-width:560px){
   .galeria{grid-template-columns:1fr}
   .gal-alta{grid-column:span 1}
+}
+
+/* ------------------------------------------------------------
+   26. ROBOT VIAJERO
+   El robot acompaña al scroll desde el hero hasta la sección
+   siguiente. El desplazamiento vertical lo hace `position:sticky`
+   (sin JavaScript); el corrimiento horizontal y la escala los
+   interpola el módulo 3D según el avance dentro de .escena.
+------------------------------------------------------------ */
+.escena{position:relative}
+
+.robot-viajero{
+  position:sticky;
+  top:calc(50svh - 44svh);
+  height:0;                 /* no ocupa sitio en el flujo */
+  z-index:1;                /* por detrás de las tarjetas */
+  pointer-events:none;
+}
+.robot-caja{
+  position:absolute;
+  right:var(--rx,4%);
+  top:0;
+  width:min(46vw,620px);
+  height:88svh;
+  transform:scale(var(--rs,1));
+  transform-origin:center center;
+  transition:right .35s cubic-bezier(.22,1,.3,1);
+}
+.robot-3d{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity 1s cubic-bezier(.22,1,.3,1);
+}
+.robot-3d canvas{width:100%!important;height:100%!important;display:block}
+.robot-3d.listo{opacity:1}
+
+/* El contenido del hero y las tarjetas van por encima del robot */
+.hero-copy,.hero-placas{position:relative;z-index:3}
+.hero-robot{z-index:2}
+
+/* --- Sección de los tres caminos: contenido a un lado --- */
+.tres-caminos{
+  position:relative;z-index:2;
+  background:linear-gradient(180deg,#fff 0%,#F4F9FF 60%,#fff 100%);
+}
+.tres-caminos > .container{position:relative}
+
+/* Las tarjetas se apilan en la mitad izquierda y dejan libre la derecha */
+.caminos-lista{
+  display:grid;grid-template-columns:1fr;gap:18px;
+  max-width:min(46%,500px);
+  position:relative;z-index:2;
+}
+.caminos-lista .block-card{min-height:0;padding:26px 26px 24px}
+.caminos-lista .block-card h3{font-size:1.2rem;margin-bottom:8px}
+.caminos-lista .block-card > p{margin-bottom:14px}
+.caminos-lista .block-card ul{gap:7px}
+.tres-caminos .head-split{max-width:min(47%,530px)}
+
+@media (max-width:1100px){
+  .caminos-lista{max-width:min(52%,470px)}
+  .tres-caminos .head-split{max-width:70%}
+}
+
+/* En móvil no hay sitio: el robot se queda en el hero y las tarjetas
+   recuperan el ancho completo. */
+@media (max-width:960px){
+  .robot-viajero{display:none}
+  .caminos-lista{max-width:100%;gap:20px}
+  .tres-caminos .head-split{max-width:100%}
 }
 
 /* ------------------------------------------------------------

@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260728b">
+<link rel="stylesheet" href="css/styles.css?v=20260728c">
 
 <script type="application/ld+json">
 {
@@ -285,42 +285,25 @@
 <!-- ==================== HERO ==================== -->
 <header class="hero">
 
-  <!-- Fondo: malla de azules, puntos y circuito -->
   <div class="hero-mesh" aria-hidden="true">
     <span class="blob blob-1"></span><span class="blob blob-2"></span>
-    <span class="blob blob-3"></span><span class="blob blob-4"></span>
   </div>
   <div class="hero-dots" aria-hidden="true"></div>
-  <svg class="hero-traces" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <path class="trace"    d="M-20 190 H170 a18 18 0 0 0 18-18 V96 a18 18 0 0 1 18-18 H400"/>
-    <path class="trace c2" d="M1460 232 H1268 a18 18 0 0 1-18-18 V128 a18 18 0 0 0-18-18 H1046"/>
-    <path class="trace c3" d="M-20 706 H228 a18 18 0 0 1 18 18 V808 a18 18 0 0 0 18 18 H500"/>
-    <path class="trace"    d="M1460 672 H1222 a18 18 0 0 0-18 18 V774 a18 18 0 0 1-18 18 H960"/>
-    <circle class="trace-dot" cx="400" cy="78"  r="4"/>
-    <circle class="trace-dot" cx="1046" cy="110" r="4" style="animation-delay:.9s"/>
-    <circle class="trace-dot" cx="500" cy="826" r="4" style="animation-delay:1.5s"/>
-    <circle class="trace-dot" cx="960" cy="792" r="4" style="animation-delay:.5s"/>
-  </svg>
 
   <div class="container hero-grid2">
 
-    <!-- Texto -->
     <div class="hero-copy">
       <div class="hero-brand h-an h-an-1">
-        <img src="logo.png" alt="" width="52" height="52">
+        <img src="logo.png" alt="" width="64" height="64">
         <span>Cultiva<b>Tec</b></span>
-      </div>
-
-      <div class="hero-badge h-an h-an-1">
-        <b><i class="ph-fill ph-sparkle"></i> Nuevo</b>
-        Plataforma escolar impulsada por IA
       </div>
 
       <h1 class="h-an h-an-2">Democratizamos<em>la robótica</em></h1>
 
       <p class="hero-lead h-an h-an-3">
-        Software con inteligencia artificial, kits y cursos para que cualquier escuela pueda
-        enseñar STEM. Y talleres gratuitos donde no hay presupuesto.
+        Llevamos robótica y STEM a cualquier escuela de México: simuladores con inteligencia
+        artificial, kits para armar y profesores que van a tu plantel. Y talleres gratuitos
+        en las comunidades que no pueden pagarlos.
       </p>
 
       <div class="hero-actions h-an h-an-4">
@@ -328,19 +311,13 @@
         <a href="plataforma.html" class="btn btn-ghost btn-lg"><i class="ph-bold ph-play-circle"></i> Ver la plataforma</a>
       </div>
 
-      <div class="hero-trust h-an h-an-5">
-        <div class="hero-trust-dots" aria-hidden="true">
-          <span style="background:linear-gradient(135deg,#1D4ED8,#3B82F6)"><i class="ph-fill ph-circuitry"></i></span>
-          <span style="background:linear-gradient(135deg,#6D28D9,#A78BFA)"><i class="ph-fill ph-brain"></i></span>
-          <span style="background:linear-gradient(135deg,#0891B2,#22D3EE)"><i class="ph-fill ph-cube"></i></span>
-          <span style="background:linear-gradient(135deg,#B45309,#FBBF24)"><i class="ph-fill ph-robot"></i></span>
-        </div>
-        <p><b>+1,000 alumnos</b> ya aprendieron con nosotros<br>en Mexicali y Monterrey</p>
-      </div>
+      <p class="hero-trust h-an h-an-5">
+        <i class="ph-fill ph-check-circle"></i>
+        <span><b>+1,000 alumnos</b> formados en Mexicali y Monterrey</span>
+      </p>
     </div>
 
-    <!-- Foto del taller con robots alrededor -->
-    <div class="hero-visual">
+    <div class="hero-visual h-an h-an-6">
       <div class="foto">
         <picture>
           <source media="(max-width: 640px)" srcset="img/hero-taller-sm.jpg">
@@ -350,125 +327,25 @@
         </picture>
       </div>
 
-      <div class="chip chip-1" data-par="18">
+      <div class="chip chip-1" data-par="16">
         <i class="ph-fill ph-circuitry"></i>
         <div><small>simulador abierto</small><b>Errores sin costo</b></div>
       </div>
-      <div class="chip chip-2" data-par="24">
+      <div class="chip chip-2" data-par="22">
         <i class="ph-fill ph-brain"></i>
         <div><small>tutor socrático</small><b>Chip te pregunta</b></div>
-      </div>
-
-      <!-- Chip electrónico -->
-      <div class="bot bot-chip" data-par="30" aria-hidden="true">
-        <svg viewBox="0 0 120 120" class="b-flota" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="gChip" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#DBEAFE"/><stop offset="1" stop-color="#93C5FD"/>
-            </linearGradient>
-          </defs>
-          <g stroke="#60A5FA" stroke-width="3.5" stroke-linecap="round">
-            <path d="M34 26V12M60 26V12M86 26V12M34 108V94M60 108V94M86 108V94"/>
-            <path d="M26 34H12M26 60H12M26 86H12M108 34H94M108 60H94M108 86H94"/>
-          </g>
-          <rect x="26" y="26" width="68" height="68" rx="15" fill="url(#gChip)" stroke="#1D4ED8" stroke-width="3.5"/>
-          <rect x="38" y="38" width="44" height="44" rx="10" fill="#1D4ED8" opacity=".18"/>
-          <circle class="b-led" cx="49" cy="53" r="4.5" fill="#22D3EE"/>
-          <circle class="b-led b-led-2" cx="60" cy="53" r="4.5" fill="#34D399"/>
-          <circle class="b-led b-led-3" cx="71" cy="53" r="4.5" fill="#FBBF24"/>
-          <rect x="45" y="66" width="30" height="5" rx="2.5" fill="#1D4ED8" opacity=".4"/>
-        </svg>
-      </div>
-
-      <!-- Rover -->
-      <div class="bot bot-rover" data-par="20" aria-hidden="true">
-        <svg viewBox="0 0 210 160" class="b-flota-2" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="gCuerpo" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#DBEAFE"/>
-            </linearGradient>
-            <linearGradient id="gRueda" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#EFF6FF"/><stop offset="1" stop-color="#BFDBFE"/>
-            </linearGradient>
-          </defs>
-          <ellipse cx="105" cy="150" rx="64" ry="7" fill="#1D4ED8" opacity=".13"/>
-          <g fill="none" stroke="#22D3EE" stroke-width="4" stroke-linecap="round" style="transform-origin:172px 66px">
-            <path class="b-onda"   d="M174 52a20 20 0 0 1 0 28"/>
-            <path class="b-onda b-onda-2" d="M182 44a32 32 0 0 1 0 44"/>
-            <path class="b-onda b-onda-3" d="M190 36a44 44 0 0 1 0 60"/>
-          </g>
-          <rect x="32" y="56" width="140" height="54" rx="19" fill="url(#gCuerpo)" stroke="#1D4ED8" stroke-width="4.5"/>
-          <rect x="46" y="68" width="58" height="30" rx="11" fill="#152C6B"/>
-          <g class="b-escanea"><rect x="54" y="77" width="15" height="12" rx="4" fill="#7DD3FC"/></g>
-          <circle class="b-led" cx="124" cy="74" r="4.5" fill="#22D3EE"/>
-          <circle class="b-led b-led-2" cx="139" cy="74" r="4.5" fill="#FBBF24"/>
-          <rect x="118" y="88" width="34" height="5" rx="2.5" fill="#1D4ED8" opacity=".32"/>
-          <rect x="160" y="58" width="14" height="18" rx="5" fill="#22D3EE"/>
-          <g class="b-rueda" style="transform-origin:66px 118px">
-            <circle cx="66" cy="118" r="23" fill="url(#gRueda)" stroke="#1D4ED8" stroke-width="4.5"/>
-            <g stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"><path d="M66 101v9M66 126v9M49 118h9M74 118h9"/></g>
-            <circle cx="66" cy="118" r="4.5" fill="#1D4ED8"/>
-          </g>
-          <g class="b-rueda" style="transform-origin:142px 118px">
-            <circle cx="142" cy="118" r="23" fill="url(#gRueda)" stroke="#1D4ED8" stroke-width="4.5"/>
-            <g stroke="#1D4ED8" stroke-width="3.5" stroke-linecap="round"><path d="M142 101v9M142 126v9M125 118h9M150 118h9"/></g>
-            <circle cx="142" cy="118" r="4.5" fill="#1D4ED8"/>
-          </g>
-        </svg>
-      </div>
-
-      <!-- Mascota -->
-      <div class="bot bot-mascota" data-par="26" aria-hidden="true">
-        <svg viewBox="0 0 170 210" class="b-flota" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="gCabeza" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#E0EDFF"/>
-            </linearGradient>
-            <linearGradient id="gVisor" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#1D4ED8"/><stop offset="1" stop-color="#152C6B"/>
-            </linearGradient>
-            <linearGradient id="gTorso" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#DBEAFE"/><stop offset="1" stop-color="#BFDBFE"/>
-            </linearGradient>
-          </defs>
-          <ellipse cx="85" cy="200" rx="44" ry="7" fill="#1D4ED8" opacity=".13"/>
-          <path d="M85 42V24" stroke="#1D4ED8" stroke-width="5" stroke-linecap="round"/>
-          <circle class="b-antena" cx="85" cy="17" r="8" fill="#22D3EE" style="transform-origin:85px 17px"/>
-          <rect x="30" y="42" width="110" height="86" rx="31" fill="url(#gCabeza)" stroke="#1D4ED8" stroke-width="5"/>
-          <rect x="44" y="58" width="82" height="54" rx="22" fill="url(#gVisor)"/>
-          <g fill="#7DD3FC">
-            <rect class="b-ojo" x="60" y="74" width="14" height="22" rx="7" style="transform-origin:67px 85px"/>
-            <rect class="b-ojo" x="96" y="74" width="14" height="22" rx="7" style="transform-origin:103px 85px"/>
-          </g>
-          <path d="M77 104q8 7 16 0" stroke="#7DD3FC" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <rect x="16" y="68" width="14" height="30" rx="7" fill="#93C5FD"/>
-          <rect x="140" y="68" width="14" height="30" rx="7" fill="#93C5FD"/>
-          <rect x="46" y="134" width="78" height="54" rx="21" fill="url(#gTorso)" stroke="#1D4ED8" stroke-width="5"/>
-          <circle class="b-led" cx="70" cy="155" r="4.5" fill="#22D3EE"/>
-          <circle class="b-led b-led-2" cx="85" cy="155" r="4.5" fill="#34D399"/>
-          <circle class="b-led b-led-3" cx="100" cy="155" r="4.5" fill="#FBBF24"/>
-          <rect x="66" y="169" width="38" height="6" rx="3" fill="#1D4ED8" opacity=".3"/>
-          <g class="b-saluda" style="transform-origin:130px 144px">
-            <rect x="122" y="138" width="30" height="11" rx="5.5" fill="#93C5FD"/>
-            <circle cx="154" cy="143" r="9" fill="#1D4ED8"/>
-          </g>
-          <rect x="18" y="138" width="30" height="11" rx="5.5" fill="#93C5FD"/>
-          <circle cx="16" cy="143" r="9" fill="#1D4ED8"/>
-        </svg>
       </div>
     </div>
   </div>
 
-  <!-- Cifras -->
   <div class="hero-strip h-an h-an-6">
     <div class="container">
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-lbl">Simuladores integrados</div></div>
         <div class="hero-stat"><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">Tutor de IA disponible</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">1,000+</div><div class="hero-stat-lbl">Alumnos formados</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">2</div><div class="hero-stat-lbl">Sedes en México</div></div>
         <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-lbl">Web, sin instalación</div></div>
       </div>
-      <div class="hero-scroll"><span>Desliza</span><i class="ph-bold ph-caret-down"></i></div>
     </div>
   </div>
 </header>
@@ -883,6 +760,6 @@
 </footer>
 
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
-<script src="js/main.js?v=20260728b"></script>
+<script src="js/main.js?v=20260728c"></script>
 </body>
 </html>

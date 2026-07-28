@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robot seguidor de línea paso a paso | CultivaTec</title>
+<meta name="description" content="Guía para construir un robot seguidor de línea con alumnos: componentes, montaje, lógica de control, calibración de sensores y fallos comunes.">
+<meta name="keywords" content="robot seguidor de línea, cómo hacer un robot seguidor de línea, proyecto robótica escolar, sensor infrarrojo línea, robot Arduino escuela">
+<meta name="author" content="CultivaTec">
+<link rel="canonical" href="https://cultivatec.com.mx/blog/robot-seguidor-de-linea-paso-a-paso.html">
+<meta name="geo.region" content="MX-BCN">
+<meta name="language" content="es-MX">
+<link rel="alternate" hreflang="es-mx" href="https://cultivatec.com.mx/blog/robot-seguidor-de-linea-paso-a-paso.html">
+<meta name="theme-color" content="#2F6BCC">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CultivaTec">
+<meta property="og:locale" content="es_MX">
+<meta property="og:title" content="Robot seguidor de línea paso a paso | CultivaTec">
+<meta property="og:description" content="Guía para construir un robot seguidor de línea con alumnos: componentes, montaje, lógica de control, calibración de sensores y fallos comunes.">
+<meta property="og:url" content="https://cultivatec.com.mx/blog/robot-seguidor-de-linea-paso-a-paso.html">
+<meta property="og:image" content="https://cultivatec.com.mx/img/producto/sim-circuitos.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="apple-touch-icon" href="../logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link rel="stylesheet" href="../css/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting",
+"headline":"Cómo construir un robot seguidor de línea paso a paso","description":"Guía completa para construir un robot seguidor de línea con alumnos: componentes, montaje, lógica de control, calibración de sensores y los fallos más comunes.",
+"datePublished":"2026-07-10","dateModified":"2026-07-10",
+"author":{"@type":"Organization","name":"CultivaTec"},
+"publisher":{"@type":"Organization","name":"CultivaTec","logo":{"@type":"ImageObject","url":"https://cultivatec.com.mx/logo.png"}},
+"mainEntityOfPage":{"@type":"WebPage","@id":"https://cultivatec.com.mx/blog/robot-seguidor-de-linea-paso-a-paso.html"}}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Inicio",
+     "item": "https://cultivatec.com.mx/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://cultivatec.com.mx/blog.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Robot seguidor de línea: cómo construirlo paso a paso en la escuela",
+     "item": "https://cultivatec.com.mx/blog/robot-seguidor-de-linea-paso-a-paso.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Saltar al contenido</a>
+
+<nav class="navbar" role="navigation" aria-label="Navegación principal">
+  <div class="container nav-inner">
+    <a href="../index.html" class="nav-logo" aria-label="CultivaTec — Inicio">
+      <img src="../logo.png" alt="CultivaTec" width="40" height="40">
+      <span class="nav-wordmark">Cultiva<b>Tec</b></span>
+    </a>
+
+    <ul class="nav-menu" id="nav-menu">
+      <li>
+        <button class="nav-item" data-panel="panel-software" aria-expanded="false" aria-controls="panel-software">
+          Software <i class="ph-bold ph-caret-down caret"></i>
+        </button>
+        <div class="nav-panel" id="panel-software">
+          <a href="../plataforma.html" class="nav-panel-link" style="--pi:var(--brand-700);--pib:var(--brand-50);--pid:var(--brand-100)">
+            <i class="ph-fill ph-squares-four"></i>
+            <div><strong>La plataforma</strong><span>Todo el software escolar en un recorrido</span></div>
+          </a>
+          <a href="../plataforma.html#simuladores" class="nav-panel-link" style="--pi:var(--sim-dk);--pib:var(--sim-bg);--pid:var(--sim-bd)">
+            <i class="ph-fill ph-circuitry"></i>
+            <div><strong>Simuladores</strong><span>Electrónica, programación y diseño 3D</span></div>
+          </a>
+          <a href="../plataforma.html#ia" class="nav-panel-link" style="--pi:var(--ai-dk);--pib:var(--ai-bg);--pid:var(--ai-bd)">
+            <i class="ph-fill ph-brain"></i>
+            <div><strong>Chip · IA socrática</strong><span>Guía al alumno sin darle la respuesta</span></div>
+          </a>
+          <a href="../plataforma.html#docentes" class="nav-panel-link" style="--pi:var(--ok-dk);--pib:var(--ok-bg);--pid:var(--ok-bd)">
+            <i class="ph-fill ph-chalkboard-teacher"></i>
+            <div><strong>Panel docente</strong><span>Planeación con IA y avance reticular</span></div>
+          </a>
+          <a href="../plataforma.html#app" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
+            <i class="ph-fill ph-device-mobile"></i>
+            <div><strong>App móvil</strong><span>Robótica gamificada en Google Play</span></div>
+          </a>
+          <div class="nav-panel-foot">
+            <p><strong>¿Prefieres verlo funcionando?</strong> Te damos una demo de 20 minutos.</p>
+            <a href="../contacto.html" class="btn btn-primary btn-sm"><i class="ph-bold ph-calendar-check"></i> Agendar demo</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <button class="nav-item" data-panel="panel-cursos" aria-expanded="false" aria-controls="panel-cursos">
+          Cursos <i class="ph-bold ph-caret-down caret"></i>
+        </button>
+        <div class="nav-panel" id="panel-cursos">
+          <a href="../cursos.html" class="nav-panel-link" style="--pi:var(--brand-700);--pib:var(--brand-50);--pid:var(--brand-100)">
+            <i class="ph-fill ph-graduation-cap"></i>
+            <div><strong>Cursos para escuelas</strong><span>Programas completos por ciclo escolar</span></div>
+          </a>
+          <a href="../cursos.html#verano" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
+            <i class="ph-fill ph-sun-horizon"></i>
+            <div><strong>Cursos de verano</strong><span>Talleres intensivos en tu plantel</span></div>
+          </a>
+          <a href="../kits.html" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
+            <i class="ph-fill ph-toolbox"></i>
+            <div><strong>Kits de robótica</strong><span>Hardware sincronizado con la plataforma</span></div>
+          </a>
+          <a href="../historia.html#gratuitas" class="nav-panel-link" style="--pi:var(--rose-dk);--pib:var(--rose-bg);--pid:var(--rose-bd)">
+            <i class="ph-fill ph-hand-heart"></i>
+            <div><strong>Clases gratuitas</strong><span>Llevamos robótica a tu comunidad</span></div>
+          </a>
+          <div class="nav-panel-foot">
+            <p><strong>Nuestros profesores van a tu escuela.</strong> Talleres desde 8 sesiones.</p>
+            <a href="../cursos.html" class="btn btn-primary btn-sm"><i class="ph-bold ph-arrow-right"></i> Ver catálogo</a>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="../historia.html" class="nav-item">Historia</a></li>
+      <li><a href="../blog.html" class="nav-item">Blog</a></li>
+      <li><a href="../contacto.html" class="nav-item">Contacto</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="../contacto.html" class="nav-cta"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<section class="page-hero t-ok" style="--ph1:var(--accent-bg)">
+  <div class="container">
+    <div class="crumbs"><a href="../index.html">Inicio</a><i class="ph-bold ph-caret-right"></i><a href="../blog.html">Blog</a><i class="ph-bold ph-caret-right"></i><span>Proyectos</span></div>
+    <span class="eyebrow t-ok"><i class="ph-fill ph-path"></i> Proyectos</span>
+    <h1>Cómo construir un robot seguidor de línea paso a paso</h1>
+    <p style="font-size:.9375rem;color:var(--slate-500);margin-top:20px">
+      <i class="ph-fill ph-calendar-blank"></i> 10 jul 2026 &nbsp;·&nbsp;
+      <i class="ph-fill ph-clock"></i> 8 min de lectura
+    </p>
+  </div>
+</section>
+
+<article class="section bg-white">
+  <div class="container">
+    <div class="article">
+      
+<p>Si tuviéramos que elegir un solo proyecto para el primer robot autónomo de un grupo, sería este. El
+objetivo se entiende en cinco segundos, el resultado se ve inmediatamente, y el camino obliga a integrar
+electrónica, programación y mecánica.</p>
+
+<h2>Qué necesitas</h2>
+
+<ul>
+  <li>Un microcontrolador (Arduino UNO o Nano funcionan de sobra)</li>
+  <li>Dos sensores infrarrojos de reflexión</li>
+  <li>Dos motores DC con reductor y sus ruedas</li>
+  <li>Un puente H para controlar los motores</li>
+  <li>Chasis, una rueda loca y portapilas</li>
+  <li>Cinta aislante negra y una superficie clara para la pista</li>
+</ul>
+
+<h2>Paso 1 · Entender el sensor antes de montar nada</h2>
+
+<p>Este paso se salta siempre y es el que más problemas evita. Conecta un solo sensor y muestra su
+lectura en pantalla. Que los alumnos lo pasen sobre la cinta negra y sobre el suelo claro, y anoten los
+dos valores.</p>
+
+<p>Ahí descubren lo esencial: el sensor no ve «línea», ve <strong>cuánta luz rebota</strong>. La
+diferencia entre esos dos números es todo el proyecto.</p>
+
+<h2>Paso 2 · El umbral</h2>
+
+<p>Con las dos lecturas, se calcula el punto medio. Ese es el umbral: por encima es claro, por debajo es
+oscuro. Es una decisión que toma el alumno con sus propios datos, no un número que le dictamos.</p>
+
+<blockquote>El umbral cambia con la iluminación del salón. Recalibrar al llegar a un lugar nuevo es
+exactamente lo que hacen los equipos de competencia, y aquí se aprende por qué.</blockquote>
+
+<h2>Paso 3 · La lógica de los dos sensores</h2>
+
+<p>Con un sensor a cada lado de la línea, hay cuatro combinaciones y solo tres comportamientos:</p>
+
+<ul>
+  <li><strong>Los dos en claro:</strong> la línea está en medio → avanzar recto.</li>
+  <li><strong>Izquierdo en negro:</strong> el robot se desvió a la derecha → girar a la izquierda.</li>
+  <li><strong>Derecho en negro:</strong> se desvió a la izquierda → girar a la derecha.</li>
+  <li><strong>Los dos en negro:</strong> cruce o línea muy ancha → seguir recto y revisar la pista.</li>
+</ul>
+
+<p>Escribir esta tabla en el pizarrón antes de programar hace que el código salga casi solo.</p>
+
+<h2>Paso 4 · Montaje</h2>
+
+<p>Dos detalles mecánicos que deciden si funciona:</p>
+
+<ul>
+  <li><strong>Altura de los sensores:</strong> entre 5 y 10 mm del suelo. Más alto y captan luz ambiente;
+      más bajo y rozan.</li>
+  <li><strong>Separación entre sensores:</strong> un poco más ancha que la línea. Si están muy juntos, el
+      robot no detecta el desvío a tiempo.</li>
+</ul>
+
+<h2>Paso 5 · Calibrar la velocidad</h2>
+
+<p>Aquí llega la lección más valiosa. El primer impulso de todos es poner los motores al máximo, y el
+robot se sale en la primera curva. Bajar la velocidad hasta que complete la vuelta, y subirla poco a
+poco, enseña el compromiso entre rapidez y control mejor que cualquier explicación.</p>
+
+<h2>Fallos más comunes</h2>
+
+<ul>
+  <li><strong>El robot gira al revés.</strong> Un motor está invertido: intercambia sus dos cables.</li>
+  <li><strong>Oscila mucho.</strong> Velocidad de giro demasiado alta o sensores muy juntos.</li>
+  <li><strong>Funciona en el salón y falla en otro lado.</strong> Falta recalibrar el umbral.</li>
+  <li><strong>Se detiene sin motivo.</strong> Casi siempre baterías bajas: los motores caen antes que el
+      microcontrolador.</li>
+  <li><strong>Pierde la línea en curvas cerradas.</strong> Reduce velocidad o separa un poco los sensores.</li>
+</ul>
+
+<h2>Cómo ampliarlo</h2>
+
+<p>Cuando el robot ya da vueltas completas, el reto natural es hacerlo más rápido sin perder la línea.
+Ahí entra el control proporcional: en vez de girar siempre igual, girar en proporción a cuánto se desvió.
+Es la puerta de entrada al control PID y a la robótica de competencia.</p>
+
+<p>Todo esto se puede probar primero en el
+<a href="../plataforma.html#simuladores">simulador</a>, y después armarlo con el
+<a href="../kits.html">Kit Constructor</a>, que trae exactamente estos componentes.</p>
+
+    </div>
+  </div>
+</article>
+
+<section class="section-sm bg-sky">
+  <div class="container">
+    <div class="sec-head center" style="margin-bottom:36px">
+      <h2 class="sec-title" style="font-size:1.6rem">Sigue leyendo</h2>
+    </div>
+    <div class="grid-3"><article class="card post-card t-brand">
+  <div class="post-cover"><i class="ph-fill ph-robot"></i><span class="post-tag">Curso completo</span></div>
+  <div class="post-body">
+    <div class="post-meta"><span>26 jul 2026</span><span>11 min</span></div>
+    <h3>Curso completo de robótica: el plan de 12 sesiones que sí funciona</h3>
+    <a href="curso-completo-robotica-12-sesiones.html" class="link-arrow">Leer nota <i class="ph-bold ph-arrow-right"></i></a>
+  </div>
+</article><article class="card post-card t-kit">
+  <div class="post-cover"><i class="ph-fill ph-trophy"></i><span class="post-tag">Competencias</span></div>
+  <div class="post-body">
+    <div class="post-meta"><span>24 jul 2026</span><span>9 min</span></div>
+    <h3>Competencias de robótica en México: cuáles existen y cómo entrar</h3>
+    <a href="competencias-robotica-mexico.html" class="link-arrow">Leer nota <i class="ph-bold ph-arrow-right"></i></a>
+  </div>
+</article><article class="card post-card t-rose">
+  <div class="post-cover"><i class="ph-fill ph-flag-banner"></i><span class="post-tag">Competencias</span></div>
+  <div class="post-body">
+    <div class="post-meta"><span>22 jul 2026</span><span>8 min</span></div>
+    <h3>Cómo preparar a tu equipo para un torneo de robótica</h3>
+    <a href="preparar-equipo-torneo-robotica.html" class="link-arrow">Leer nota <i class="ph-bold ph-arrow-right"></i></a>
+  </div>
+</article></div>
+    <div style="text-align:center;margin-top:36px">
+      <a href="../blog.html" class="btn btn-soft"><i class="ph-bold ph-articles-medium"></i> Ver todas las notas</a>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm cta">
+  <div class="container reveal">
+    <h2>¿Quieres esto en tu escuela?</h2>
+    <p>Agenda una demo de 20 minutos y te mostramos cómo se aplica con tu propio plan de estudios.</p>
+    <div class="cta-actions">
+      <a href="../contacto.html" class="btn btn-white btn-lg"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+      <a href="mailto:contacto@cultivatec.com.mx" class="btn btn-glass btn-lg"><i class="ph-bold ph-envelope-simple"></i> Escríbenos</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="footer-brand-logo">
+          <img src="../logo.png" alt="" width="40" height="40">
+          <span>Cultiva<b>Tec</b></span>
+        </a>
+        <p>Software educativo con inteligencia artificial, kits y cursos de robótica para escuelas. Con sede en Mexicali y Monterrey, para todo México.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/profile.php?id=100089359082614" target="_blank" rel="noopener" class="social" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+          <a href="https://www.instagram.com/cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+          <a href="https://www.tiktok.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
+          <a href="https://www.youtube.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Software</h4>
+        <ul class="footer-links">
+          <li><a href="../plataforma.html">La plataforma</a></li>
+          <li><a href="../plataforma.html#simuladores">Simuladores</a></li>
+          <li><a href="../plataforma.html#ia">IA socrática</a></li>
+          <li><a href="../plataforma.html#docentes">Panel docente</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul class="footer-links">
+          <li><a href="../cursos.html">Cursos para escuelas</a></li>
+          <li><a href="../cursos.html#verano">Cursos de verano</a></li>
+          <li><a href="../kits.html">Kits de robótica</a></li>
+          <li><a href="../historia.html#gratuitas">Clases gratuitas</a></li>
+          <li><a href="https://play.google.com/store/search?q=CultivaTec&c=apps" target="_blank" rel="noopener">App en Google Play</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>CultivaTec</h4>
+        <ul class="footer-links">
+          <li><a href="../historia.html">Nuestra historia</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../contacto.html">Contacto</a></li>
+          <li><a href="https://app.cultivatec.com.mx" target="_blank" rel="noopener">Entrar a la plataforma</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul class="footer-links">
+          <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:diego@cultivatec.com.mx">diego@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
+          <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span class="js-year">2026</span> CultivaTec. Todos los derechos reservados.</span>
+      <span>Hecho con <i class="ph-fill ph-heart"></i> en Mexicali para los niños del mundo.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
+<script src="../js/main.js"></script>
+</body>
+</html>

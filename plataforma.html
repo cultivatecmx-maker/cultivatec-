@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simuladores STEM, IA socrática y panel docente | CultivaTec</title>
+<meta name="description" content="Simuladores de electrónica, programación y diseño 3D, el tutor socrático Chip y el panel docente con planeación por IA y avance reticular por competencias.">
+<meta name="keywords" content="simulador de electrónica escolar, programación por bloques Arduino, mini CAD escolar, tutor IA socrático, planeación docente con IA, avance reticular">
+<meta name="author" content="CultivaTec">
+<link rel="canonical" href="https://cultivatec.com.mx/plataforma.html">
+<meta name="geo.region" content="MX-BCN">
+<meta name="geo.placename" content="Mexicali, Monterrey">
+<meta name="language" content="es-MX">
+<link rel="alternate" hreflang="es-mx" href="https://cultivatec.com.mx/plataforma.html">
+<link rel="alternate" hreflang="x-default" href="https://cultivatec.com.mx/plataforma.html">
+<meta name="theme-color" content="#2F6BCC">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CultivaTec">
+<meta property="og:locale" content="es_MX">
+<meta property="og:title" content="Simuladores STEM, IA socrática y panel docente | CultivaTec">
+<meta property="og:description" content="Simuladores de electrónica, programación y diseño 3D, el tutor socrático Chip y el panel docente con planeación por IA y avance reticular por competencias.">
+<meta property="og:url" content="https://cultivatec.com.mx/plataforma.html">
+<meta property="og:image" content="https://cultivatec.com.mx/img/producto/sim-circuitos.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link rel="stylesheet" href="css/styles.css">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://cultivatec.com.mx/plataforma.html#app",
+   "name": "Plataforma CultivaTec",
+   "applicationCategory": "EducationalApplication",
+   "operatingSystem": "Web (PWA), Android",
+   "url": "https://app.cultivatec.com.mx",
+   "description": "Plataforma escolar con simuladores de electrónica, programación y diseño 3D, tutor socrático con inteligencia artificial y panel docente con planeación automatizada.",
+   "publisher": {
+    "@id": "https://cultivatec.com.mx/#organizacion"
+   },
+   "inLanguage": "es-MX",
+   "featureList": [
+    "Simulador de circuitos con componentes reales",
+    "Editor de bloques con generación de código C++",
+    "Modelado 3D con exportación a STL",
+    "Tutor socrático con IA que no entrega la respuesta",
+    "Planeación docente generada con IA",
+    "Avance reticular por competencias",
+    "Biblioteca escolar y grafo de conocimiento",
+    "App móvil de robótica gamificada"
+   ],
+   "offers": {
+    "@type": "Offer",
+    "category": "Licencia escolar",
+    "priceCurrency": "MXN",
+    "availability": "https://schema.org/InStock",
+    "url": "https://cultivatec.com.mx/contacto.html"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Inicio",
+     "item": "https://cultivatec.com.mx/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "La plataforma",
+     "item": "https://cultivatec.com.mx/plataforma.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Saltar al contenido</a>
+
+<nav class="navbar" role="navigation" aria-label="Navegación principal">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="CultivaTec — Inicio">
+      <img src="logo.png" alt="CultivaTec" width="40" height="40">
+      <span class="nav-wordmark">Cultiva<b>Tec</b></span>
+    </a>
+
+    <ul class="nav-menu" id="nav-menu">
+      <li>
+        <button class="nav-item" data-panel="panel-software" aria-expanded="false" aria-controls="panel-software">
+          Software <i class="ph-bold ph-caret-down caret"></i>
+        </button>
+        <div class="nav-panel" id="panel-software">
+          <a href="plataforma.html" class="nav-panel-link" style="--pi:var(--brand-700);--pib:var(--brand-50);--pid:var(--brand-100)">
+            <i class="ph-fill ph-squares-four"></i>
+            <div><strong>La plataforma</strong><span>Todo el software escolar en un recorrido</span></div>
+          </a>
+          <a href="plataforma.html#simuladores" class="nav-panel-link" style="--pi:var(--sim-dk);--pib:var(--sim-bg);--pid:var(--sim-bd)">
+            <i class="ph-fill ph-circuitry"></i>
+            <div><strong>Simuladores</strong><span>Electrónica, programación y diseño 3D</span></div>
+          </a>
+          <a href="plataforma.html#ia" class="nav-panel-link" style="--pi:var(--ai-dk);--pib:var(--ai-bg);--pid:var(--ai-bd)">
+            <i class="ph-fill ph-brain"></i>
+            <div><strong>Chip · IA socrática</strong><span>Guía al alumno sin darle la respuesta</span></div>
+          </a>
+          <a href="plataforma.html#docentes" class="nav-panel-link" style="--pi:var(--ok-dk);--pib:var(--ok-bg);--pid:var(--ok-bd)">
+            <i class="ph-fill ph-chalkboard-teacher"></i>
+            <div><strong>Panel docente</strong><span>Planeación con IA y avance reticular</span></div>
+          </a>
+          <a href="plataforma.html#app" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
+            <i class="ph-fill ph-device-mobile"></i>
+            <div><strong>App móvil</strong><span>Robótica gamificada en Google Play</span></div>
+          </a>
+          <div class="nav-panel-foot">
+            <p><strong>¿Prefieres verlo funcionando?</strong> Te damos una demo de 20 minutos.</p>
+            <a href="contacto.html" class="btn btn-primary btn-sm"><i class="ph-bold ph-calendar-check"></i> Agendar demo</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <button class="nav-item" data-panel="panel-cursos" aria-expanded="false" aria-controls="panel-cursos">
+          Cursos <i class="ph-bold ph-caret-down caret"></i>
+        </button>
+        <div class="nav-panel" id="panel-cursos">
+          <a href="cursos.html" class="nav-panel-link" style="--pi:var(--brand-700);--pib:var(--brand-50);--pid:var(--brand-100)">
+            <i class="ph-fill ph-graduation-cap"></i>
+            <div><strong>Cursos para escuelas</strong><span>Programas completos por ciclo escolar</span></div>
+          </a>
+          <a href="cursos.html#verano" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
+            <i class="ph-fill ph-sun-horizon"></i>
+            <div><strong>Cursos de verano</strong><span>Talleres intensivos en tu plantel</span></div>
+          </a>
+          <a href="kits.html" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
+            <i class="ph-fill ph-toolbox"></i>
+            <div><strong>Kits de robótica</strong><span>Hardware sincronizado con la plataforma</span></div>
+          </a>
+          <a href="historia.html#gratuitas" class="nav-panel-link" style="--pi:var(--rose-dk);--pib:var(--rose-bg);--pid:var(--rose-bd)">
+            <i class="ph-fill ph-hand-heart"></i>
+            <div><strong>Clases gratuitas</strong><span>Llevamos robótica a tu comunidad</span></div>
+          </a>
+          <div class="nav-panel-foot">
+            <p><strong>Nuestros profesores van a tu escuela.</strong> Talleres desde 8 sesiones.</p>
+            <a href="cursos.html" class="btn btn-primary btn-sm"><i class="ph-bold ph-arrow-right"></i> Ver catálogo</a>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="historia.html" class="nav-item">Historia</a></li>
+      <li><a href="blog.html" class="nav-item">Blog</a></li>
+      <li><a href="contacto.html" class="nav-item">Contacto</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="contacto.html" class="nav-cta"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<section class="page-hero" style="--ph1:var(--brand-50)">
+  <div class="container">
+    <div class="crumbs"><a href="index.html">Inicio</a><i class="ph-bold ph-caret-right"></i><span>La plataforma</span></div>
+    <span class="tag-dark">El software</span>
+    <h1>Un laboratorio STEM <span class="mark mark-sky">completo</span> dentro del navegador</h1>
+    <p>Simuladores, tutoría con inteligencia artificial y gestión académica real. Todo en
+       <strong>app.cultivatec.com.mx</strong>, sin instalar nada y desde cualquier dispositivo.</p>
+    <a href="contacto.html" class="btn btn-primary btn-lg"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+  </div>
+</section>
+
+<!-- SIMULADORES -->
+<section class="section bg-white" id="simuladores">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="tag-dark">Laboratorios virtuales</span>
+      <h2 class="sec-title">Tres simuladores, un <span class="mark mark-sky">mismo alumno</span></h2>
+      <p class="sec-sub">Equivocarse es gratis: el estudiante puede quemar un LED mil veces,
+         recompilar su código o rediseñar una pieza tantas veces como necesite.</p>
+    </div>
+
+    <div style="display:flex;justify-content:center" class="reveal">
+      <div class="tabs" data-tabs="sims" role="tablist" aria-label="Simuladores">
+        <button class="tab active" data-tab="circuitos" role="tab" aria-selected="true"><i class="ph-fill ph-circuitry"></i> Electrónica</button>
+        <button class="tab" data-tab="bloques" role="tab" aria-selected="false"><i class="ph-fill ph-code"></i> Programación</button>
+        <button class="tab" data-tab="cad" role="tab" aria-selected="false"><i class="ph-fill ph-cube"></i> Diseño 3D</button>
+      </div>
+    </div>
+
+    <div data-tabpanels="sims">
+      <div class="tab-panel active" data-panel="circuitos" role="tabpanel">
+        <div class="split">
+          <div class="split-copy">
+            <h3 class="sec-title" style="font-size:1.7rem">Mesa de Circuitos</h3>
+            <p class="sec-sub">Coloca, cablea, mide y simula. El circuito se comporta como en el
+               laboratorio real: si hay un corto, se nota.</p>
+            <div class="feat-list t-sim">
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-plugs-connected"></i></div>
+                <div class="feat-txt"><strong>Catálogo de componentes reales</strong><span>Baterías, panel solar, Arduino UNO, LEDs, zumbador, motor DC, servo, protoboard, resistencias, potenciómetro y capacitores.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-gauge"></i></div>
+                <div class="feat-txt"><strong>Medición en vivo</strong><span>Lee voltaje y corriente sobre el propio circuito mientras corre la simulación.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-sparkle"></i></div>
+                <div class="feat-txt"><strong>Crear con IA</strong><span>Describe el circuito que quieres y la plataforma lo arma para que el alumno lo analice.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-file-text"></i></div>
+                <div class="feat-txt"><strong>Exporta la guía</strong><span>Genera la práctica en documento para repartirla impresa en clase.</span></div></div>
+            </div>
+          </div>
+          <div class="split-visual">
+            <div class="shot">
+              <div class="shot-bar"><div class="shot-dots"><span></span><span></span><span></span></div>
+                <div class="shot-url"><i class="ph-fill ph-lock-simple"></i> app.cultivatec.com.mx</div></div>
+              <img src="img/producto/sim-circuitos.jpg" alt="Mesa de Circuitos con una batería de 9V, un Arduino UNO y un LED azul sobre el lienzo, y el catálogo de componentes agrupado por energía, salidas, control y pasivos" width="1360" height="784">
+            </div>
+            <p class="shot-caption"><i class="ph-fill ph-info"></i> Los componentes se arrastran desde el panel derecho y se cablean pin a pin.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="bloques" role="tabpanel" hidden>
+        <div class="split">
+          <div class="split-copy">
+            <h3 class="sec-title" style="font-size:1.7rem">Bloques + Microcontroladores</h3>
+            <p class="sec-sub">Se programa como en Scratch y la plataforma escribe el C++ real al lado.
+               El alumno ve la equivalencia todo el tiempo.</p>
+            <div class="feat-list t-ai">
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-puzzle-piece"></i></div>
+                <div class="feat-txt"><strong>Del bloque al código</strong><span>Cada bloque genera su línea de C++ visible en el panel inferior, lista para copiar o descargar como .ino.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-cpu"></i></div>
+                <div class="feat-txt"><strong>Cinco placas soportadas</strong><span>Arduino UNO, Arduino Nano, ESP32 DevKit, micro:bit v2 y Raspberry Pi Pico.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-sliders"></i></div>
+                <div class="feat-txt"><strong>Sensores simulados</strong><span>Distancia, luz y temperatura se mueven con deslizadores durante la simulación.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-terminal-window"></i></div>
+                <div class="feat-txt"><strong>Placa virtual y monitor serial</strong><span>Los pines se encienden en pantalla y el monitor muestra lo que imprime el programa.</span></div></div>
+            </div>
+          </div>
+          <div class="split-visual">
+            <div class="shot">
+              <div class="shot-bar"><div class="shot-dots"><span></span><span></span><span></span></div>
+                <div class="shot-url"><i class="ph-fill ph-lock-simple"></i> app.cultivatec.com.mx</div></div>
+              <img src="img/producto/sim-bloques.jpg" alt="Editor de bloques de CultivaTec con un programa de seis bloques, la placa virtual del Arduino UNO, deslizadores de sensores y el código C++ generado abajo" width="1360" height="784">
+            </div>
+            <p class="shot-caption"><i class="ph-fill ph-info"></i> «Subir a la placa» permite pasar del simulador al hardware real del kit.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="cad" role="tabpanel" hidden>
+        <div class="split">
+          <div class="split-copy">
+            <h3 class="sec-title" style="font-size:1.7rem">Diseño 3D · Mini-CAD</h3>
+            <p class="sec-sub">Modelado por figuras y operaciones booleanas, con la misma lógica de
+               agrupar/perforar que ya conocen los maestros de Tinkercad.</p>
+            <div class="feat-list t-ok">
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-shapes"></i></div>
+                <div class="feat-txt"><strong>20 figuras base</strong><span>Cubo, esfera, cilindro, cono, pirámide, dona, prisma, hexágono, tubo, estrella, arco y más.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-intersect"></i></div>
+                <div class="feat-txt"><strong>Perforar y combinar</strong><span>Marca piezas como hueco y combínalas para restar volumen: geometría aplicada de verdad.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-ruler"></i></div>
+                <div class="feat-txt"><strong>Posición y escala numéricas</strong><span>Cada pieza se ajusta por ejes X, Y, Z con valores exactos, no a ojo.</span></div></div>
+              <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-printer"></i></div>
+                <div class="feat-txt"><strong>Exporta STL</strong><span>El archivo sale listo para la impresora 3D de la escuela.</span></div></div>
+            </div>
+          </div>
+          <div class="split-visual">
+            <div class="shot">
+              <div class="shot-bar"><div class="shot-dots"><span></span><span></span><span></span></div>
+                <div class="shot-url"><i class="ph-fill ph-lock-simple"></i> app.cultivatec.com.mx</div></div>
+              <img src="img/producto/sim-3d.jpg" alt="Editor Mini-CAD de CultivaTec con una pieza verde sobre la cuadrícula, el catálogo de figuras y los controles de posición, escala y color" width="1360" height="784">
+            </div>
+            <p class="shot-caption"><i class="ph-fill ph-info"></i> Vistas 3D, arriba, frente y lado, más importación de STL externos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IA SOCRÁTICA -->
+<section class="section bg-violet" id="ia">
+  <div class="container">
+    <div class="split reverse">
+      <div class="split-copy reveal-right">
+        <span class="eyebrow t-ai"><i class="ph-fill ph-brain"></i> Para alumnos</span>
+        <h2 class="sec-title">Chip, el tutor que no da la respuesta</h2>
+        <p class="sec-sub">«No te doy la respuesta: te ayudo a encontrarla». Ese es literalmente el
+           lema con el que trabaja nuestra IA. Cuando un alumno se atora, Chip le devuelve una
+           pregunta que lo acerca a la solución.</p>
+        <div class="feat-list t-ai">
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-chats-circle"></i></div>
+            <div class="feat-txt"><strong>Diálogo socrático</strong><span>Reformula la duda hasta que el estudiante identifica él mismo la causa.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-microphone"></i></div>
+            <div class="feat-txt"><strong>Voz y texto</strong><span>Los más pequeños pueden preguntar hablando; Chip también responde en voz alta.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-target"></i></div>
+            <div class="feat-txt"><strong>Consciente del contexto</strong><span>Sabe si el alumno está en electrónica, diseño o robótica y responde sobre eso.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-eye"></i></div>
+            <div class="feat-txt"><strong>Visible para el maestro</strong><span>El docente puede revisar en qué se atoró cada alumno y cuántas preguntas hizo.</span></div></div>
+        </div>
+      </div>
+      <div class="split-visual reveal-left">
+        <div class="shot">
+          <div class="shot-bar"><div class="shot-dots"><span></span><span></span><span></span></div>
+            <div class="shot-url"><i class="ph-fill ph-lock-simple"></i> app.cultivatec.com.mx</div></div>
+          <img src="img/producto/ia-chip.jpg" alt="Chat con Chip: ante la pregunta de por qué no enciende el LED, el tutor responde preguntando qué característica especial tienen los LEDs, y el alumno descubre que es la polaridad" loading="lazy" width="1360" height="784">
+        </div>
+        <p class="shot-caption"><i class="ph-fill ph-quotes"></i> Dos preguntas después, el alumno llegó solo a «la polaridad». Chip nunca se la dijo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RUTA DEL ALUMNO -->
+<section class="section bg-white" id="alumnos">
+  <div class="container">
+    <div class="split">
+      <div class="split-copy reveal-left">
+        <span class="eyebrow t-sim"><i class="ph-fill ph-path"></i> Para alumnos</span>
+        <h2 class="sec-title">Una ruta de misiones, no una lista de tareas</h2>
+        <p class="sec-sub">El alumno entra a su aula con un código y ve exactamente cuál es su
+           siguiente misión. Cada reto desbloquea el siguiente.</p>
+        <div class="feat-list t-brand">
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-flag-banner"></i></div>
+            <div class="feat-txt"><strong>Camino de aprendizaje</strong><span>Misiones ordenadas por competencia, con el «estás aquí» siempre visible.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-users-three"></i></div>
+            <div class="feat-txt"><strong>Aula, equipo y muro</strong><span>Trabajo colaborativo, asistencia y avisos dentro del mismo espacio.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-trophy"></i></div>
+            <div class="feat-txt"><strong>Logros y glosario</strong><span>Refuerzo por gamificación y un diccionario técnico a un toque de distancia.</span></div></div>
+        </div>
+      </div>
+      <div class="split-visual reveal-right">
+        <div class="shot">
+          <div class="shot-bar"><div class="shot-dots"><span></span><span></span><span></span></div>
+            <div class="shot-url"><i class="ph-fill ph-lock-simple"></i> app.cultivatec.com.mx</div></div>
+          <img src="img/producto/alumno-ruta.jpg" alt="Vista del alumno con su progreso al 0%, la próxima misión Mi Primer Circuito y el camino de aprendizaje con seis misiones de circuito y robot 3D" loading="lazy" width="1360" height="784">
+        </div>
+        <p class="shot-caption"><i class="ph-fill ph-info"></i> El código de aula (arriba a la derecha) es lo único que necesita el alumno para entrar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCENTES -->
+<section class="section bg-sky" id="docentes">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="tag-dark">Para docentes y dirección</span>
+      <h2 class="sec-title">La IA arma la planeación; tú das la clase</h2>
+      <p class="sec-sub">El maestro deja de perder tardes escribiendo secuencias didácticas y
+         persiguiendo calificaciones. Todo queda en su histórico y se exporta a PDF.</p>
+    </div>
+
+    <div class="split" style="margin-bottom:72px">
+      <div class="split-visual reveal-left">
+        <div class="shot">
+          <div class="shot-bar"><div class="shot-dots"><span></span><span></span><span></span></div>
+            <div class="shot-url"><i class="ph-fill ph-lock-simple"></i> app.cultivatec.com.mx</div></div>
+          <img src="img/producto/docente-aula.jpg" alt="Panel del aula CULTIVTAEC1 con el asistente de planeación con IA y el histórico de tres planeaciones exportables a PDF" loading="lazy" width="1360" height="784">
+        </div>
+      </div>
+      <div class="split-copy reveal-right">
+        <h3 class="sec-title" style="font-size:1.6rem">Asistente de planeación</h3>
+        <p class="sec-sub">Respondes un cuestionario rápido —o lo platicas con la IA— y sale el plan
+           de semestre o parcial, con recursos de la plataforma, prácticas en simuladores y referencias.</p>
+        <div class="feat-list t-brand">
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-magic-wand"></i></div>
+            <div class="feat-txt"><strong>Dos caminos</strong><span>«Cuestionario rápido» para ir al grano, o «Diseñar con chat IA» para afinar cada detalle.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-clock-counter-clockwise"></i></div>
+            <div class="feat-txt"><strong>Histórico con avance</strong><span>Cada planeación guarda cuántas sesiones llevas: 12/12, 1/8… y se retoma donde quedó.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-projector-screen"></i></div>
+            <div class="feat-txt"><strong>Modo Clase</strong><span>Proyecta la sesión del día en el aula sin salir de la plataforma.</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="split reverse">
+      <div class="split-copy reveal-left">
+        <h3 class="sec-title" style="font-size:1.6rem">Biblioteca escolar y segundo cerebro</h3>
+        <p class="sec-sub">Sube el plan de estudios y los materiales oficiales de tu institución.
+           La IA los analiza y construye un mapa de conceptos que consulta al planear.</p>
+        <div class="feat-list t-ai">
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-books"></i></div>
+            <div class="feat-txt"><strong>Biblioteca compartida</strong><span>Planes, referencias y archivos visibles para todos los maestros del plantel.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-graph"></i></div>
+            <div class="feat-txt"><strong>Grafo de conocimiento</strong><span>Los documentos se convierten en conceptos y conexiones agrupados por comunidades temáticas.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-funnel"></i></div>
+            <div class="feat-txt"><strong>Sólo lo relevante</strong><span>Al planear una clase, la IA consulta únicamente los nodos que tocan ese tema.</span></div></div>
+        </div>
+      </div>
+      <div class="split-visual reveal-right">
+        <div class="shot">
+          <div class="shot-bar"><div class="shot-dots"><span></span><span></span><span></span></div>
+            <div class="shot-url"><i class="ph-fill ph-lock-simple"></i> app.cultivatec.com.mx</div></div>
+          <img src="img/producto/docente-biblioteca.jpg" alt="Pantalla de Planeación y Biblioteca con documentos del plantel y el grafo del segundo cerebro con 43 conceptos, 124 conexiones y 10 comunidades temáticas" loading="lazy" width="1360" height="784">
+        </div>
+        <p class="shot-caption"><i class="ph-fill ph-info"></i> 43 conceptos y 124 conexiones extraídos de los documentos que subió la escuela.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="eyebrow"><i class="ph-fill ph-users-three"></i> Una plataforma, tres vistas</span>
+      <h2 class="sec-title">Cada quien ve lo que necesita</h2>
+    </div>
+    <div class="grid-3 stagger">
+      <article class="card pillar t-sim">
+        <div class="pillar-icon"><i class="ph-fill ph-student"></i></div>
+        <h3>Alumnos</h3>
+        <ul class="pillar-list">
+          <li><i class="ph-fill ph-check-circle"></i> Simuladores ilimitados</li>
+          <li><i class="ph-fill ph-check-circle"></i> Chip disponible siempre</li>
+          <li><i class="ph-fill ph-check-circle"></i> Misiones, logros y glosario</li>
+          <li><i class="ph-fill ph-check-circle"></i> Portafolio de proyectos</li>
+        </ul>
+      </article>
+      <article class="card pillar t-brand">
+        <div class="pillar-icon"><i class="ph-fill ph-chalkboard-teacher"></i></div>
+        <h3>Docentes</h3>
+        <ul class="pillar-list">
+          <li><i class="ph-fill ph-check-circle"></i> Planeación generada con IA</li>
+          <li><i class="ph-fill ph-check-circle"></i> Modo Clase para proyectar</li>
+          <li><i class="ph-fill ph-check-circle"></i> Asistencia y muro de avisos</li>
+          <li><i class="ph-fill ph-check-circle"></i> Exportación a PDF</li>
+        </ul>
+      </article>
+      <article class="card pillar t-ai">
+        <div class="pillar-icon"><i class="ph-fill ph-buildings"></i></div>
+        <h3>Dirección</h3>
+        <ul class="pillar-list">
+          <li><i class="ph-fill ph-check-circle"></i> Biblioteca institucional</li>
+          <li><i class="ph-fill ph-check-circle"></i> Avance por grupo y grado</li>
+          <li><i class="ph-fill ph-check-circle"></i> Capacitación docente incluida</li>
+          <li><i class="ph-fill ph-check-circle"></i> Programa STEM listo para operar</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MODULOS -->
+<section class="section bg-cloud">
+  <div class="container">
+    <div class="head-split reveal">
+      <div>
+        <span class="tag-dark">Todo lo que incluye</span>
+        <h2 class="sec-title">Un solo acceso, <span class="mark mark-sky">todos los módulos</span></h2>
+      </div>
+      <div class="right">
+        <div class="spark-note">
+          <i class="ph-fill ph-sparkle"></i>
+          <p>No hay planes recortados ni módulos que se cobran aparte: la licencia escolar
+             abre la plataforma completa para alumnos y docentes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-list reveal">
+      <a href="#simuladores" class="arrow-row"><span>Mesa de Circuitos: protoboard virtual con componentes reales y medición en vivo</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+      <a href="#simuladores" class="arrow-row"><span>Bloques + Microcontroladores: cinco placas, código C++ generado y monitor serial</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+      <a href="#simuladores" class="arrow-row"><span>Mini-CAD: veinte figuras base, perforado booleano y exportación a STL</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+      <a href="#ia" class="arrow-row"><span>Chip, el tutor socrático, con voz y texto para cada alumno</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+      <a href="#alumnos" class="arrow-row"><span>Aula virtual con ruta de misiones, asistencia, muro y logros</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+      <a href="#docentes" class="arrow-row"><span>Asistente de planeación con IA e histórico exportable a PDF</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+      <a href="#docentes" class="arrow-row"><span>Biblioteca escolar y segundo cerebro: grafo de conceptos del plantel</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+      <a href="#app" class="arrow-row"><span>App móvil de robótica gamificada, sincronizada con el aula</span><span class="round-arrow sm"><i class="ph-bold ph-arrow-up-right"></i></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- APP MOVIL -->
+<section class="section bg-mint" id="app">
+  <div class="container">
+    <div class="split">
+      <div class="split-copy reveal-left">
+        <span class="eyebrow t-ok"><i class="ph-fill ph-device-mobile"></i> App movil</span>
+        <h2 class="sec-title">Robotica gamificada, tambien fuera del aula</h2>
+        <p class="sec-sub">Nuestra app para Android convierte el aprendizaje de robotica en un juego
+           por niveles: retos diarios, rachas e insignias para que el alumno siga practicando en casa.
+           Su avance cuenta dentro de la ruta que ve el docente.</p>
+        <div class="feat-list t-ok">
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-game-controller"></i></div>
+            <div class="feat-txt"><strong>Aprendizaje por misiones</strong><span>Cada concepto se desbloquea superando retos cortos de cinco minutos.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-medal"></i></div>
+            <div class="feat-txt"><strong>Rachas, XP e insignias</strong><span>Mecanicas de juego que sostienen el habito de practicar a diario.</span></div></div>
+          <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-arrows-clockwise"></i></div>
+            <div class="feat-txt"><strong>Sincronizada con la escuela</strong><span>Lo que resuelve en la app se refleja en su avance dentro del aula.</span></div></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="https://play.google.com/store/search?q=CultivaTec&c=apps" target="_blank" rel="noopener" class="btn btn-primary">
+            <i class="ph-fill ph-google-play-logo"></i> Descargar en Google Play</a>
+          <a href="https://app.cultivatec.com.mx" target="_blank" rel="noopener" class="btn btn-ghost">
+            <i class="ph-bold ph-globe"></i> Version web</a>
+        </div>
+      </div>
+      <div class="split-visual reveal-right">
+        <div class="card" style="padding:34px 30px">
+          <h3 style="font-size:1.15rem;margin-bottom:18px">Dos formas de entrar</h3>
+          <div class="feat-list t-brand" style="margin:0">
+            <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-android-logo"></i></div>
+              <div class="feat-txt"><strong>App de Android</strong><span>Descargala desde Google Play. Pensada para practicar en casa, con o sin conexion.</span></div></div>
+            <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-browser"></i></div>
+              <div class="feat-txt"><strong>PWA en el navegador</strong><span>app.cultivatec.com.mx funciona en cualquier dispositivo y se puede instalar desde el propio navegador, sin tienda de aplicaciones.</span></div></div>
+            <div class="feat-item"><div class="feat-icon"><i class="ph-fill ph-key"></i></div>
+              <div class="feat-txt"><strong>La misma cuenta</strong><span>El alumno entra con el codigo de su aula y su progreso viaja entre ambas.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm bg-cloud">
+  <div class="container">
+    <div class="sec-head center reveal" style="margin-bottom:32px">
+      <h2 class="sec-title" style="font-size:1.5rem">¿A dónde quieres ir ahora?</h2>
+    </div>
+    <div class="next-nav stagger">
+        <a href="cursos.html" class="next-card t-ok">
+          <i class="ph-fill ph-graduation-cap"></i>
+          <div class="txt"><small>Presencial</small><strong>Cursos para escuelas</strong></div>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+        <a href="kits.html" class="next-card t-kit">
+          <i class="ph-fill ph-toolbox"></i>
+          <div class="txt"><small>Hardware</small><strong>Kits de robótica</strong></div>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+        <a href="contacto.html" class="next-card t-sim">
+          <i class="ph-fill ph-paper-plane-tilt"></i>
+          <div class="txt"><small>Siguiente paso</small><strong>Solicitar una demo</strong></div>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm cta">
+  <div class="container reveal">
+    <h2>¿Quieres verlo con tu propio plan de estudios?</h2>
+    <p>En la demo cargamos un tema de tu programa y te mostramos la planeación que genera la IA.</p>
+    <div class="cta-actions">
+      <a href="contacto.html" class="btn btn-white btn-lg"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+      <a href="mailto:contacto@cultivatec.com.mx" class="btn btn-glass btn-lg"><i class="ph-bold ph-envelope-simple"></i> Escríbenos</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-brand-logo">
+          <img src="logo.png" alt="" width="40" height="40">
+          <span>Cultiva<b>Tec</b></span>
+        </a>
+        <p>Software educativo con inteligencia artificial, kits y cursos de robótica para escuelas. Con sede en Mexicali y Monterrey, para todo México.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/profile.php?id=100089359082614" target="_blank" rel="noopener" class="social" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+          <a href="https://www.instagram.com/cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+          <a href="https://www.tiktok.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
+          <a href="https://www.youtube.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Software</h4>
+        <ul class="footer-links">
+          <li><a href="plataforma.html">La plataforma</a></li>
+          <li><a href="plataforma.html#simuladores">Simuladores</a></li>
+          <li><a href="plataforma.html#ia">IA socrática</a></li>
+          <li><a href="plataforma.html#docentes">Panel docente</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul class="footer-links">
+          <li><a href="cursos.html">Cursos para escuelas</a></li>
+          <li><a href="cursos.html#verano">Cursos de verano</a></li>
+          <li><a href="kits.html">Kits de robótica</a></li>
+          <li><a href="historia.html#gratuitas">Clases gratuitas</a></li>
+          <li><a href="https://play.google.com/store/search?q=CultivaTec&c=apps" target="_blank" rel="noopener">App en Google Play</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>CultivaTec</h4>
+        <ul class="footer-links">
+          <li><a href="historia.html">Nuestra historia</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="https://app.cultivatec.com.mx" target="_blank" rel="noopener">Entrar a la plataforma</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul class="footer-links">
+          <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:diego@cultivatec.com.mx">diego@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
+          <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span class="js-year">2026</span> CultivaTec. Todos los derechos reservados.</span>
+      <span>Hecho con <i class="ph-fill ph-heart"></i> en Mexicali para los niños del mundo.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
+<script src="js/main.js"></script>
+</body>
+</html>

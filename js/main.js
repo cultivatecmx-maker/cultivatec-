@@ -17,6 +17,7 @@ const App = {
     this.contactForm();
     this.year();
     this.heroParallax();
+    this.heroForm();
   },
 
   isMobile: () => window.matchMedia('(max-width: 960px)').matches,
@@ -303,7 +304,7 @@ const App = {
      Usa la propiedad `translate`, no `transform`, para no pisar las
      animaciones de entrada y flotación que sí usan transform. */
   heroParallax() {
-    const card = document.querySelector('.hero-visual');
+    const card = document.querySelector('.hero');
     if (!card) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -324,13 +325,23 @@ const App = {
           el.style.setProperty('--px', (x * d).toFixed(1) + 'px');
           el.style.setProperty('--py', (y * d).toFixed(1) + 'px');
         });
+        // La esfera se mueve mucho menos: da profundidad sin marear
+        const orbe = card.querySelector('.orbe');
+        if (orbe) {
+          orbe.style.setProperty('--ox', (x * 26).toFixed(1) + 'px');
+          orbe.style.setProperty('--oy', (y * 18).toFixed(1) + 'px');
+        }
       });
     };
 
-    const reset = () => items.forEach(el => {
-      el.style.setProperty('--px', '0px');
-      el.style.setProperty('--py', '0px');
-    });
+    const reset = () => {
+      items.forEach(el => {
+        el.style.setProperty('--px', '0px');
+        el.style.setProperty('--py', '0px');
+      });
+      const orbe = card.querySelector('.orbe');
+      if (orbe) { orbe.style.setProperty('--ox', '0px'); orbe.style.setProperty('--oy', '0px'); }
+    };
 
     card.addEventListener('pointermove', move);
     card.addEventListener('pointerleave', reset);

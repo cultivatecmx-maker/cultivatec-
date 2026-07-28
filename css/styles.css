@@ -928,15 +928,15 @@ select.input{
   .nav-panel-link > i{width:36px;height:36px;font-size:1.05rem}
   .nav-panel-foot{display:none}
 
-  .hero{min-height:0;padding:calc(var(--nav-h) + 34px) 0 0}
-  .hero-grid2{grid-template-columns:1fr;gap:30px}
+  .hero{min-height:0;padding:calc(var(--nav-h) + 26px) 0 0}
+  .hero-grid2{grid-template-columns:1fr;gap:18px}
   .hero-copy{text-align:center;order:1}
   .hero-copy::before,.hero-copy::after{display:none}
   .hero-tag,.hero-linea{justify-content:center}
   .hero-linea::after{display:none}
   .hero-lead{margin-inline:auto}
   .hero-form{margin-inline:auto}
-  .hero-robot{order:2;height:min(46svh,380px)}
+  .hero-robot{order:2;height:min(52svh,420px);margin-top:4px}
   .robot-tags{display:none}
   .orbe{right:auto;left:50%;translate:-50% 0;top:auto;bottom:6%;width:120vw}
   .hero-placas{padding-bottom:24px}
@@ -971,7 +971,7 @@ select.input{
   .container{padding-inline:18px}
   /* En pantallas muy estrechas sólo cabe una pastilla */
   /* El formulario a lo ancho, y el campo a 16px: por debajo iOS hace zoom */
-  .hero-form{flex-direction:column;padding:14px;gap:10px;border-radius:var(--r-lg);
+  .hero-form{flex-direction:column;padding:12px;gap:10px;border-radius:var(--r-lg);
              width:100%;max-width:400px;margin-inline:auto}
   .hero-form input{width:100%;text-align:center;padding:12px 0;font-size:16px}
   .hero-form button{width:100%;justify-content:center;padding:15px 24px}
@@ -1308,9 +1308,30 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
 /* En móvil no hay sitio: el robot se queda en el hero y las tarjetas
    recuperan el ancho completo. */
 @media (max-width:960px){
+  /* Sin viaje en móvil: el lienzo se traslada al hero por JavaScript */
   .robot-viajero{display:none}
   .caminos-lista{max-width:100%;gap:20px}
   .tres-caminos .head-split{max-width:100%}
+
+  /* El 3D ocupa el hueco del robot dentro del hero */
+  .hero-robot .robot-3d{position:absolute;inset:-8% -4%}
+}
+
+/* --- Hero en pantallas pequeñas --- */
+@media (max-width:560px){
+  .hero-tag{gap:11px;margin-bottom:14px}
+  .hero-tag img{width:46px}
+  .hero-tag span{font-size:1.85rem}
+  .hero-linea{margin-bottom:10px;font-size:.6875rem;letter-spacing:.16em}
+  .hero h1{font-size:clamp(2rem,1.2rem + 3.6vw,2.6rem);margin-bottom:14px}
+  .hero-lead{font-size:.9688rem;margin-bottom:22px}
+  .hero-alt{font-size:.75rem;line-height:1.5}
+  .hero-robot{height:min(42svh,330px)}
+  .hero-placas{padding-bottom:22px}
+  .hero-placas p{margin-bottom:12px;font-size:.75rem}
+  .placas{gap:14px 20px}
+  .placa{font-size:.875rem}
+  .placa i{font-size:1.05rem}
 }
 
 /* ------------------------------------------------------------

@@ -303,7 +303,7 @@ const App = {
      Usa la propiedad `translate`, no `transform`, para no pisar las
      animaciones de entrada y flotación que sí usan transform. */
   heroParallax() {
-    const card = document.querySelector('.hero-card');
+    const card = document.querySelector('.hero-visual');
     if (!card) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;

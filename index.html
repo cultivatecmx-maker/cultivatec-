@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260728q">
+<link rel="stylesheet" href="css/styles.css?v=20260729a">
 
 <script type="application/ld+json">
 {
@@ -574,10 +574,10 @@
     <div class="galeria stagger">
       <figure class="gal gal-alta">
         <span class="gal-tag"><i class="ph-fill ph-users-three"></i> Taller presencial</span>
-        <img src="img/hero-taller.jpg"
-             alt="Cuatro alumnos trabajando en un taller de robótica de CultivaTec con placas, laptop y robots móviles"
-             loading="lazy" width="1100" height="1061">
-        <figcaption><b>Talleres en el plantel</b><span>Instructores propios, material incluido</span></figcaption>
+        <img src="img/aula/equipo-alumnos-robots-terminados.jpg"
+             alt="Cuatro alumnos de secundaria muestran los robots que armaron al terminar un taller de robótica de CultivaTec"
+             loading="lazy" width="1100" height="619">
+        <figcaption><b>Talleres en el plantel</b><span>Cada equipo termina con su robot armado</span></figcaption>
       </figure>
 
       <figure class="gal">
@@ -615,6 +615,43 @@
   </div>
 </section>
 
+<!-- ==================== FOTOS DEL TALLER ==================== -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="eyebrow"><i class="ph-fill ph-camera"></i> Fotos reales</span>
+      <h2 class="sec-title">Robótica en manos de <span class="mark mark-sky">alumnos de verdad</span></h2>
+      <p class="sec-sub">Ninguna de estas fotos es de banco: son talleres nuestros en escuelas y comunidades de Baja California y Nuevo León.</p>
+    </div>
+    <div class="mosaico stagger">
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-tree"></i> Comunidad</span>
+        <img src="img/aula/taller-aire-libre-comunidad.jpg" alt="Taller gratuito de robótica de CultivaTec al aire libre, con decenas de niños trabajando en mesas bajo los árboles"
+             loading="lazy" width="1100" height="846">
+        <figcaption><b>Talleres gratuitos</b><span>Robótica al aire libre para toda la colonia</span></figcaption>
+      </figure>
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-waves"></i> Sensores</span>
+        <img src="img/aula/nino-sensor-ultrasonico.jpg" alt="Niño con un sensor ultrasónico apoyado en la frente, jugando antes de montarlo en su robot"
+             loading="lazy" width="1100" height="1061">
+        <figcaption><b>Un ultrasónico de frente</b><span>Se entiende mejor cuando se puede tocar</span></figcaption>
+      </figure>
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-lightning"></i> Electrónica</span>
+        <img src="img/aula/microcontrolador-encendido.jpg" alt="Manos de un alumno conectando una placa microcontroladora con el LED verde ya encendido"
+             loading="lazy" width="1013" height="1100">
+        <figcaption><b>El primer LED que enciende</b><span>Del diagrama al circuito que funciona</span></figcaption>
+      </figure>
+      <figure class="gal">
+        <span class="gal-tag"><i class="ph-fill ph-student"></i> Colegios</span>
+        <img src="img/aula/alumnas-y-alumnos-celebrando.jpg" alt="Alumnas y alumnos de un colegio celebrando durante el taller de robótica de CultivaTec en su salón"
+             loading="lazy" width="1100" height="658">
+        <figcaption><b>Robótica en horario de clase</b><span>Talleres dentro del propio plantel</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ==================== MISIÓN SOCIAL ==================== -->
 <section class="section bg-mint">
   <div class="container">
@@ -647,10 +684,10 @@
 
       <div class="split-visual reveal-left">
         <figure class="foto-taller">
-          <img src="img/hero-taller.jpg"
-               alt="Alumnos de un taller de CultivaTec soldando una placa, programando en una laptop y armando robots móviles"
-               loading="lazy" width="1100" height="1061">
-          <figcaption>Taller de robótica de CultivaTec: electrónica, programación y armado en la misma mesa.</figcaption>
+          <img src="img/aula/clase-comunidad-salon.jpg"
+               alt="Clase gratuita de robótica de CultivaTec en un salón comunitario, con mesas prestadas y material propio"
+               loading="lazy" width="1100" height="1093">
+          <figcaption>Clase gratuita en un salón comunitario: mesas prestadas, material nuestro y la misma robótica que damos en los colegios.</figcaption>
         </figure>
 
         <div class="card" style="padding:28px 26px">
@@ -814,7 +851,7 @@
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
 <script type="module">
   // Se importa aparte y sólo si procede: el módulo decide si vale la pena
-  import('./js/robot3d.js?v=20260728q').then(m => {
+  import('./js/robot3d.js?v=20260729a').then(m => {
     const host = document.querySelector('.robot-3d');
     if (!host) return;
     // En móvil no hay viaje: el lienzo se monta en el hueco del hero
@@ -824,6 +861,6 @@
     m.montarRobot3D(host).catch(() => {});   // si falla, se queda el SVG
   }).catch(() => {});
 </script>
-<script src="js/main.js?v=20260728q"></script>
+<script src="js/main.js?v=20260729a"></script>
 </body>
 </html>

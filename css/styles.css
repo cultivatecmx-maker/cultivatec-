@@ -1204,6 +1204,26 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
   padding:6px 12px;border-radius:var(--r-full);
 }
 
+/* Mosaico de fotos del taller: rejilla pareja que reaprovecha .gal.
+   A diferencia de .galeria, aquí ninguna manda sobre las demás. */
+.mosaico{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.mosaico .gal{aspect-ratio:4/3}
+
+/* Una sola foto a lo ancho, para abrir una página */
+.foto-banda{
+  position:relative;overflow:hidden;border-radius:var(--r-xl);
+  box-shadow:var(--sh-lg);background:#0F2A6E;
+}
+/* `height:auto` es imprescindible: sin él manda el atributo height del
+   propio <img> y `aspect-ratio` se queda sin efecto. */
+.foto-banda img{width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;display:block}
+.foto-banda figcaption{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px 28px;color:#fff;
+  background:linear-gradient(180deg,transparent,rgba(9,26,66,.9));
+}
+.foto-banda figcaption b{display:block;font-family:var(--font-display);font-size:1.0625rem}
+.foto-banda figcaption span{display:block;font-size:.8438rem;color:rgba(255,255,255,.88);margin-top:4px}
+
 /* Foto del taller dentro de la sección social */
 .foto-taller{
   position:relative;border-radius:var(--r-xl);overflow:hidden;
@@ -1220,10 +1240,14 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
   .galeria{grid-template-columns:1fr 1fr}
   .gal-alta{grid-row:span 1;grid-column:span 2}
   .gal{min-height:200px}
+  .mosaico{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foto-banda img{aspect-ratio:16/9}
 }
 @media (max-width:560px){
-  .galeria{grid-template-columns:1fr}
+  .galeria,.mosaico{grid-template-columns:1fr}
   .gal-alta{grid-column:span 1}
+  .foto-banda img{aspect-ratio:4/3}
+  .foto-banda figcaption{padding:18px 20px}
 }
 
 /* ------------------------------------------------------------

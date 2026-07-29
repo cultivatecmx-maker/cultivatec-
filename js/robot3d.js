@@ -1,29 +1,30 @@
 /* ============================================================
-   CULTIVATEC — La mascota, en 3D
+   CULTIVATEC — Mascota en 3D
 
-   Reconstrucción del dibujo original: cabeza cuadrada redondeada con la
-   cara enmarcada, brote de dos hojas arriba, panza con engrane y pistas
-   de circuito, brazos delgados curvos con pinza en C y piernas cortas.
+   Construida con primitivas para poder separar la cabeza en su propio
+   grupo: así gira sola hacia el cursor, cosa imposible con una malla
+   fusionada.
 
-   Se arma con primitivas, no con una malla importada, por dos motivos:
-   la cabeza necesita ser su propio grupo para girar sola hacia el cursor,
-   y el contorno oscuro se consigue clonando cada pieza algo más grande
-   con las caras traseras y material sin luz — el mismo truco de casco
-   invertido que usan las series animadas.
+   La lectura de "mascota" y no de "maqueta" viene de tres cosas:
+   proporción de peluche (la cabeza mide casi lo mismo que el cuerpo),
+   todo con radios muy generosos, y el contorno oscuro — un clon de cada
+   pieza, algo mayor, con las caras traseras y material sin luz.
 
    Jerarquía:
      raiz
-      ├ cuerpo   (panza, engrane, brazos, piernas)   — casi quieto
-      └ cabeza   (casco, cara, orejas)               — sigue al cursor
-          └ brote (tallo y hojas)                    — se mece
+      ├ cuerpo   (torso, brazos, piernas)      — quieto
+      └ cabeza   (casco, pantalla, orejas)     — sigue al cursor / al giro
+          └ brote (tallo y dos hojas)          — se mece
    ============================================================ */
 
 const CDN = 'https://esm.sh/three@0.160.0';
 
-const CUERPO = 0x9CC7F2;   // azul del dibujo
-const CARA   = 0xBFDCFA;   // el panel de la cara, un tono más claro
-const TINTA  = 0x16345C;   // contorno y facciones
-const VERDE  = 0x6FBF73;   // hojas del brote
+const CLARO  = 0xC3DDFA;
+const MEDIO  = 0x63A0E8;
+const VIVO   = 0x2563EB;
+const HONDO  = 0x1B4A96;
+const CONTOR = 0x143A72;
+const BROTE  = 0x7CC24C;   // verde hoja del dibujo
 
 const LIMITE_X = 1.15;   // giro horizontal de la cabeza ~66°
 const LIMITE_Y = 0.62;   // cabeceo ~36°
@@ -49,16 +50,21 @@ export async function montarRobot3D(host) {
   ]);
 
   /* ---------- materiales ---------- */
-  const pintura = c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.45, metalness: 0.04 });
-  const mCuerpo = pintura(CUERPO);
-  const mCara   = pintura(CARA);
-  const mTinta  = new THREE.MeshStandardMaterial({ color: TINTA, roughness: 0.4, metalness: 0.15 });
-  const mVerde  = pintura(VERDE);
-  const mBorde  = new THREE.MeshBasicMaterial({ color: TINTA, side: THREE.BackSide });
-  const mBrillo = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const pintura = c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.38, metalness: 0.06 });
+  const mClaro = pintura(CLARO);
+  const mMedio = pintura(MEDIO);
+  const mVivo  = pintura(VIVO);
+  const mHondo = pintura(HONDO);
+  const mMetal = new THREE.MeshStandardMaterial({ color: 0x9FB6D8, roughness: 0.3, metalness: 0.5 });
+  const mPantalla = new THREE.MeshStandardMaterial({ color: 0x0E2A5A, roughness: 0.14, metalness: 0.25 });
+  const mBrote = pintura(BROTE);
+  const mBorde = new THREE.MeshBasicMaterial({ color: CONTOR, side: THREE.BackSide });
   const emisivo = (c, i) => new THREE.MeshStandardMaterial({
     color: c, emissive: c, emissiveIntensity: i, roughness: 0.2, metalness: 0
   });
+  const mOjo    = emisivo(0xEAFBFF, 1.5);
+  const mBrillo = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const mRubor  = emisivo(0x67E8F9, 1.4);
   const mLedA = emisivo(0x34D399, 2.0);
   const mLedB = emisivo(0xFBBF24, 2.0);
   const mLedC = emisivo(0x60A5FA, 2.0);
@@ -72,21 +78,14 @@ export async function montarRobot3D(host) {
     m.add(b);
     return m;
   };
-  const caja = (w, h, d, r = 0.08, mat = mCuerpo, borde = true) => {
+  const caja = (w, h, d, r = 0.08, mat = mClaro, borde = true) => {
     const m = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, alta ? 5 : 3, r), mat);
     return borde ? conBorde(m) : m;
   };
-  const bola = (r, mat = mTinta) =>
+  const bola = (r, mat = mMetal) =>
     new THREE.Mesh(new THREE.SphereGeometry(r, Math.round(22 * seg), Math.round(16 * seg)), mat);
-  const cil = (r, h, mat = mTinta) =>
+  const cil = (r, h, mat = mMetal) =>
     new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, Math.round(18 * seg)), mat);
-  /* Pista de circuito: una barrita fina pegada a la superficie */
-  const pista = (w, h, x, y, z, giro = 0) => {
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.02), mTinta);
-    m.position.set(x, y, z);
-    m.rotation.z = giro;
-    return m;
-  };
 
   /* ---------- escena ---------- */
   const escena = new THREE.Scene();
@@ -96,191 +95,239 @@ export async function montarRobot3D(host) {
   render.setPixelRatio(Math.min(devicePixelRatio, alta ? 2 : 1.5));
   render.outputColorSpace = THREE.SRGBColorSpace;
   render.toneMapping = THREE.ACESFilmicToneMapping;
-  render.toneMappingExposure = 1.06;
+  render.toneMappingExposure = 1.05;
   host.appendChild(render.domElement);
 
-  escena.add(new THREE.HemisphereLight(0xffffff, 0x86ADDE, 2.2));
-  const clave = new THREE.DirectionalLight(0xffffff, 1.9);
+  escena.add(new THREE.HemisphereLight(0xffffff, 0x7FA9E0, 2.1));
+  const clave = new THREE.DirectionalLight(0xffffff, 2.0);
   clave.position.set(2.6, 3.6, 4.4); escena.add(clave);
-  const contra = new THREE.DirectionalLight(0x2563eb, 2.2);
+  const contra = new THREE.DirectionalLight(0x2563eb, 2.4);
   contra.position.set(-3.6, 1.0, -2.4); escena.add(contra);
-  const relleno = new THREE.DirectionalLight(0x9BD4FF, 1.2);
+  const relleno = new THREE.DirectionalLight(0x7DD3FC, 1.3);
   relleno.position.set(-1.6, -2.2, 2.6); escena.add(relleno);
 
   const raiz = new THREE.Group();
   escena.add(raiz);
 
-  /* ================= CUERPO ================= */
+  /* ================= CUERPO =================
+     Panza redonda de una sola pieza: los dos bloques y la cintura a la
+     vista que tenía antes lo volvían anguloso. */
   const cuerpo = new THREE.Group();
   raiz.add(cuerpo);
 
-  const panza = caja(1.38, 1.32, 1.0, 0.28, mCuerpo);
-  panza.position.y = -0.42;
-  cuerpo.add(panza);
+  const torso = caja(1.5, 1.3, 1.1, 0.4, mClaro);
+  torso.position.y = -0.34;
+  cuerpo.add(torso);
 
-  // Engrane del pecho, como en el dibujo
+  /* Peto: la chapa que aloja el engrane y las pistas. Va algo mayor que
+     el dibujo para que ninguna pista se salga a la superficie del torso,
+     donde pelearían por el mismo plano. */
+  const peto = caja(1.18, 1.0, 0.1, 0.3, mMedio);
+  peto.position.set(0, -0.3, 0.5);
+  cuerpo.add(peto);
+
+  /* Engrane grande al centro de la panza, la marca del dibujo. Antes era
+     un dial pequeño; aquí manda él. */
   const engrane = new THREE.Group();
-  engrane.position.set(0, -0.42, 0.5);
+  engrane.position.set(0, -0.3, 0.6);
   cuerpo.add(engrane);
-  engrane.add(new THREE.Mesh(
-    new THREE.TorusGeometry(0.15, 0.055, 9, Math.round(24 * seg)), mTinta));
-  engrane.add(bola(0.055, mCara));
+  const aro = new THREE.Mesh(
+    new THREE.TorusGeometry(0.2, 0.07, 10, Math.round(26 * seg)), mVivo);
+  conBorde(aro, 0.035);
+  engrane.add(aro);
   for (let i = 0; i < 8; i++) {
-    const d = new THREE.Mesh(new RoundedBoxGeometry(0.075, 0.075, 0.075, 2, 0.026), mTinta);
+    const d = new THREE.Mesh(new RoundedBoxGeometry(0.105, 0.11, 0.105, 2, 0.035), mVivo);
     const a = (i / 8) * Math.PI * 2;
-    d.position.set(Math.cos(a) * 0.19, Math.sin(a) * 0.19, 0);
+    d.position.set(Math.cos(a) * 0.255, Math.sin(a) * 0.255, 0);
     d.rotation.z = a;
+    conBorde(d, 0.03);
     engrane.add(d);
   }
+  const eje = cil(0.075, 0.12, mHondo);
+  eje.rotation.x = Math.PI / 2;
+  engrane.add(eje);
 
-  // Pistas de circuito saliendo del engrane
-  const nodos = [];
-  const trazas = [
-    [0.30, 0.035, -0.42, 0.16, 0], [0.035, 0.24, -0.55, 0.26, 0],
-    [0.30, 0.035, 0.42, 0.16, 0], [0.035, 0.20, 0.55, 0.24, 0],
-    [0.26, 0.035, -0.40, -0.30, 0], [0.035, 0.22, -0.51, -0.40, 0],
-    [0.34, 0.035, 0.40, -0.34, 0], [0.035, 0.18, 0.55, -0.42, 0]
-  ];
-  trazas.forEach(([w, h, x, y, g]) => cuerpo.add(pista(w, h, x, -0.42 + y, 0.49, g)));
-  [[-0.55, 0.38], [0.55, 0.34], [-0.51, -0.51], [0.55, -0.51]].forEach(([x, y]) => {
-    const n = bola(0.06, mTinta);
-    n.position.set(x, -0.42 + y, 0.5);
+  /* Pistas de circuito saliendo del engrane, con sus nodos: es lo que
+     hace que la panza se lea como la del dibujo y no como una chapa. */
+  const pista = (w, h, x, y) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.02), mVivo);
+    m.position.set(x, -0.3 + y, 0.57);
+    return m;
+  };
+  [[0.24, 0.045, -0.4, 0.2], [0.045, 0.2, -0.5, 0.29],
+   [0.24, 0.045, 0.4, 0.2], [0.045, 0.16, 0.5, 0.27],
+   [0.2, 0.045, -0.38, -0.24], [0.045, 0.18, -0.46, -0.32],
+   [0.28, 0.045, 0.4, -0.28], [0.045, 0.14, 0.52, -0.34]
+  ].forEach(p => cuerpo.add(pista(...p)));
+  [[-0.5, 0.38], [0.5, 0.34], [-0.46, -0.41], [0.52, -0.41]].forEach(([x, y]) => {
+    const n = bola(0.055, mVivo);
+    conBorde(n, 0.028);
+    n.position.set(x, -0.3 + y, 0.58);
     cuerpo.add(n);
   });
 
-  // Tres luces de estado en la parte baja de la panza
+  // Tres luces de estado bajo la panza
   const leds = [];
   [[-0.2, mLedA], [0, mLedB], [0.2, mLedC]].forEach(([x, m]) => {
     const l = bola(0.05, m);
-    l.position.set(x, -0.92, 0.5);
+    l.position.set(x, -0.78, 0.48);
     cuerpo.add(l); leds.push(l);
   });
 
-  // Cuello corto
-  const cuello = cil(0.26, 0.22, mCuerpo);
-  conBorde(cuello, 0.04);
-  cuello.position.y = 0.3;
+  // Cuello corto: la cabeza casi se apoya en los hombros
+  const cuello = cil(0.3, 0.26, mMetal);
+  cuello.position.y = 0.34;
   cuerpo.add(cuello);
 
-  /* --- Brazos: tubo curvo con pinza en C, como los del dibujo --- */
+  /* --- Brazos cortos y regordetes, rematados en pinza --- */
   const brazo = lado => {
     const g = new THREE.Group();
+    g.add(bola(0.19, mMetal));                        // hombro
 
-    const curva = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, 0.04, 0),
-      new THREE.Vector3(lado * 0.26, -0.32, 0.03),
-      new THREE.Vector3(lado * 0.38, -0.72, 0.02),
-      new THREE.Vector3(lado * 0.28, -1.02, 0)
-    ]);
-    const tubo = new THREE.Mesh(
-      new THREE.TubeGeometry(curva, Math.round(24 * seg), 0.125, Math.round(10 * seg), false), mCuerpo);
-    conBorde(tubo, 0.042);
-    g.add(tubo);
+    const sup = caja(0.36, 0.66, 0.36, 0.17, mClaro);
+    sup.position.y = -0.42;
+    g.add(sup);
 
-    const hombro = bola(0.16, mCuerpo);
-    conBorde(hombro, 0.042);
-    hombro.position.y = 0.04;
-    g.add(hombro);
-
+    /* Pinza en C, como la del dibujo, pero gruesa: en 3D un gancho fino
+       se lee como un alambre. */
     const pinza = new THREE.Mesh(
-      new THREE.TorusGeometry(0.145, 0.058, 8, Math.round(22 * seg), Math.PI * 1.35), mCuerpo);
+      new THREE.TorusGeometry(0.17, 0.083, 9, Math.round(24 * seg), Math.PI * 1.45), mVivo);
     conBorde(pinza, 0.04);
-    pinza.position.set(lado * 0.28, -1.16, 0);
-    pinza.rotation.z = lado > 0 ? -0.55 : Math.PI + 0.55;
+    pinza.position.y = -0.9;
+    pinza.rotation.z = lado > 0 ? -0.5 : Math.PI + 0.5;
     g.add(pinza);
 
-    g.position.set(lado * 0.6, -0.16, 0.02);
+    const muneca = cil(0.13, 0.12, mMedio);
+    conBorde(muneca, 0.035);
+    muneca.position.y = -0.74;
+    g.add(muneca);
+
+    g.position.set(lado * 0.9, 0.02, 0.02);
+    g.rotation.z = lado * 0.14;
     return g;
   };
   const brazoIzq = brazo(-1), brazoDer = brazo(1);
   cuerpo.add(brazoIzq, brazoDer);
 
-  /* --- Piernas cortas con pies redondeados --- */
+  /* --- Piernas cortas con botitas --- */
   const pies = [];
   [-1, 1].forEach(d => {
-    const pierna = caja(0.36, 0.44, 0.42, 0.16, mCuerpo);
-    pierna.position.set(d * 0.3, -1.3, 0);
+    const cadera = bola(0.17, mMetal);
+    cadera.position.set(d * 0.36, -0.96, 0);
+    cuerpo.add(cadera);
+
+    const pierna = caja(0.42, 0.5, 0.44, 0.19, mMedio);
+    pierna.position.set(d * 0.36, -1.28, 0);
     cuerpo.add(pierna);
 
-    const pie = caja(0.46, 0.26, 0.54, 0.12, mCuerpo);
-    pie.position.set(d * 0.3, -1.6, 0.07);
-    cuerpo.add(pie);
-    pies.push(pie);
+    const bota = caja(0.52, 0.32, 0.62, 0.15, mVivo);
+    bota.position.set(d * 0.36, -1.62, 0.1);
+    cuerpo.add(bota);
+    pies.push(bota);
   });
 
   /* ================= CABEZA ================= */
   const cabeza = new THREE.Group();
-  cabeza.position.y = 1.0;
+  cabeza.position.y = 1.02;
   raiz.add(cabeza);
 
-  const casco = caja(1.9, 1.5, 1.1, 0.3, mCuerpo);
+  // Casco muy redondeado: es lo que separa "peluche" de "caja"
+  const casco = caja(2.0, 1.62, 1.16, 0.46, mClaro);
   cabeza.add(casco);
 
-  /* La cara del dibujo no es una pantalla oscura sino un recuadro con
-     borde: se consigue con una placa de tinta y encima otra más clara y
-     algo menor, que deja el borde a la vista. */
-  const marco = caja(1.4, 1.0, 0.07, 0.26, mTinta, false);
-  marco.position.set(0, 0.02, 0.52);
-  cabeza.add(marco);
-  const cara = caja(1.26, 0.86, 0.08, 0.21, mCara, false);
-  cara.position.set(0, 0.02, 0.55);
-  cabeza.add(cara);
+  // Pantalla facial: una sola pieza, sin marco ni juntas
+  const pantalla = caja(1.48, 1.0, 0.12, 0.3, mPantalla, false);
+  pantalla.position.set(0, 0.02, 0.55);
+  cabeza.add(pantalla);
 
-  // Ojos sencillos, oscuros, con un punto de luz
+  // Ojos grandes y redondos con su brillo
   const ojos = [];
   [-1, 1].forEach(d => {
-    const o = bola(0.115, mTinta);
-    o.scale.set(0.88, 1, 0.45);
-    o.position.set(d * 0.29, 0.13, 0.6);
+    const o = bola(0.2, mOjo);
+    o.scale.z = 0.55;
+    o.position.set(d * 0.35, 0.14, 0.6);
     cabeza.add(o); ojos.push(o);
 
-    const b = new THREE.Mesh(new THREE.SphereGeometry(0.036, 10, 8), mBrillo);
+    const b = new THREE.Mesh(new THREE.SphereGeometry(0.062, 12, 10), mBrillo);
     b.scale.z = 0.4;
-    b.position.set(d * 0.29 - 0.035, 0.175, 0.65);
+    b.position.set(d * 0.35 - 0.06, 0.22, 0.71);
     cabeza.add(b);
+
+    // Rubor: dos manchas suaves dentro de la pantalla
+    const r = bola(0.13, mRubor);
+    r.scale.set(1.3, 0.72, 0.22);
+    r.position.set(d * 0.6, -0.19, 0.61);
+    cabeza.add(r);
   });
 
   const sonrisa = new THREE.Mesh(
-    new THREE.TorusGeometry(0.17, 0.034, 8, Math.round(22 * seg), Math.PI * 0.85), mTinta);
+    new THREE.TorusGeometry(0.2, 0.036, 8, Math.round(22 * seg), Math.PI * 0.9), mOjo);
   sonrisa.position.set(0, -0.13, 0.6);
-  sonrisa.rotation.z = Math.PI + Math.PI * 0.075;
+  sonrisa.rotation.z = Math.PI + Math.PI * 0.05;
   cabeza.add(sonrisa);
 
-  // Orejas: dos tabiques pequeños a los lados, igual que en el dibujo
+  // Orejas: tabiques azules a los costados, como en el dibujo
   [-1, 1].forEach(d => {
-    const oreja = caja(0.17, 0.42, 0.42, 0.08, mCuerpo);
-    oreja.position.set(d * 0.99, -0.05, 0);
+    const oreja = caja(0.22, 0.5, 0.46, 0.1, mVivo);
+    oreja.position.set(d * 1.02, -0.08, 0);
     cabeza.add(oreja);
+  });
+
+  // Pestaña superior: el escalón que el dibujo tiene sobre la frente
+  const pestana = caja(0.62, 0.16, 0.5, 0.06, mMedio);
+  pestana.position.set(0, 0.78, 0.16);
+  cabeza.add(pestana);
+
+  // Esquinas bajas en azul fuerte, otro guiño al dibujo
+  [-1, 1].forEach(d => {
+    const esquina = caja(0.44, 0.3, 0.16, 0.09, mVivo);
+    esquina.position.set(d * 0.66, -0.58, 0.5);
+    cabeza.add(esquina);
   });
 
   /* ================= BROTE ================= */
   const brote = new THREE.Group();
-  brote.position.y = 0.74;
+  brote.position.y = 0.78;
   cabeza.add(brote);
 
+  /* Dos hojas abriéndose en V desde un mismo punto, sin maceta: es como
+     está en el dibujo. */
   const tallo = new THREE.Mesh(new THREE.TubeGeometry(
     new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, 0, 0), new THREE.Vector3(0.04, 0.3, 0.02),
-      new THREE.Vector3(-0.01, 0.58, 0)]),
-    Math.round(16 * seg), 0.042, Math.round(8 * seg), false), mVerde);
-  conBorde(tallo, 0.032);
+      new THREE.Vector3(0, -0.04, 0), new THREE.Vector3(0.01, 0.16, 0.01),
+      new THREE.Vector3(0, 0.34, 0)]),
+    Math.round(14 * seg), 0.04, Math.round(8 * seg), false), mBrote);
+  conBorde(tallo, 0.03);
   brote.add(tallo);
 
-  const hoja = (lado, alt) => {
+  const rama = lado => {
+    const g = new THREE.Group();
+
+    const t = new THREE.Mesh(new THREE.TubeGeometry(
+      new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0, 0, 0), new THREE.Vector3(lado * 0.12, 0.16, 0),
+        new THREE.Vector3(lado * 0.26, 0.28, 0)]),
+      Math.round(12 * seg), 0.033, Math.round(7 * seg), false), mBrote);
+    conBorde(t, 0.026);
+    g.add(t);
+
     const f = new THREE.Shape();
     f.moveTo(0, 0);
-    f.bezierCurveTo(0.2, 0.14, 0.42, 0.34, 0.54, 0.6);
-    f.bezierCurveTo(0.24, 0.54, 0.06, 0.3, 0, 0);
-    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(f, {
+    f.bezierCurveTo(0.2, 0.1, 0.44, 0.26, 0.56, 0.5);
+    f.bezierCurveTo(0.26, 0.48, 0.07, 0.26, 0, 0);
+    const hoja = new THREE.Mesh(new THREE.ExtrudeGeometry(f, {
       depth: 0.05, bevelEnabled: true, bevelSize: 0.022, bevelThickness: 0.022, bevelSegments: 2
-    }), mVerde);
-    conBorde(m, 0.032);
-    m.scale.x = lado;
-    m.position.set(lado * 0.03, alt, -0.028);
-    m.rotation.z = lado * -0.3;
-    return m;
+    }), mBrote);
+    conBorde(hoja, 0.03);
+    hoja.scale.x = lado;
+    hoja.position.set(lado * 0.2, 0.22, -0.028);
+    hoja.rotation.z = lado * -0.22;
+    g.add(hoja);
+
+    g.position.y = 0.3;
+    return g;
   };
-  const hojaIzq = hoja(-1, 0.3), hojaDer = hoja(1, 0.44);
+  const hojaIzq = rama(-1), hojaDer = rama(1);
   brote.add(hojaIzq, hojaDer);
 
   /* ================= ENCUADRE =================
@@ -288,21 +335,21 @@ export async function montarRobot3D(host) {
      quepa el encuadre pedido, sea cual sea la forma del hueco: así el
      robot no se corta en un lienzo estrecho ni queda diminuto en uno ancho.
 
-       lejos → el robot entero    (de y=-1.77 a y=2.70, ancho ±1.24)
-       cerca → cabeza y hombros   (de y= 0.25 a y=2.70)
+       lejos → el robot entero    (de y=-1.83 a y=2.87, ancho ±1.19)
+       cerca → cabeza y hombros   (de y= 0.16 a y=2.87)
   */
   const TAN = Math.tan(15 * Math.PI / 180);   // media apertura de 30°
   const enfoque = (medioAlto, medioAncho) =>
     Math.max(medioAlto, medioAncho / camara.aspect) / TAN;
 
-  const MIRA_LEJOS = 0.42, MIRA_CERCA = 1.48;
+  const MIRA_LEJOS = 0.55, MIRA_CERCA = 1.62;
   let zLejos = 9, zCerca = 6;
   const encuadrar = () => {
     const a = host.clientWidth, b = host.clientHeight || a;
     if (!a || !b) return;
     camara.aspect = a / b;
-    zLejos = enfoque(2.45, 1.35);
-    zCerca = enfoque(1.42, 1.32);
+    zLejos = enfoque(2.60, 1.30);
+    zCerca = enfoque(1.55, 1.28);
     camara.updateProjectionMatrix();
     render.setSize(a, b);
   };
@@ -314,7 +361,6 @@ export async function montarRobot3D(host) {
   const escenaEl = host.closest('.escena') || document.body;
   const meta = { x: 0, y: 0 };
   const act = { x: 0, y: 0 };
-  const tope = (v, l) => Math.max(-l, Math.min(l, v));
 
   addEventListener('pointermove', e => {
     meta.x = ((e.clientX / innerWidth) - 0.5) * 2 * LIMITE_X;
@@ -323,9 +369,10 @@ export async function montarRobot3D(host) {
 
   /* En el teléfono no hay cursor: la cabeza sigue la inclinación del
      aparato. El punto neutro es la postura con la que se empezó a leer y
-     va corrigiéndose muy despacio, para que quien lea recostado no se
-     encuentre la cabeza clavada en el tope. */
+     se corrige muy despacio, para que quien lea recostado no se encuentre
+     la cabeza clavada en el tope. */
   if (matchMedia('(pointer: coarse)').matches && typeof DeviceOrientationEvent !== 'undefined') {
+    const tope = (v, l) => Math.max(-l, Math.min(l, v));
     let cero = null;
     addEventListener('deviceorientation', e => {
       if (e.beta == null && e.gamma == null) return;
@@ -395,10 +442,12 @@ export async function montarRobot3D(host) {
     const resp = Math.sin(t * 0.9) * 0.035;
     raiz.position.y = resp;
     raiz.rotation.y = avanceSuave * -0.16;
-    cabeza.position.y = 1.0 + resp * 0.5;
+    cabeza.position.y = 1.02 + resp * 0.5;
 
-    /* La cámara se acerca a la cara conforme baja el scroll: al final
-       encuadra cabeza y hombros, en vez de cortar al robot a media pierna. */
+    /* La cámara se acerca a la cara conforme baja el scroll. Al principio
+       encuadra al robot entero (mide 4.3 de alto y su centro está en 0.30);
+       al final se queda en la cabeza, así el cuerpo sale de cuadro por
+       abajo en vez de verse cortado a media pierna. */
     const mira = MIRA_LEJOS + (MIRA_CERCA - MIRA_LEJOS) * avanceSuave;
     camara.position.set(0, mira + 0.05, zLejos + (zCerca - zLejos) * avanceSuave);
     camara.lookAt(0, mira, 0);
@@ -416,11 +465,11 @@ export async function montarRobot3D(host) {
 
     engrane.rotation.z = -t * 0.5;
     brote.rotation.z = Math.sin(t * 1.1) * 0.1;
-    hojaIzq.rotation.z = -0.3 + Math.sin(t * 1.5) * 0.13;
-    hojaDer.rotation.z = 0.3 + Math.sin(t * 1.5 + 0.9) * 0.13;
-    brazoIzq.rotation.z = Math.sin(t * 0.8) * 0.05;
-    brazoDer.rotation.z = -Math.sin(t * 0.8) * 0.05;
-    pies.forEach((p, i) => { p.position.y = -1.6 + Math.sin(t * 0.9 + i * 0.6) * 0.02; });
+    hojaIzq.rotation.z = Math.sin(t * 1.5) * 0.11;
+    hojaDer.rotation.z = Math.sin(t * 1.5 + 0.9) * 0.11;
+    brazoIzq.rotation.z = -0.14 + Math.sin(t * 0.8) * 0.05;
+    brazoDer.rotation.z = 0.14 - Math.sin(t * 0.8) * 0.05;
+    pies.forEach((p, i) => { p.position.y = -1.62 + Math.sin(t * 0.9 + i * 0.6) * 0.02; });
 
     render.render(escena, camara);
   }

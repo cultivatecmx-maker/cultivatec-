@@ -353,12 +353,16 @@ export async function montarRobot3D(host) {
 
   /* ================= MOVIMIENTO ================= */
   const escenaEl = host.closest('.escena') || document.body;
+  const reloj = new THREE.Clock();
   const meta = { x: 0, y: 0 };
   const act = { x: 0, y: 0 };
+
+  let ultimoGesto = -99;   // cuándo se movió el cursor por última vez
 
   addEventListener('pointermove', e => {
     meta.x = ((e.clientX / innerWidth) - 0.5) * 2 * LIMITE_X;
     meta.y = ((e.clientY / innerHeight) - 0.5) * 2 * LIMITE_Y;
+    ultimoGesto = reloj.getElapsedTime();
   }, { passive: true });
 
   /* En el teléfono no hay cursor: la cabeza sigue la inclinación del
@@ -392,7 +396,22 @@ export async function montarRobot3D(host) {
   }
 
   const caja3D = host.closest('.robot-caja');
-  let avance = 0, rxPrev = -1;
+  let avance = 0, rxPrev = -1, fundPrev = -1;
+
+  /* Dónde acaba el viaje horizontal. Un porcentaje fijo no sirve: el hueco
+     que dejan las tarjetas cambia de ancho con la ventana, y con 15% el
+     robot quedaba pegado a las tarjetas en pantallas anchas. Se mide el
+     hueco y se centra dentro de él. */
+  let rxFinal = 15;
+  const medirHueco = () => {
+    const lista = document.querySelector('.caminos-lista');
+    if (!lista || !caja3D) return;
+    const r = lista.getBoundingClientRect();
+    const centro = (r.right + innerWidth) / 2;
+    rxFinal = Math.max(1, (innerWidth - centro - caja3D.offsetWidth / 2) / innerWidth * 100);
+  };
+  medirHueco();
+  addEventListener('resize', medirHueco, { passive: true });
 
   /* Se mide dentro del bucle de render, no en el evento `scroll`: va
      sincronizado con el cuadro y no depende de que el navegador entregue
@@ -402,10 +421,19 @@ export async function montarRobot3D(host) {
     const r = escenaEl.getBoundingClientRect();
     avance = Math.min(1, Math.max(0, -r.top / Math.max(r.height - innerHeight, 1)));
     const suave = avance < .5 ? 2 * avance * avance : 1 - Math.pow(-2 * avance + 2, 2) / 2;
-    const rx = 4 + suave * 11;
+
+    const rx = 4 + suave * (rxFinal - 4);
     if (Math.abs(rx - rxPrev) > 0.05) {
       caja3D.style.setProperty('--rx', rx.toFixed(2) + '%');
       rxPrev = rx;
+    }
+    /* Al acercarse a la cara el cuerpo se sale del lienzo y el corte
+       quedaba como una línea recta con el blanco de la sección debajo.
+       El degradado de máscara lo disuelve. */
+    const fund = 100 - suave * 26;
+    if (Math.abs(fund - fundPrev) > 0.4) {
+      caja3D.style.setProperty('--fundido', fund.toFixed(1) + '%');
+      fundPrev = fund;
     }
   };
   medirAvance();
@@ -414,15 +442,28 @@ export async function montarRobot3D(host) {
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(host);
   document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
 
-  const reloj = new THREE.Clock();
-  let proxParpadeo = 2 + Math.random() * 3;
+  let proxParpadeo = 2 + Math.random() * 3, doble = false;
   let avanceSuave = 0;
+  let broteGiro = 0, broteVel = 0;          // arrastre de la planta
+  let proxSaludo = 6 + Math.random() * 5, saludo = 0;
+  const entrada = { e: 0.82, y: -0.5 };     // aparición con rebote
 
   function bucle() {
     requestAnimationFrame(bucle);
     if (!visible) return;
     const t = reloj.getElapsedTime();
     medirAvance();
+
+    /* Aparición: un resorte sobreamortiguado, no un salto brusco. */
+    entrada.e += (1 - entrada.e) * 0.06;
+    entrada.y += (0 - entrada.y) * 0.055;
+
+    /* Si nadie mueve el cursor, mira alrededor por su cuenta en vez de
+       quedarse clavado al frente. */
+    if (t - ultimoGesto > 3.5) {
+      meta.x = Math.sin(t * 0.31) * 0.62 + Math.sin(t * 0.13) * 0.3;
+      meta.y = Math.sin(t * 0.24 + 1.4) * 0.2;
+    }
 
     act.x += (meta.x - act.x) * INERCIA;
     act.y += (meta.y - act.y) * INERCIA;
@@ -433,9 +474,12 @@ export async function montarRobot3D(host) {
     cuerpo.rotation.y = act.x * 0.2;
 
     avanceSuave += (avance - avanceSuave) * 0.09;
-    const resp = Math.sin(t * 0.9) * 0.035;
-    raiz.position.y = resp;
-    raiz.rotation.y = avanceSuave * -0.16;
+    /* Respiración con dos ritmos: uno solo hace un balanceo de metrónomo. */
+    const resp = Math.sin(t * 0.9) * 0.032 + Math.sin(t * 0.37) * 0.014;
+    raiz.position.y = resp + entrada.y;
+    raiz.rotation.y = avanceSuave * -0.16 + Math.sin(t * 0.23) * 0.05;
+    raiz.rotation.z = Math.sin(t * 0.31) * 0.016;
+    raiz.scale.setScalar(entrada.e);
     cabeza.position.y = 1.02 + resp * 0.5;
 
     /* La cámara se acerca a la cara conforme baja el scroll. Al principio
@@ -446,11 +490,19 @@ export async function montarRobot3D(host) {
     camara.position.set(0, mira + 0.05, zLejos + (zCerca - zLejos) * avanceSuave);
     camara.lookAt(0, mira, 0);
 
+    /* Parpadeo: a veces sencillo y a veces doble, que es como parpadea
+       cualquiera. Uno siempre igual delata la máquina. */
     if (t > proxParpadeo) {
-      const p = (t - proxParpadeo) / 0.13;
-      const s = p < 1 ? Math.abs(Math.sin(p * Math.PI)) : 0;
+      const dur = doble ? 0.34 : 0.14;
+      const p = (t - proxParpadeo) / dur;
+      const ciclos = doble ? 2 : 1;
+      const s = p < 1 ? Math.abs(Math.sin(p * Math.PI * ciclos)) : 0;
       ojos.forEach(o => o.scale.y = 1 - s * 0.92);
-      if (p >= 1) { proxParpadeo = t + 2.4 + Math.random() * 3.4; ojos.forEach(o => o.scale.y = 1); }
+      if (p >= 1) {
+        ojos.forEach(o => o.scale.y = 1);
+        proxParpadeo = t + 2.2 + Math.random() * 3.6;
+        doble = Math.random() < 0.28;
+      }
     }
 
     leds.forEach((l, i) => {
@@ -458,11 +510,29 @@ export async function montarRobot3D(host) {
     });
 
     engrane.rotation.z = -t * 0.5;
-    brote.rotation.z = Math.sin(t * 1.1) * 0.1;
+
+    /* Arrastre del brote: la planta llega tarde al giro de la cabeza y se
+       pasa un poco de largo. Es lo que más vida da al conjunto. */
+    broteVel += (act.x - broteGiro) * 0.055;
+    broteVel *= 0.86;
+    broteGiro += broteVel;
+    brote.rotation.z = (act.x - broteGiro) * 1.5 + Math.sin(t * 1.1) * 0.07;
+    brote.rotation.x = -act.y * 0.25;
     hojaIzq.rotation.z = Math.sin(t * 1.5) * 0.11;
     hojaDer.rotation.z = Math.sin(t * 1.5 + 0.9) * 0.11;
+
+    /* Saludo: cada tantos segundos levanta una mano y la agita. */
+    if (t > proxSaludo) {
+      const p = (t - proxSaludo) / 2.2;
+      if (p >= 1) { proxSaludo = t + 11 + Math.random() * 9; saludo = 0; }
+      else {
+        // sube, agita tres veces y baja
+        const sobre = Math.min(1, p / 0.22, (1 - p) / 0.22);
+        saludo = sobre * (1.55 + Math.sin(p * Math.PI * 6) * 0.28);
+      }
+    }
     brazoIzq.rotation.z = -0.14 + Math.sin(t * 0.8) * 0.05;
-    brazoDer.rotation.z = 0.14 - Math.sin(t * 0.8) * 0.05;
+    brazoDer.rotation.z = 0.14 - Math.sin(t * 0.8) * 0.05 + saludo;
     pies.forEach((p, i) => { p.position.y = -1.62 + Math.sin(t * 0.9 + i * 0.6) * 0.02; });
 
     render.render(escena, camara);

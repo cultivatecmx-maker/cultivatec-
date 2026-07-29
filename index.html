@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260729d">
+<link rel="stylesheet" href="css/styles.css?v=20260729e">
 
 <script type="application/ld+json">
 {
@@ -192,8 +192,133 @@
  ]
 }
 </script>
+<style>
+/* ---- Pantalla de arranque ----
+   La animación la lleva el CSS de principio a fin, incluida la salida:
+   así se retira sola aunque el JavaScript no llegue a ejecutarse. El
+   script solo sirve para saltársela si ya se vio en esta sesión. */
+.arranque{
+  position:fixed;inset:0;z-index:9999;
+  display:grid;place-content:center;justify-items:center;gap:26px;
+  background:radial-gradient(120% 90% at 50% 38%,#1E3A8A 0%,#0B2050 55%,#071633 100%);
+  animation:arr-salir .75s cubic-bezier(.4,0,.2,1) 2.15s forwards;
+}
+.arranque[hidden]{display:none}
+@keyframes arr-salir{to{opacity:0;visibility:hidden;pointer-events:none}}
+
+.arr-nucleo{position:relative;width:132px;height:132px;display:grid;place-items:center}
+.arr-aro{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.arr-aro .base{fill:none;stroke:rgba(147,197,253,.2);stroke-width:2.5}
+.arr-aro .traza{
+  fill:none;stroke:#7DD3FC;stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:327;stroke-dashoffset:327;
+  transform:rotate(-90deg);transform-origin:60px 60px;
+  animation:arr-traza 1.45s cubic-bezier(.65,0,.35,1) .1s forwards;
+}
+@keyframes arr-traza{to{stroke-dashoffset:0}}
+.arr-aro .dientes{
+  fill:#3B82F6;opacity:0;transform-origin:60px 60px;
+  animation:arr-dientes 1.9s cubic-bezier(.22,1,.3,1) .25s forwards;
+}
+@keyframes arr-dientes{
+  0%{opacity:0;transform:rotate(-26deg)}
+  40%{opacity:1}
+  100%{opacity:1;transform:rotate(0)}
+}
+.arr-logo{
+  width:62px;height:62px;
+  animation:arr-logo .8s cubic-bezier(.34,1.4,.64,1) .55s both;
+}
+@keyframes arr-logo{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+
+/* Barrido de sensor sobre el núcleo */
+.arr-barrido{
+  position:absolute;left:-6%;right:-6%;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,#7DD3FC,transparent);
+  filter:blur(.4px);
+  animation:arr-barrido 1.5s cubic-bezier(.5,0,.5,1) .2s 2;
+}
+@keyframes arr-barrido{
+  0%{top:2%;opacity:0}12%{opacity:.9}88%{opacity:.9}100%{top:96%;opacity:0}
+}
+
+.arr-marca{
+  font-family:var(--font-display,'Space Grotesk',system-ui,sans-serif);
+  font-size:1.5rem;font-weight:700;color:#EAF2FF;letter-spacing:.42em;
+  text-indent:.42em;margin:0;
+  animation:arr-marca 1.1s cubic-bezier(.22,1,.3,1) .75s both;
+}
+.arr-marca b{color:#7DD3FC;font-weight:700}
+@keyframes arr-marca{
+  from{opacity:0;letter-spacing:.9em;text-indent:.9em}
+  to{opacity:1;letter-spacing:.16em;text-indent:.16em}
+}
+
+.arr-barra{
+  width:190px;height:3px;border-radius:3px;overflow:hidden;
+  background:rgba(147,197,253,.22);
+}
+.arr-barra span{
+  display:block;height:100%;width:100%;border-radius:3px;
+  background:linear-gradient(90deg,#3B82F6,#7DD3FC);
+  transform-origin:left;transform:scaleX(0);
+  animation:arr-barra 1.85s cubic-bezier(.5,0,.2,1) .15s forwards;
+}
+@keyframes arr-barra{to{transform:scaleX(1)}}
+
+.arr-pie{
+  font-size:.6875rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(191,219,254,.72);margin:0;
+  animation:arr-pie .8s ease 1.1s both;
+}
+@keyframes arr-pie{from{opacity:0}to{opacity:1}}
+
+/* Quien pide menos movimiento no ve la pantalla en absoluto: si el
+   sistema desactivara las animaciones, la de salida tampoco correría. */
+@media (prefers-reduced-motion:reduce){.arranque{display:none}}
+</style>
 </head>
 <body>
+
+<!-- ==================== ARRANQUE ==================== -->
+<div class="arranque" id="arranque" role="presentation" aria-hidden="true">
+  <div class="arr-nucleo">
+    <svg class="arr-aro" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <circle class="base" cx="60" cy="60" r="52"/>
+      <g class="dientes">
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(0.00 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(25.71 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(51.43 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(77.14 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(102.86 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(128.57 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(154.29 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(180.00 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(205.71 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(231.43 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(257.14 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(282.86 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(308.57 60 60)"/>
+        <rect x="58.4" y="1.5" width="3.2" height="7" rx="1.4" transform="rotate(334.29 60 60)"/>
+      </g>
+      <circle class="traza" cx="60" cy="60" r="52"/>
+    </svg>
+    <span class="arr-barrido" aria-hidden="true"></span>
+    <img class="arr-logo" src="logo.png" alt="" width="62" height="62">
+  </div>
+
+  <p class="arr-marca">Cultiva<b>Tec</b></p>
+  <div class="arr-barra"><span></span></div>
+  <p class="arr-pie">Iniciando sistemas</p>
+</div>
+<script>
+  /* Solo la primera visita de la sesión: volver a la portada desde otra
+     página no debe repetir la secuencia. */
+  try {
+    if (sessionStorage.getItem('ct-arranque')) document.getElementById('arranque').hidden = true;
+    else sessionStorage.setItem('ct-arranque', '1');
+  } catch (e) {}
+</script>
 
 <a href="#main" class="skip-link">Saltar al contenido</a>
 
@@ -851,7 +976,7 @@
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
 <script type="module">
   // Se importa aparte y sólo si procede: el módulo decide si vale la pena
-  import('./js/robot3d.js?v=20260729d').then(m => {
+  import('./js/robot3d.js?v=20260729e').then(m => {
     const host = document.querySelector('.robot-3d');
     if (!host) return;
     // En móvil no hay viaje: el lienzo se monta en el hueco del hero
@@ -861,6 +986,6 @@
     m.montarRobot3D(host).catch(() => {});   // si falla, se queda el SVG
   }).catch(() => {});
 </script>
-<script src="js/main.js?v=20260729d"></script>
+<script src="js/main.js?v=20260729e"></script>
 </body>
 </html>

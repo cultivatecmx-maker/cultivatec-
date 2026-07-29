@@ -260,44 +260,66 @@ const App = {
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   },
 
-  /* --- Formulario: sin backend, abre el correo del visitante --- */
+  /* --- Envío real de formularios ---------------------------------
+     El sitio es estático, sin servidor propio, así que los envíos van a
+     FormSubmit, que reenvía a la bandeja. Antes esto abría un `mailto:` y
+     por eso no llegaba nada: dependía de que el visitante tuviera un
+     cliente de correo configurado, y en webmail no pasa nada al pulsar.
+
+     Los formularios llevan `action` y `method`, así que si el JavaScript
+     falla el navegador los envía igual por su cuenta. Aquí solo se
+     intercepta para no sacar a nadie de la página.
+
+     Ojo: FormSubmit exige confirmar el destino UNA vez. El primer envío
+     manda un correo de activación a contacto@cultivatec.com.mx con un
+     enlace; hasta pulsarlo no entrega nada.
+  ---------------------------------------------------------------- */
+  enviar(form) {
+    const destino = form.getAttribute('action');
+    const datos = new FormData(form);
+    return fetch(destino.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: datos
+    }).then(r => {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    });
+  },
+
+  /* Deja el botón en un estado y lo devuelve al cabo de unos segundos. */
+  avisar(btn, original, icono, texto, fondo, alTerminar) {
+    btn.innerHTML = `<i class="ph-bold ${icono}"></i> ${texto}`;
+    if (fondo) btn.style.background = fondo;
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.style.background = '';
+      btn.disabled = false;
+      if (alTerminar) alTerminar();
+    }, 4500);
+  },
+
   contactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
 
     form.addEventListener('submit', e => {
       e.preventDefault();
-
       const btn = form.querySelector('.form-submit');
       const original = btn.innerHTML;
-      const val = name => (form.elements[name]?.value || '').trim();
-      const to = form.dataset.to || 'contacto@cultivatec.com.mx';
-
-      const subject = `${val('interes') || 'Contacto'} — ${val('institucion') || val('nombre') || 'CultivaTec'}`;
-      const body = [
-        `Nombre: ${val('nombre')}`,
-        `Correo: ${val('correo')}`,
-        `Institución: ${val('institucion') || '—'}`,
-        `Teléfono: ${val('telefono') || '—'}`,
-        `Interés: ${val('interes') || '—'}`,
-        '', 'Mensaje:', val('mensaje')
-      ].join('\n');
-
-      btn.innerHTML = '<i class="ph-bold ph-circle-notch spin"></i> Abriendo tu correo…';
+      btn.innerHTML = '<i class="ph-bold ph-circle-notch spin"></i> Enviando…';
       btn.disabled = true;
 
-      location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      setTimeout(() => {
-        btn.innerHTML = '<i class="ph-bold ph-check-circle"></i> ¡Listo! Revisa tu correo';
-        btn.style.background = 'linear-gradient(135deg,#047857,#34D399)';
-        setTimeout(() => {
-          form.reset();
-          btn.innerHTML = original;
-          btn.style.background = '';
-          btn.disabled = false;
-        }, 4000);
-      }, 1200);
+      this.enviar(form).then(() => {
+        if (window.gtag) gtag('event', 'generate_lead', { form_id: 'contacto' });
+        this.avisar(btn, original, 'ph-check-circle', '¡Enviado! Te respondemos pronto',
+                    'linear-gradient(135deg,#047857,#34D399)', () => form.reset());
+      }).catch(() => {
+        // Si el envío no sale, se ofrece el correo directo antes que perderlo
+        this.avisar(btn, original, 'ph-warning-circle',
+                    'No se pudo enviar — escríbenos a contacto@cultivatec.com.mx',
+                    'linear-gradient(135deg,#B45309,#F59E0B)');
+      });
     });
   },
 
@@ -395,37 +417,26 @@ const App = {
     pinta();
   },
 
-  /* --- Correo del hero: sin backend, abre el cliente de correo --- */
+  /* --- Correo del hero: mismo camino que el formulario largo --- */
   heroForm() {
     const form = document.getElementById('hero-demo');
     if (!form) return;
 
     form.addEventListener('submit', e => {
       e.preventDefault();
-      const correo = (form.elements['correo']?.value || '').trim();
       const btn = form.querySelector('button');
       const original = btn.innerHTML;
-
-      const cuerpo = [
-        'Hola CultivaTec, quiero una demo de la plataforma.',
-        '',
-        'Mi correo: ' + correo,
-        'Escuela: ',
-        'Número de grupos: ',
-        'Ciudad: '
-      ].join('\n');
-
-      btn.innerHTML = '<i class="ph-bold ph-circle-notch spin"></i> Abriendo…';
+      btn.innerHTML = '<i class="ph-bold ph-circle-notch spin"></i> Enviando…';
       btn.disabled = true;
 
-      location.href = 'mailto:contacto@cultivatec.com.mx'
-        + '?subject=' + encodeURIComponent('Solicitud de demo')
-        + '&body=' + encodeURIComponent(cuerpo);
-
-      setTimeout(() => {
-        btn.innerHTML = '<i class="ph-bold ph-check-circle"></i> Revisa tu correo';
-        setTimeout(() => { form.reset(); btn.innerHTML = original; btn.disabled = false; }, 3500);
-      }, 1000);
+      this.enviar(form).then(() => {
+        if (window.gtag) gtag('event', 'generate_lead', { form_id: 'demo-hero' });
+        this.avisar(btn, original, 'ph-check-circle', '¡Listo! Te escribimos',
+                    'linear-gradient(135deg,#047857,#34D399)', () => form.reset());
+      }).catch(() => {
+        this.avisar(btn, original, 'ph-warning-circle', 'Escríbenos a contacto@cultivatec.com.mx',
+                    'linear-gradient(135deg,#B45309,#F59E0B)');
+      });
     });
   },
 

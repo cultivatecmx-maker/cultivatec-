@@ -58,7 +58,14 @@
 ------------------------------------------------------------ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 20px);-webkit-text-size-adjust:100%}
+/* `overflow-x:clip` además del `hidden` del body: hidden en body se
+   propaga al lienzo, y iOS no siempre respeta esa propagación. `clip` no
+   crea contenedor de scroll, así que no rompe el `position:sticky` del
+   robot y cierra la puerta a cualquier desborde lateral. */
+html{
+  scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 20px);
+  -webkit-text-size-adjust:100%;overflow-x:clip;
+}
 
 body{
   font-family:var(--font-body);font-size:16px;line-height:1.7;
@@ -861,6 +868,14 @@ select.input{
 .reveal-left{transform:translateX(-28px)}
 .reveal-right{transform:translateX(28px)}
 .reveal.visible,.reveal-left.visible,.reveal-right.visible{opacity:1;transform:none}
+
+/* En el móvil las dos columnas se apilan, así que una entrada lateral no
+   viene de ningún lado: solo empujaba el bloque 28 px a la derecha, y el
+   relleno del contenedor no daba para tanto. Ese sobrante de 10 a 14 px
+   era el scroll horizontal. Aquí entran subiendo, como el resto. */
+@media (max-width:960px){
+  .reveal-left,.reveal-right{transform:translateY(26px)}
+}
 
 .stagger > *{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease-out),transform .65s var(--ease-out)}
 .stagger.visible > *{opacity:1;transform:none}

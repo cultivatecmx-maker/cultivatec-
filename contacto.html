@@ -28,7 +28,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260729h">
+<link rel="stylesheet" href="css/styles.css?v=20260729i">
+<script src="js/analitica.js?v=20260729i" defer></script>
 
 <script type="application/ld+json">
 {
@@ -214,7 +215,15 @@
         <h2 style="font-size:1.4rem;margin-bottom:8px">Cuéntanos qué necesitas</h2>
         <p style="font-size:.9063rem;color:var(--slate-500);margin-bottom:26px">Preparamos la propuesta con tus contenidos y tu número de grupos.</p>
 
-        <form id="contact-form" data-to="contacto@cultivatec.com.mx">
+        <form id="contact-form" data-to="contacto@cultivatec.com.mx"
+              method="POST" action="https://formsubmit.co/contacto@cultivatec.com.mx">
+          <!-- Campos de servicio de FormSubmit. Si el navegador envía el
+               formulario sin JavaScript, esto sigue funcionando. -->
+          <input type="hidden" name="_subject" value="Nueva solicitud desde cultivatec.com.mx">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off"
+                 aria-hidden="true" style="position:absolute;left:-9999px">
           <div class="form-row">
             <div class="field"><label for="f-name">Nombre completo</label>
               <input type="text" id="f-name" name="nombre" class="input" placeholder="Tu nombre" required></div>
@@ -242,7 +251,7 @@
           <div class="field"><label for="f-msg">Mensaje</label>
             <textarea id="f-msg" name="mensaje" class="input" placeholder="Cuéntanos cuántos grupos tienes y qué te gustaría lograr…" required></textarea></div>
           <button type="submit" class="form-submit"><i class="ph-bold ph-paper-plane-tilt"></i> Enviar solicitud</button>
-          <p class="form-legal">Se abrirá tu aplicación de correo con el mensaje listo para enviar. No compartimos tus datos con terceros.</p>
+          <p class="form-legal">El mensaje llega directo a nuestra bandeja. Te respondemos el mismo día hábil y no compartimos tus datos con terceros.</p>
         </form>
       </div>
     </div>
@@ -348,6 +357,6 @@
 </footer>
 
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
-<script src="js/main.js?v=20260729h"></script>
+<script src="js/main.js?v=20260729i"></script>
 </body>
 </html>

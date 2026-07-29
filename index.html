@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260728o">
+<link rel="stylesheet" href="css/styles.css?v=20260728q">
 
 <script type="application/ld+json">
 {
@@ -814,7 +814,7 @@
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
 <script type="module">
   // Se importa aparte y sólo si procede: el módulo decide si vale la pena
-  import('./js/robot3d.js?v=20260728o').then(m => {
+  import('./js/robot3d.js?v=20260728q').then(m => {
     const host = document.querySelector('.robot-3d');
     if (!host) return;
     // En móvil no hay viaje: el lienzo se monta en el hueco del hero
@@ -824,6 +824,6 @@
     m.montarRobot3D(host).catch(() => {});   // si falla, se queda el SVG
   }).catch(() => {});
 </script>
-<script src="js/main.js?v=20260728o"></script>
+<script src="js/main.js?v=20260728q"></script>
 </body>
 </html>

@@ -1268,12 +1268,17 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
 .hero-copy,.hero-placas{position:relative;z-index:3}
 .hero-robot{z-index:2}
 
-/* --- Sección de los tres caminos: contenido a un lado --- */
+/* --- Sección de los tres caminos: contenido a un lado ---
+   Sin z-index propio a propósito. Con `z-index:2` la sección creaba
+   contexto de apilamiento y su fondo opaco tapaba al robot entero: en vez
+   del modelo se veía un hueco en blanco. Ahora el fondo queda por debajo
+   del robot y solo el contenido sube por encima. */
 .tres-caminos{
-  position:relative;z-index:2;
+  position:relative;
   background:linear-gradient(180deg,#fff 0%,#F4F9FF 60%,#fff 100%);
 }
 .tres-caminos > .container{position:relative}
+.tres-caminos .head-split{position:relative;z-index:2}
 
 /* Las tarjetas se apilan en la mitad izquierda y dejan libre la derecha */
 .caminos-lista{

@@ -404,7 +404,13 @@ ul,ol{list-style:none}
   transition:opacity .6s var(--ease);
   animation:robot-flota 7s ease-in-out infinite;
 }
+/* El 3D trae su propia sombra de contacto: la elipse de reserva
+   sobra en cuanto entra, o se quedaría flotando sin nada encima. */
 body:has(.robot-3d.listo) .robot-svg{opacity:0}
+/* Hay que apagarle la animación: sus fotogramas fijan la opacidad y una
+   animación gana siempre a una declaración normal, así que el opacity:0
+   por sí solo no la escondía. */
+body:has(.robot-3d.listo) .pedestal{animation:none;opacity:0}
 @keyframes robot-flota{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-56%)}}
 .r-ojo{transform-origin:center;animation:r-parpadeo 4.6s ease-in-out infinite}
 @keyframes r-parpadeo{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}

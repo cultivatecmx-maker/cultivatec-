@@ -107,6 +107,30 @@ export async function montarRobot3D(host) {
   const raiz = new THREE.Group();
   escena.add(raiz);
 
+  /* Sombra de contacto. Va colgada de la escena, no de la raíz, para que
+     se quede en el suelo cuando el robot se despega: al brincar encoge y
+     se aclara, que es lo que da la sensación de altura. */
+  const lienzoSombra = document.createElement('canvas');
+  lienzoSombra.width = lienzoSombra.height = 128;
+  const pincel = lienzoSombra.getContext('2d');
+  const degradado = pincel.createRadialGradient(64, 64, 0, 64, 64, 64);
+  degradado.addColorStop(0.00, 'rgba(20,58,114,.5)');
+  degradado.addColorStop(0.45, 'rgba(20,58,114,.24)');
+  degradado.addColorStop(1.00, 'rgba(20,58,114,0)');
+  pincel.fillStyle = degradado;
+  pincel.fillRect(0, 0, 128, 128);
+
+  const sombra = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.1, 3.1),
+    new THREE.MeshBasicMaterial({
+      map: new THREE.CanvasTexture(lienzoSombra),
+      transparent: true, depthWrite: false
+    })
+  );
+  sombra.rotation.x = -Math.PI / 2;
+  sombra.position.y = -1.86;
+  escena.add(sombra);
+
   /* ================= CUERPO =================
      Panza redonda de una sola pieza: los dos bloques y la cintura a la
      vista que tenía antes lo volvían anguloso. */
@@ -172,9 +196,9 @@ export async function montarRobot3D(host) {
     cuerpo.add(l); leds.push(l);
   });
 
-  // Cuello corto: la cabeza casi se apoya en los hombros
-  const cuello = cil(0.3, 0.26, mMetal);
-  cuello.position.y = 0.34;
+  // Cuello: puentea del hombro a la base del casco
+  const cuello = cil(0.3, 0.5, mMetal);
+  cuello.position.y = 0.38;
   cuerpo.add(cuello);
 
   /* --- Brazos cortos y regordetes, rematados en pinza --- */
@@ -238,8 +262,12 @@ export async function montarRobot3D(host) {
   });
 
   /* ================= CABEZA ================= */
+  /* A 1.02 la base del casco quedaba por debajo del hombro, así que al
+     cabecear su esquina se metía en el torso y parecía que lo cortaba.
+     Subida y con el cuello alargado para que no se abra hueco. */
+  const CABEZA_Y = 1.18;
   const cabeza = new THREE.Group();
-  cabeza.position.y = 1.02;
+  cabeza.position.y = CABEZA_Y;
   raiz.add(cabeza);
 
   // Casco muy redondeado: es lo que separa "peluche" de "caja"
@@ -336,20 +364,22 @@ export async function montarRobot3D(host) {
      mueve: al bajar solo se acerca un poco. Antes terminaba en un primer
      plano de la cara, que partía el cuerpo contra el borde del lienzo.
 
-       modelo: de y=-1.83 a y=2.87 (media altura 2.35), ancho ±1.33
+       modelo: de y=-1.90 (borde útil de la sombra) a y=3.03, centro 0.56,
+       ancho ±1.33. Llena el 84% del alto arriba y el 99% abajo: se nota
+       el acercamiento y aun así no se corta en ninguno de los dos.
   */
   const TAN = Math.tan(15 * Math.PI / 180);   // media apertura de 30°
   const enfoque = (medioAlto, medioAncho) =>
     Math.max(medioAlto, medioAncho / camara.aspect) / TAN;
 
-  const MIRA = 0.52;               // centro real del modelo
+  const MIRA = 0.56;               // centro real del modelo, sombra incluida
   let zLejos = 9, zCerca = 8;
   const encuadrar = () => {
     const a = host.clientWidth, b = host.clientHeight || a;
     if (!a || !b) return;
     camara.aspect = a / b;
-    zLejos = enfoque(2.60, 1.42);
-    zCerca = enfoque(2.42, 1.40);
+    zLejos = enfoque(2.93, 1.46);
+    zCerca = enfoque(2.49, 1.40);
     camara.updateProjectionMatrix();
     render.setSize(a, b);
   };
@@ -445,7 +475,7 @@ export async function montarRobot3D(host) {
   let broteGiro = 0, broteVel = 0;          // arrastre de la planta
   let proxSaludo = 6 + Math.random() * 5, saludo = 0;
   let proxLadeo = 9 + Math.random() * 6, ladeo = 0;    // ladear la cabeza
-  let proxBrinco = 14 + Math.random() * 8, brinco = 0; // brinco de alegría
+  let proxBrinco = 14 + Math.random() * 8, brinco = 0, agacha = 0;
   let previoGiro = 0;
   const entrada = { e: 0.82, y: -0.5 };     // aparición con rebote
 
@@ -500,23 +530,29 @@ export async function montarRobot3D(host) {
     if (t > proxLadeo) {
       const p = (t - proxLadeo) / 2.6;
       if (p >= 1) { proxLadeo = t + 10 + Math.random() * 9; ladeo = 0; }
-      else ladeo = Math.sin(p * Math.PI) * 0.3 * (proxLadeo % 2 < 1 ? 1 : -1);
+      else ladeo = Math.sin(p * Math.PI) ** 1.4 * 0.32 * (proxLadeo % 2 < 1 ? 1 : -1);
     }
 
-    /* Brinco: se despega del suelo y aterriza aplastándose un poco. */
+    /* Brinco en tres tiempos, como manda el oficio: se agacha antes de
+       saltar, vuela, y al aterrizar se aplasta y se recompone. Sin la
+       agachada previa el salto se lee como un tirón. */
     if (t > proxBrinco) {
-      const p = (t - proxBrinco) / 0.85;
-      if (p >= 1) { proxBrinco = t + 16 + Math.random() * 12; brinco = 0; }
-      else brinco = Math.sin(p * Math.PI) * 0.34;
+      const p = (t - proxBrinco) / 1.32;
+      if (p >= 1) { proxBrinco = t + 15 + Math.random() * 12; brinco = 0; agacha = 0; }
+      else if (p < 0.2) { agacha = Math.sin(p / 0.2 * Math.PI) * 0.14; brinco = 0; }
+      else if (p < 0.82) {
+        const q = (p - 0.2) / 0.62;
+        brinco = Math.sin(q * Math.PI) * 0.42; agacha = 0;
+      } else { brinco = 0; agacha = Math.sin((p - 0.82) / 0.18 * Math.PI) * 0.1; }
     }
-    // Aplastar y estirar: al subir se alarga, al caer se achata
-    const estira = 1 + brinco * 0.14 - Math.max(0, -Math.cos(t * 0.9)) * 0.008;
+    // Aplastar y estirar: al subir se alarga, al agacharse se achata
+    const estira = 1 + brinco * 0.15 - agacha * 1.1 - Math.max(0, -Math.cos(t * 0.9)) * 0.008;
 
-    raiz.position.y = resp + entrada.y + brinco;
+    raiz.position.y = resp + entrada.y + brinco - agacha * 0.5;
     raiz.rotation.y = avanceSuave * -0.16 + Math.sin(t * 0.23) * 0.05;
     raiz.rotation.z = Math.sin(t * 0.31) * 0.016;
     raiz.scale.set(entrada.e * (2 - estira), entrada.e * estira, entrada.e * (2 - estira));
-    cabeza.position.y = 1.02 + resp * 0.5 + brinco * 0.06;
+    cabeza.position.y = CABEZA_Y + resp * 0.5 + brinco * 0.05;
 
     /* Al bajar solo se acerca; el punto de mira se queda en el centro del
        modelo, así que el robot nunca se descuadra ni se sale del lienzo. */
@@ -560,8 +596,9 @@ export async function montarRobot3D(host) {
       if (p >= 1) { proxSaludo = t + 11 + Math.random() * 9; saludo = 0; }
       else {
         // sube, agita tres veces y baja
-        const sobre = Math.min(1, p / 0.22, (1 - p) / 0.22);
-        saludo = sobre * (1.55 + Math.sin(p * Math.PI * 6) * 0.28);
+        const bruto = Math.min(1, p / 0.24, (1 - p) / 0.24);
+        const sobre = bruto * bruto * (3 - 2 * bruto);   // suavizado en S
+        saludo = sobre * (1.55 + Math.sin(p * Math.PI * 6) * 0.26);
       }
     }
     // Al brincar los brazos se van hacia fuera; al saludar, uno arriba
@@ -574,6 +611,15 @@ export async function montarRobot3D(host) {
     sonrisa.scale.set(1 + contento * 0.16, 1 + contento * 0.2, 1);
 
     pies.forEach((p, i) => { p.position.y = -1.62 + Math.sin(t * 0.9 + i * 0.6) * 0.02; });
+
+    // Al saludar, el cuerpo se inclina hacia el brazo que sube
+    cuerpo.rotation.z = -saludo * 0.05;
+
+    /* La sombra encoge y se aclara conforme el robot se despega. */
+    const altura = Math.max(0, raiz.position.y);
+    const contacto = 1 - Math.min(0.55, altura * 1.05);
+    sombra.scale.setScalar(contacto * entrada.e);
+    sombra.material.opacity = contacto * Math.min(1, entrada.e * 1.2);
 
     render.render(escena, camara);
   }

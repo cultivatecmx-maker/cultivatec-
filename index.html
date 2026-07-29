@@ -29,10 +29,11 @@
 <link rel="apple-touch-icon" href="logo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://esm.sh" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260729e">
+<link rel="stylesheet" href="css/styles.css?v=20260729f">
 
 <script type="application/ld+json">
 {
@@ -201,7 +202,7 @@
   position:fixed;inset:0;z-index:9999;
   display:grid;place-content:center;justify-items:center;gap:26px;
   background:radial-gradient(120% 90% at 50% 38%,#1E3A8A 0%,#0B2050 55%,#071633 100%);
-  animation:arr-salir .75s cubic-bezier(.4,0,.2,1) 2.15s forwards;
+  animation:arr-salir .75s cubic-bezier(.4,0,.2,1) var(--arr-espera,2.15s) forwards;
 }
 .arranque[hidden]{display:none}
 @keyframes arr-salir{to{opacity:0;visibility:hidden;pointer-events:none}}
@@ -312,12 +313,25 @@
   <p class="arr-pie">Iniciando sistemas</p>
 </div>
 <script>
+(function () {
+  var raiz = document.documentElement, caja = document.getElementById('arranque');
   /* Solo la primera visita de la sesión: volver a la portada desde otra
      página no debe repetir la secuencia. */
   try {
-    if (sessionStorage.getItem('ct-arranque')) document.getElementById('arranque').hidden = true;
-    else sessionStorage.setItem('ct-arranque', '1');
+    if (sessionStorage.getItem('ct-arranque')) { caja.hidden = true; return; }
+    sessionStorage.setItem('ct-arranque', '1');
   } catch (e) {}
+
+  /* La pantalla aguanta hasta que el robot está montado, como el arranque
+     de una consola: así nadie ve el dibujo de reserva mientras three.js
+     viaja por la red. El tope de 4.2 s vive en el CSS — si este guion
+     fallara, la salida corre igual y nadie se queda con el sitio tapado. */
+  raiz.style.setProperty('--arr-espera', '4.2s');
+  window.__arranqueListo = function () {
+    raiz.style.setProperty('--arr-espera',
+      Math.max(1.5, performance.now() / 1000).toFixed(2) + 's');
+  };
+})();
 </script>
 
 <a href="#main" class="skip-link">Saltar al contenido</a>
@@ -976,16 +990,18 @@
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
 <script type="module">
   // Se importa aparte y sólo si procede: el módulo decide si vale la pena
-  import('./js/robot3d.js?v=20260729e').then(m => {
+  import('./js/robot3d.js?v=20260729f').then(m => {
     const host = document.querySelector('.robot-3d');
     if (!host) return;
     // En móvil no hay viaje: el lienzo se monta en el hueco del hero
     if (!matchMedia('(min-width: 861px)').matches) {
       document.querySelector('.hero-robot')?.appendChild(host);
     }
-    m.montarRobot3D(host).catch(() => {});   // si falla, se queda el SVG
-  }).catch(() => {});
+    return m.montarRobot3D(host);            // si falla, se queda el SVG
+  }).catch(() => {}).finally(() => {
+    if (window.__arranqueListo) window.__arranqueListo();
+  });
 </script>
-<script src="js/main.js?v=20260729e"></script>
+<script src="js/main.js?v=20260729f"></script>
 </body>
 </html>

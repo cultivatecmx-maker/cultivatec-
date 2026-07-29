@@ -248,17 +248,19 @@ export async function montarRobot3D(host) {
 
   /* Cara al desnudo: ojos y sonrisa directamente sobre el casco, como en
      el dibujo. Sin pantalla, sin rubor y sin recuadros. */
-  const ojos = [];
+  const ojos = [], brillos = [];
   [-1, 1].forEach(d => {
     const o = bola(0.185, mFaccion);
     o.scale.z = 0.5;
     o.position.set(d * 0.34, 0.13, 0.53);
+    o.userData.base = o.position.clone();
     cabeza.add(o); ojos.push(o);
 
     const b = new THREE.Mesh(new THREE.SphereGeometry(0.058, 12, 10), mBrillo);
     b.scale.z = 0.4;
     b.position.set(d * 0.34 - 0.055, 0.2, 0.63);
-    cabeza.add(b);
+    b.userData.base = b.position.clone();
+    cabeza.add(b); brillos.push(b);
   });
 
   const sonrisa = new THREE.Mesh(
@@ -268,10 +270,11 @@ export async function montarRobot3D(host) {
   cabeza.add(sonrisa);
 
   // Orejas: tabiques azules a los costados, como en el dibujo
+  const orejas = [];
   [-1, 1].forEach(d => {
     const oreja = caja(0.22, 0.5, 0.46, 0.1, mVivo);
     oreja.position.set(d * 1.02, -0.08, 0);
-    cabeza.add(oreja);
+    cabeza.add(oreja); orejas.push(oreja);
   });
 
   // Pestaña superior: el escalón que el dibujo tiene sobre la frente
@@ -329,21 +332,24 @@ export async function montarRobot3D(host) {
      quepa el encuadre pedido, sea cual sea la forma del hueco: así el
      robot no se corta en un lienzo estrecho ni queda diminuto en uno ancho.
 
-       lejos → el robot entero    (de y=-1.83 a y=2.87, ancho ±1.33)
-       cerca → cabeza y hombros   (de y= 0.16 a y=2.87)
+     El robot entra entero en los dos extremos y el punto de mira no se
+     mueve: al bajar solo se acerca un poco. Antes terminaba en un primer
+     plano de la cara, que partía el cuerpo contra el borde del lienzo.
+
+       modelo: de y=-1.83 a y=2.87 (media altura 2.35), ancho ±1.33
   */
   const TAN = Math.tan(15 * Math.PI / 180);   // media apertura de 30°
   const enfoque = (medioAlto, medioAncho) =>
     Math.max(medioAlto, medioAncho / camara.aspect) / TAN;
 
-  const MIRA_LEJOS = 0.55, MIRA_CERCA = 1.62;
-  let zLejos = 9, zCerca = 6;
+  const MIRA = 0.52;               // centro real del modelo
+  let zLejos = 9, zCerca = 8;
   const encuadrar = () => {
     const a = host.clientWidth, b = host.clientHeight || a;
     if (!a || !b) return;
     camara.aspect = a / b;
     zLejos = enfoque(2.60, 1.42);
-    zCerca = enfoque(1.55, 1.28);
+    zCerca = enfoque(2.42, 1.40);
     camara.updateProjectionMatrix();
     render.setSize(a, b);
   };
@@ -396,7 +402,7 @@ export async function montarRobot3D(host) {
   }
 
   const caja3D = host.closest('.robot-caja');
-  let avance = 0, rxPrev = -1, fundPrev = -1;
+  let avance = 0, rxPrev = -1;
 
   /* Dónde acaba el viaje horizontal. Un porcentaje fijo no sirve: el hueco
      que dejan las tarjetas cambia de ancho con la ventana, y con 15% el
@@ -427,14 +433,6 @@ export async function montarRobot3D(host) {
       caja3D.style.setProperty('--rx', rx.toFixed(2) + '%');
       rxPrev = rx;
     }
-    /* Al acercarse a la cara el cuerpo se sale del lienzo y el corte
-       quedaba como una línea recta con el blanco de la sección debajo.
-       El degradado de máscara lo disuelve. */
-    const fund = 100 - suave * 26;
-    if (Math.abs(fund - fundPrev) > 0.4) {
-      caja3D.style.setProperty('--fundido', fund.toFixed(1) + '%');
-      fundPrev = fund;
-    }
   };
   medirAvance();
 
@@ -446,6 +444,9 @@ export async function montarRobot3D(host) {
   let avanceSuave = 0;
   let broteGiro = 0, broteVel = 0;          // arrastre de la planta
   let proxSaludo = 6 + Math.random() * 5, saludo = 0;
+  let proxLadeo = 9 + Math.random() * 6, ladeo = 0;    // ladear la cabeza
+  let proxBrinco = 14 + Math.random() * 8, brinco = 0; // brinco de alegría
+  let previoGiro = 0;
   const entrada = { e: 0.82, y: -0.5 };     // aparición con rebote
 
   function bucle() {
@@ -468,27 +469,59 @@ export async function montarRobot3D(host) {
     act.x += (meta.x - act.x) * INERCIA;
     act.y += (meta.y - act.y) * INERCIA;
 
+    /* Los ojos llegan antes que la cabeza: miran, y la cabeza les sigue.
+       Ese desfase es lo que separa "mira" de "gira el cuello". */
+    const previo = act.x;
     cabeza.rotation.y = act.x;
     cabeza.rotation.x = act.y;
-    cabeza.rotation.z = act.x * -0.14;
+    cabeza.rotation.z = act.x * -0.14 + ladeo;
     cuerpo.rotation.y = act.x * 0.2;
+
+    const adelanto = (meta.x - act.x) * 0.075;
+    ojos.forEach(o => {
+      o.position.x = o.userData.base.x + adelanto;
+      o.position.y = o.userData.base.y - act.y * 0.03;
+    });
+    brillos.forEach(b => {
+      b.position.x = b.userData.base.x + adelanto;
+      b.position.y = b.userData.base.y - act.y * 0.03;
+    });
+
+    // Las orejas acusan el frenazo del giro
+    const vel = act.x - previoGiro;
+    previoGiro = previo;
+    orejas.forEach((o, i) => { o.rotation.x = vel * (i ? 2.6 : -2.6); });
 
     avanceSuave += (avance - avanceSuave) * 0.09;
     /* Respiración con dos ritmos: uno solo hace un balanceo de metrónomo. */
     const resp = Math.sin(t * 0.9) * 0.032 + Math.sin(t * 0.37) * 0.014;
-    raiz.position.y = resp + entrada.y;
+
+    /* Ladear la cabeza de vez en cuando, con cara de curiosidad. */
+    if (t > proxLadeo) {
+      const p = (t - proxLadeo) / 2.6;
+      if (p >= 1) { proxLadeo = t + 10 + Math.random() * 9; ladeo = 0; }
+      else ladeo = Math.sin(p * Math.PI) * 0.3 * (proxLadeo % 2 < 1 ? 1 : -1);
+    }
+
+    /* Brinco: se despega del suelo y aterriza aplastándose un poco. */
+    if (t > proxBrinco) {
+      const p = (t - proxBrinco) / 0.85;
+      if (p >= 1) { proxBrinco = t + 16 + Math.random() * 12; brinco = 0; }
+      else brinco = Math.sin(p * Math.PI) * 0.34;
+    }
+    // Aplastar y estirar: al subir se alarga, al caer se achata
+    const estira = 1 + brinco * 0.14 - Math.max(0, -Math.cos(t * 0.9)) * 0.008;
+
+    raiz.position.y = resp + entrada.y + brinco;
     raiz.rotation.y = avanceSuave * -0.16 + Math.sin(t * 0.23) * 0.05;
     raiz.rotation.z = Math.sin(t * 0.31) * 0.016;
-    raiz.scale.setScalar(entrada.e);
-    cabeza.position.y = 1.02 + resp * 0.5;
+    raiz.scale.set(entrada.e * (2 - estira), entrada.e * estira, entrada.e * (2 - estira));
+    cabeza.position.y = 1.02 + resp * 0.5 + brinco * 0.06;
 
-    /* La cámara se acerca a la cara conforme baja el scroll. Al principio
-       encuadra al robot entero (mide 4.3 de alto y su centro está en 0.30);
-       al final se queda en la cabeza, así el cuerpo sale de cuadro por
-       abajo en vez de verse cortado a media pierna. */
-    const mira = MIRA_LEJOS + (MIRA_CERCA - MIRA_LEJOS) * avanceSuave;
-    camara.position.set(0, mira + 0.05, zLejos + (zCerca - zLejos) * avanceSuave);
-    camara.lookAt(0, mira, 0);
+    /* Al bajar solo se acerca; el punto de mira se queda en el centro del
+       modelo, así que el robot nunca se descuadra ni se sale del lienzo. */
+    camara.position.set(0, MIRA + 0.05, zLejos + (zCerca - zLejos) * avanceSuave);
+    camara.lookAt(0, MIRA, 0);
 
     /* Parpadeo: a veces sencillo y a veces doble, que es como parpadea
        cualquiera. Uno siempre igual delata la máquina. */
@@ -531,8 +564,15 @@ export async function montarRobot3D(host) {
         saludo = sobre * (1.55 + Math.sin(p * Math.PI * 6) * 0.28);
       }
     }
-    brazoIzq.rotation.z = -0.14 + Math.sin(t * 0.8) * 0.05;
-    brazoDer.rotation.z = 0.14 - Math.sin(t * 0.8) * 0.05 + saludo;
+    // Al brincar los brazos se van hacia fuera; al saludar, uno arriba
+    const vuelo = brinco * 1.1;
+    brazoIzq.rotation.z = -0.14 + Math.sin(t * 0.8) * 0.05 - vuelo;
+    brazoDer.rotation.z = 0.14 - Math.sin(t * 0.8) * 0.05 + vuelo + saludo;
+
+    // La sonrisa se ensancha mientras saluda o brinca
+    const contento = Math.max(saludo / 1.6, brinco / 0.34);
+    sonrisa.scale.set(1 + contento * 0.16, 1 + contento * 0.2, 1);
+
     pies.forEach((p, i) => { p.position.y = -1.62 + Math.sin(t * 0.9 + i * 0.6) * 0.02; });
 
     render.render(escena, camara);

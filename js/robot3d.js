@@ -13,7 +13,7 @@
    Jerarquía:
      raiz
       ├ cuerpo   (torso, brazos, piernas)      — quieto
-      └ cabeza   (casco, pantalla, orejas)     — sigue al cursor / al giro
+      └ cabeza   (casco, cara, orejas)         — sigue al cursor / al giro
           └ brote (tallo y dos hojas)          — se mece
    ============================================================ */
 
@@ -56,15 +56,13 @@ export async function montarRobot3D(host) {
   const mVivo  = pintura(VIVO);
   const mHondo = pintura(HONDO);
   const mMetal = new THREE.MeshStandardMaterial({ color: 0x9FB6D8, roughness: 0.3, metalness: 0.5 });
-  const mPantalla = new THREE.MeshStandardMaterial({ color: 0x0E2A5A, roughness: 0.14, metalness: 0.25 });
   const mBrote = pintura(BROTE);
   const mBorde = new THREE.MeshBasicMaterial({ color: CONTOR, side: THREE.BackSide });
   const emisivo = (c, i) => new THREE.MeshStandardMaterial({
     color: c, emissive: c, emissiveIntensity: i, roughness: 0.2, metalness: 0
   });
-  const mOjo    = emisivo(0xEAFBFF, 1.5);
+  const mFaccion = new THREE.MeshStandardMaterial({ color: 0x122E52, roughness: 0.32, metalness: 0.1 });
   const mBrillo = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  const mRubor  = emisivo(0x67E8F9, 1.4);
   const mLedA = emisivo(0x34D399, 2.0);
   const mLedB = emisivo(0xFBBF24, 2.0);
   const mLedC = emisivo(0x60A5FA, 2.0);
@@ -235,34 +233,24 @@ export async function montarRobot3D(host) {
   const casco = caja(2.0, 1.62, 1.16, 0.46, mClaro);
   cabeza.add(casco);
 
-  // Pantalla facial: una sola pieza, sin marco ni juntas
-  const pantalla = caja(1.48, 1.0, 0.12, 0.3, mPantalla, false);
-  pantalla.position.set(0, 0.02, 0.55);
-  cabeza.add(pantalla);
-
-  // Ojos grandes y redondos con su brillo
+  /* Cara al desnudo: ojos y sonrisa directamente sobre el casco, como en
+     el dibujo. Sin pantalla, sin rubor y sin recuadros. */
   const ojos = [];
   [-1, 1].forEach(d => {
-    const o = bola(0.2, mOjo);
-    o.scale.z = 0.55;
-    o.position.set(d * 0.35, 0.14, 0.6);
+    const o = bola(0.185, mFaccion);
+    o.scale.z = 0.5;
+    o.position.set(d * 0.34, 0.13, 0.53);
     cabeza.add(o); ojos.push(o);
 
-    const b = new THREE.Mesh(new THREE.SphereGeometry(0.062, 12, 10), mBrillo);
+    const b = new THREE.Mesh(new THREE.SphereGeometry(0.058, 12, 10), mBrillo);
     b.scale.z = 0.4;
-    b.position.set(d * 0.35 - 0.06, 0.22, 0.71);
+    b.position.set(d * 0.34 - 0.055, 0.2, 0.63);
     cabeza.add(b);
-
-    // Rubor: dos manchas suaves dentro de la pantalla
-    const r = bola(0.13, mRubor);
-    r.scale.set(1.3, 0.72, 0.22);
-    r.position.set(d * 0.6, -0.19, 0.61);
-    cabeza.add(r);
   });
 
   const sonrisa = new THREE.Mesh(
-    new THREE.TorusGeometry(0.2, 0.036, 8, Math.round(22 * seg), Math.PI * 0.9), mOjo);
-  sonrisa.position.set(0, -0.13, 0.6);
+    new THREE.TorusGeometry(0.2, 0.038, 8, Math.round(22 * seg), Math.PI * 0.9), mFaccion);
+  sonrisa.position.set(0, -0.16, 0.56);
   sonrisa.rotation.z = Math.PI + Math.PI * 0.05;
   cabeza.add(sonrisa);
 
@@ -277,13 +265,6 @@ export async function montarRobot3D(host) {
   const pestana = caja(0.62, 0.16, 0.5, 0.06, mMedio);
   pestana.position.set(0, 0.78, 0.16);
   cabeza.add(pestana);
-
-  // Esquinas bajas en azul fuerte, otro guiño al dibujo
-  [-1, 1].forEach(d => {
-    const esquina = caja(0.44, 0.3, 0.16, 0.09, mVivo);
-    esquina.position.set(d * 0.66, -0.58, 0.5);
-    cabeza.add(esquina);
-  });
 
   /* ================= BROTE ================= */
   const brote = new THREE.Group();

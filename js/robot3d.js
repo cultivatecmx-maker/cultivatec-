@@ -186,19 +186,32 @@ export async function montarRobot3D(host) {
     sup.position.y = -0.42;
     g.add(sup);
 
-    /* Pinza en C, como la del dibujo, pero gruesa: en 3D un gancho fino
-       se lee como un alambre. */
-    const pinza = new THREE.Mesh(
-      new THREE.TorusGeometry(0.17, 0.083, 9, Math.round(24 * seg), Math.PI * 1.45), mVivo);
-    conBorde(pinza, 0.04);
-    pinza.position.y = -0.9;
-    pinza.rotation.z = lado > 0 ? -0.5 : Math.PI + 0.5;
-    g.add(pinza);
-
-    const muneca = cil(0.13, 0.12, mMedio);
+    const muneca = cil(0.115, 0.18, mMedio);
     conBorde(muneca, 0.035);
-    muneca.position.y = -0.74;
+    muneca.position.y = -0.8;
     g.add(muneca);
+
+    /* Pinza en C. Dos cuidados que antes no estaban:
+
+       El contorno no puede salir de `conBorde`. Escalar un toro entero
+       agranda también el radio del anillo, con lo que el borde se mete
+       por dentro del hueco en vez de rodear el tubo. Se hace con un
+       segundo toro del mismo radio y el tubo más grueso.
+
+       Y el reflejo se hace girando media vuelta sobre Y, no sumando
+       Math.PI al giro sobre Z: eso no refleja el arco, lo rota, y por eso
+       cada mano apuntaba a un sitio distinto. */
+    const n = Math.round(26 * seg), R = 0.175, ARCO = Math.PI * 1.42;
+    const pinza = new THREE.Group();
+    pinza.add(new THREE.Mesh(new THREE.TorusGeometry(R, 0.075, 9, n, ARCO), mVivo));
+    pinza.add(new THREE.Mesh(new THREE.TorusGeometry(R, 0.115, 8, n, ARCO), mBorde));
+    pinza.rotation.z = -0.32;      // la abertura mira hacia abajo y afuera
+
+    const mano = new THREE.Group();
+    mano.add(pinza);
+    mano.position.y = -1.0;
+    if (lado < 0) mano.rotation.y = Math.PI;
+    g.add(mano);
 
     g.position.set(lado * 0.9, 0.02, 0.02);
     g.rotation.z = lado * 0.14;
@@ -316,7 +329,7 @@ export async function montarRobot3D(host) {
      quepa el encuadre pedido, sea cual sea la forma del hueco: así el
      robot no se corta en un lienzo estrecho ni queda diminuto en uno ancho.
 
-       lejos → el robot entero    (de y=-1.83 a y=2.87, ancho ±1.19)
+       lejos → el robot entero    (de y=-1.83 a y=2.87, ancho ±1.33)
        cerca → cabeza y hombros   (de y= 0.16 a y=2.87)
   */
   const TAN = Math.tan(15 * Math.PI / 180);   // media apertura de 30°
@@ -329,7 +342,7 @@ export async function montarRobot3D(host) {
     const a = host.clientWidth, b = host.clientHeight || a;
     if (!a || !b) return;
     camara.aspect = a / b;
-    zLejos = enfoque(2.60, 1.30);
+    zLejos = enfoque(2.60, 1.42);
     zCerca = enfoque(1.55, 1.28);
     camara.updateProjectionMatrix();
     render.setSize(a, b);

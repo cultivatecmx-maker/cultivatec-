@@ -58,14 +58,13 @@
 ------------------------------------------------------------ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-/* `overflow-x:clip` además del `hidden` del body: hidden en body se
-   propaga al lienzo, y iOS no siempre respeta esa propagación. `clip` no
-   crea contenedor de scroll, así que no rompe el `position:sticky` del
-   robot y cierra la puerta a cualquier desborde lateral. */
-html{
-  scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 20px);
-  -webkit-text-size-adjust:100%;overflow-x:clip;
-}
+/* Aquí NO va `overflow-x:clip`. En el elemento raíz el overflow se
+   propaga al lienzo, y con el lienzo recortado en x el robot deja de
+   pegarse: `position:sticky` necesita que el lienzo siga siendo su
+   scrollport. Se probó y el robot se iba con el scroll en vez de
+   acompañarlo. El desborde lateral ya está resuelto en su origen, en las
+   entradas .reveal-left/.reveal-right. */
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 20px);-webkit-text-size-adjust:100%}
 
 body{
   font-family:var(--font-body);font-size:16px;line-height:1.7;

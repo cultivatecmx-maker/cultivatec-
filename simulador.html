@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Circuitos | CultivaTec</title>
+<meta name="description" content="Arma circuitos eléctricos jugando: arrastra una batería, un botón y un LED, conéctalos con cables y descubre cómo se enciende la luz.">
+<link rel="canonical" href="https://cultivatec.com.mx/simulador">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<!-- El CSS de siempre del sitio -->
+<link rel="stylesheet" href="css/styles.css">
+<!-- CSS nuevo, solo para el simulador -->
+<link rel="stylesheet" href="css/simulador.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Saltar al contenido</a>
+
+<!-- ==================== NAV (igual que el resto del sitio) ==================== -->
+<nav class="navbar" role="navigation" aria-label="Navegación principal">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="CultivaTec — Inicio">
+      <img src="logo.png" alt="CultivaTec" width="40" height="40">
+      <span class="nav-wordmark">Cultiva<b>Tec</b></span>
+    </a>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="plataforma.html" class="nav-item">Software</a></li>
+      <li><a href="cursos.html" class="nav-item">Cursos</a></li>
+      <li><a href="historia.html" class="nav-item">Historia</a></li>
+      <li><a href="blog.html" class="nav-item">Blog</a></li>
+      <li><a href="simulador.html" class="nav-item active">Simulador</a></li>
+      <li><a href="contacto.html" class="nav-item">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="contacto.html" class="nav-cta"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ==================== ENCABEZADO ==================== -->
+<section class="sim-hero">
+  <div class="container">
+    <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><span>Simulador</span></div>
+    <span class="tag-dark t-sim"><i class="ph-fill ph-circuitry"></i> Laboratorio interactivo</span>
+    <h1 class="sec-title">Arma tu propio <span class="mark mark-sky">circuito</span></h1>
+    <p class="sec-sub">Arrastra piezas al tablero, conéctalas con cables y descubre cómo enciende un LED de verdad.</p>
+  </div>
+</section>
+
+<!-- ==================== EL SIMULADOR ==================== -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="sim-app">
+
+      <!-- Barra de herramientas -->
+      <div class="sim-toolbar">
+        <button class="btn btn-soft btn-sm" id="btn-limpiar" type="button">
+          <i class="ph-bold ph-trash"></i> Limpiar tablero
+        </button>
+        <span class="sim-toolbar-hint"><i class="ph-fill ph-info"></i> Arrastra una pieza de la izquierda hacia el tablero</span>
+      </div>
+
+      <div class="sim-layout">
+
+        <!-- Paleta de componentes -->
+        <aside class="sim-palette" aria-label="Componentes disponibles">
+          <h2 class="sim-palette-title">Componentes</h2>
+
+          <div class="sim-piece" draggable="true" data-type="bateria">
+            <div class="sim-piece-icon"><i class="ph-fill ph-battery-full"></i></div>
+            <div class="sim-piece-txt">
+              <strong>Batería 9V</strong>
+              <span>Le da energía al circuito</span>
+            </div>
+          </div>
+
+          <div class="sim-piece" draggable="true" data-type="boton">
+            <div class="sim-piece-icon"><i class="ph-fill ph-record"></i></div>
+            <div class="sim-piece-txt">
+              <strong>Botón</strong>
+              <span>Cierra o abre el paso de corriente</span>
+            </div>
+          </div>
+
+          <div class="sim-piece" draggable="true" data-type="led">
+            <div class="sim-piece-icon"><i class="ph-fill ph-lightbulb"></i></div>
+            <div class="sim-piece-txt">
+              <strong>LED</strong>
+              <span>Se enciende cuando le llega corriente</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Tablero -->
+        <div class="sim-board-wrap">
+          <div class="sim-board" id="sim-board">
+            <p class="sim-board-empty" id="sim-board-empty">
+              <i class="ph-fill ph-hand-pointing"></i>
+              Suelta aquí tus componentes
+            </p>
+            <!-- Aquí, en el paso 2, empezarán a aparecer los componentes que sueltes -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ==================== FOOTER (simplificado, luego pegas el tuyo completo) ==================== -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 CultivaTec. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script src="js/simulador.js" defer></script>
+</body>
+</html>

@@ -7,19 +7,19 @@
 <meta name="description" content="CultivaLab: laboratorio interactivo de Cultivatec. Arma circuitos electrónicos, y muy pronto programa y diseña en 3D, directo desde el navegador.">
 <meta name="keywords" content="simulador de circuitos, CultivaLab, simulador electrónica escolar, robótica educativa México">
 <meta name="author" content="Cultivatec">
-<link rel="canonical" href="https://Cultivatec.com.mx/cultivalab.html">
+<link rel="canonical" href="https://cultivatec.com.mx/cultivalab.html">
 <meta name="geo.region" content="MX-BCN">
 <meta name="geo.placename" content="Mexicali, Monterrey">
 <meta name="language" content="es-MX">
-<link rel="alternate" hreflang="es-mx" href="https://Cultivatec.com.mx/cultivalab.html">
-<link rel="alternate" hreflang="x-default" href="https://Cultivatec.com.mx/cultivalab.html">
+<link rel="alternate" hreflang="es-mx" href="https://cultivatec.com.mx/cultivalab.html">
+<link rel="alternate" hreflang="x-default" href="https://cultivatec.com.mx/cultivalab.html">
 <meta name="theme-color" content="#2F6BCC">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cultivatec">
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="CultivaLab — Simuladores interactivos | Cultivatec">
 <meta property="og:description" content="Arma circuitos electrónicos, y muy pronto programa y diseña en 3D, directo desde el navegador.">
-<meta property="og:url" content="https://Cultivatec.com.mx/cultivalab.html">
+<meta property="og:url" content="https://cultivatec.com.mx/cultivalab.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="apple-touch-icon" href="logo.png">
@@ -129,7 +129,7 @@
     <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><span>CultivaLab</span></div>
     <span class="tag-dark t-sim"><i class="ph-fill ph-flask"></i> Laboratorio interactivo</span>
     <h1 class="sec-title">Bienvenido a <span class="mark mark-sky">CultivaLab</span></h1>
-    <p class="sec-sub">Aquí vivirán todos nuestros simuladores: arma circuitos, programa y diseña en 3D, directo desde el navegador.</p>
+    <p class="sec-sub">Arma circuitos, arma secuencias con bloques, y escribe Python de verdad — todo desde el navegador.</p>
   </div>
 </section>
 
@@ -142,9 +142,11 @@
       <button class="lab-tab active" role="tab" aria-selected="true" aria-controls="tab-circuitos" data-tab="circuitos">
         <i class="ph-fill ph-circuitry"></i> Circuitos
       </button>
+      <button class="lab-tab" role="tab" aria-selected="false" aria-controls="tab-bloques" data-tab="bloques">
+        <i class="ph-fill ph-squares-four"></i> Bloques
+      </button>
       <button class="lab-tab" role="tab" aria-selected="false" aria-controls="tab-code" data-tab="code">
         <i class="ph-fill ph-code"></i> Code
-        <span class="lab-soon">Pronto</span>
       </button>
       <button class="lab-tab" role="tab" aria-selected="false" aria-controls="tab-3d" data-tab="3d">
         <i class="ph-fill ph-cube"></i> Diseño 3D
@@ -152,7 +154,7 @@
       </button>
     </div>
 
-    <!-- ---- Panel: Circuitos (el que ya funciona) ---- -->
+    <!-- ---- Panel: Circuitos ---- -->
     <div class="lab-panel active" id="tab-circuitos" role="tabpanel">
       <div class="sim-app">
 
@@ -160,7 +162,7 @@
           <button class="btn btn-soft btn-sm" id="btn-limpiar" type="button">
             <i class="ph-bold ph-trash"></i> Limpiar tablero
           </button>
-          <span class="sim-toolbar-hint"><i class="ph-fill ph-info"></i> Arrastra una pieza de la izquierda hacia el tablero</span>
+          <span class="sim-toolbar-hint"><i class="ph-fill ph-info"></i> Arrastra piezas al tablero, luego haz clic en un puntito para conectar un cable</span>
         </div>
 
         <div class="sim-layout">
@@ -169,26 +171,22 @@
 
             <div class="sim-piece" draggable="true" data-type="bateria">
               <div class="sim-piece-icon"><i class="ph-fill ph-battery-full"></i></div>
-              <div class="sim-piece-txt">
-                <strong>Batería 9V</strong>
-                <span>Le da energía al circuito</span>
-              </div>
+              <div class="sim-piece-txt"><strong>Batería 9V</strong><span>Le da energía al circuito</span></div>
             </div>
 
             <div class="sim-piece" draggable="true" data-type="boton">
               <div class="sim-piece-icon"><i class="ph-fill ph-record"></i></div>
-              <div class="sim-piece-txt">
-                <strong>Botón</strong>
-                <span>Cierra o abre el paso de corriente</span>
-              </div>
+              <div class="sim-piece-txt"><strong>Botón</strong><span>Clic para presionarlo</span></div>
             </div>
 
             <div class="sim-piece" draggable="true" data-type="led">
               <div class="sim-piece-icon"><i class="ph-fill ph-lightbulb"></i></div>
-              <div class="sim-piece-txt">
-                <strong>LED</strong>
-                <span>Se enciende cuando le llega corriente</span>
-              </div>
+              <div class="sim-piece-txt"><strong>LED</strong><span>Se enciende con corriente</span></div>
+            </div>
+
+            <div class="sim-piece" draggable="true" data-type="resistencia">
+              <div class="sim-piece-icon"><i class="ph-fill ph-sliders-horizontal"></i></div>
+              <div class="sim-piece-txt"><strong>Resistencia</strong><span>Clic para cambiar su valor</span></div>
             </div>
           </aside>
 
@@ -198,6 +196,7 @@
                 <i class="ph-fill ph-hand-pointing"></i>
                 Suelta aquí tus componentes
               </p>
+              <svg class="sim-wires" id="sim-wires"></svg>
             </div>
           </div>
         </div>
@@ -205,16 +204,47 @@
       </div>
     </div>
 
-    <!-- ---- Panel: Code (todavía no existe, solo la separación) ---- -->
-    <div class="lab-panel" id="tab-code" role="tabpanel" hidden>
-      <div class="lab-soon-card">
-        <i class="ph-fill ph-code"></i>
-        <h3>Simulador de código</h3>
-        <p>Muy pronto vas a poder programar tu propio robot con bloques (¡y más adelante con Python!) directo desde aquí.</p>
+    <!-- ---- Panel: Bloques ---- -->
+    <div class="lab-panel" id="tab-bloques" role="tabpanel" hidden>
+      <div class="sim-app">
+        <p class="blocks-hint"><i class="ph-fill ph-info"></i> Haz clic en un bloque para seleccionarlo y verlo en grande. (Encadenarlos en secuencia viene en el siguiente paso.)</p>
+        <div class="blocks-grid" id="blocks-grid">
+          <div class="block-chip block-move" data-block="adelante"><i class="ph-fill ph-arrow-up"></i><span>Avanzar</span></div>
+          <div class="block-chip block-move" data-block="atras"><i class="ph-fill ph-arrow-down"></i><span>Retroceder</span></div>
+          <div class="block-chip block-turn" data-block="izquierda"><i class="ph-fill ph-arrow-counter-clockwise"></i><span>Girar izquierda</span></div>
+          <div class="block-chip block-turn" data-block="derecha"><i class="ph-fill ph-arrow-clockwise"></i><span>Girar derecha</span></div>
+          <div class="block-chip block-wait" data-block="esperar"><i class="ph-fill ph-hourglass-medium"></i><span>Esperar 1s</span></div>
+          <div class="block-chip block-loop" data-block="repetir"><i class="ph-fill ph-repeat"></i><span>Repetir x3</span></div>
+          <div class="block-chip block-io" data-block="encender-led"><i class="ph-fill ph-lightbulb"></i><span>Encender LED</span></div>
+          <div class="block-chip block-io" data-block="sonido"><i class="ph-fill ph-speaker-high"></i><span>Hacer sonido</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- ---- Panel: Diseño 3D (todavía no existe, solo la separación) ---- -->
+    <!-- ---- Panel: Code (Python real, con Pyodide) ---- -->
+    <div class="lab-panel" id="tab-code" role="tabpanel" hidden>
+      <div class="sim-app">
+        <div class="code-app">
+          <div class="code-editor-wrap">
+            <label class="code-label" for="code-input">Tu código en Python</label>
+            <textarea id="code-input" class="code-input" spellcheck="false" rows="10">print("¡Hola, CultivaLab!")
+
+for i in range(3):
+    print("Vuelta número", i + 1)</textarea>
+            <button class="btn btn-primary" id="btn-run-code" type="button">
+              <i class="ph-bold ph-play"></i> Ejecutar
+            </button>
+            <span class="code-status" id="code-status"></span>
+          </div>
+          <div class="code-output-wrap">
+            <span class="code-output-label">Salida</span>
+            <pre class="code-output" id="code-output">Presiona "Ejecutar" para ver el resultado aquí.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- Panel: Diseño 3D ---- -->
     <div class="lab-panel" id="tab-3d" role="tabpanel" hidden>
       <div class="lab-soon-card">
         <i class="ph-fill ph-cube"></i>
@@ -239,9 +269,9 @@
         <p>Software educativo con inteligencia artificial, kits y cursos de robótica para escuelas. Con sede en Mexicali y Monterrey, para todo México.</p>
         <div class="socials">
           <a href="https://www.facebook.com/profile.php?id=100089359082614" target="_blank" rel="noopener" class="social" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
-          <a href="https://www.instagram.com/Cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
-          <a href="https://www.tiktok.com/@Cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
-          <a href="https://www.youtube.com/@Cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
+          <a href="https://www.instagram.com/cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+          <a href="https://www.tiktok.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
+          <a href="https://www.youtube.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
         </div>
       </div>
 
@@ -275,15 +305,15 @@
           <li><a href="school.html">School</a></li>
           <li><a href="cultivaquest.html">CultivaQuest</a></li>
           <li><a href="contacto.html">Contacto</a></li>
-          <li><a href="https://app.Cultivatec.com.mx" target="_blank" rel="noopener">Entrar a la plataforma</a></li>
+          <li><a href="https://app.cultivatec.com.mx" target="_blank" rel="noopener">Entrar a la plataforma</a></li>
         </ul>
       </div>
 
       <div>
         <h4>Contacto</h4>
         <ul class="footer-links">
-          <li><a class="mail" href="mailto:contacto@Cultivatec.com.mx">contacto@Cultivatec.com.mx</a></li>
-          <li><a class="mail" href="mailto:abraham@Cultivatec.com.mx">abraham@Cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
           <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
         </ul>
       </div>

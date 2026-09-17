@@ -1,5 +1,5 @@
 /* ============================================================
-   CULTIVATEC — Google Analytics 4
+   Cultivatec — Google Analytics 4
 
    ┌─────────────────────────────────────────────────────────┐
    │  PEGA AQUÍ EL IDENTIFICADOR DE MEDICIÓN Y LISTO.        │

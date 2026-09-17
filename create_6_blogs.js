@@ -24,7 +24,7 @@ const templates = [
       <p>El error más común es pensar que un club de robótica existe exclusivamente para ir a competencias de First LEGO League o WRO. Aunque las competencias son geniales, el objetivo principal debe ser crear un espacio de <strong>experimentación sin miedo al fracaso</strong>. Define si tu enfoque será recreativo, preparatorio para preparatoria, o competitivo.</p>
       
       <h2>2. El equipo mínimo viable</h2>
-      <p>No necesitas comprar kits carísimos. Para empezar, la plataforma <strong>CultivaTec</strong> te permite iniciar con simuladores 3D donde los alumnos aprenden electrónica y programación sin quemar componentes reales. Cuando estén listos, puedes adquirir 3 o 4 kits básicos de Arduino que se comparten en equipos de 4 personas.</p>
+      <p>No necesitas comprar kits carísimos. Para empezar, la plataforma <strong>Cultivatec</strong> te permite iniciar con simuladores 3D donde los alumnos aprenden electrónica y programación sin quemar componentes reales. Cuando estén listos, puedes adquirir 3 o 4 kits básicos de Arduino que se comparten en equipos de 4 personas.</p>
       
       <h2>3. Consigue aliados estratégicos</h2>
       <p>Involucra a los padres de familia desde el día uno. A menudo, padres que son ingenieros, mecánicos o programadores están más que dispuestos a donar un par de horas al mes para dar una charla técnica o ayudar a resolver un problema con el código.</p>
@@ -51,7 +51,7 @@ const templates = [
     imgId: '1526379095098-d400fd0bfce8',
     headline: 'Python para niños: Cuándo y cómo hacer la transición desde los bloques',
     content: `
-      <p>La programación por bloques (como Scratch o el entorno de bloques de CultivaTec) es la puerta de entrada perfecta. Permite a los alumnos entender la lógica sin frustrarse por olvidar un punto y coma. Pero inevitablemente llega el momento en que los alumnos se sienten "encerrados" en las limitaciones visuales y están listos para escribir código real.</p>
+      <p>La programación por bloques (como Scratch o el entorno de bloques de Cultivatec) es la puerta de entrada perfecta. Permite a los alumnos entender la lógica sin frustrarse por olvidar un punto y coma. Pero inevitablemente llega el momento en que los alumnos se sienten "encerrados" en las limitaciones visuales y están listos para escribir código real.</p>
       
       <h2>¿Cuándo es el momento adecuado?</h2>
       <p>No se trata de edad, sino de madurez lógica. Si un alumno ya entiende perfectamente qué es un bucle (loop), cómo usar sentencias condicionales complejas (if/else anidados) y utiliza variables sin confundirse, está listo para el texto. Usualmente esto ocurre entre 6to de primaria y 2do de secundaria.</p>
@@ -61,7 +61,7 @@ const templates = [
       
       <h2>Estrategias para una transición suave</h2>
       <ul>
-        <li><strong>El método del espejo:</strong> Pon el código de bloques al lado del código en Python. En CultivaTec, esto se puede hacer con un solo clic, permitiendo a los alumnos ver exactamente cómo su bloque "repetir 10 veces" se traduce a un <code>for i in range(10):</code>.</li>
+        <li><strong>El método del espejo:</strong> Pon el código de bloques al lado del código en Python. En Cultivatec, esto se puede hacer con un solo clic, permitiendo a los alumnos ver exactamente cómo su bloque "repetir 10 veces" se traduce a un <code>for i in range(10):</code>.</li>
         <li><strong>Fomenta la mecanografía:</strong> El mayor obstáculo al pasar a texto no es la lógica, es encontrar las teclas en el teclado (como los corchetes o el guión bajo). Juegos de mecanografía (typing) ayudan enormemente.</li>
         <li><strong>No castigues los errores de sintaxis:</strong> Acostumbrarse a que una mayúscula rompa todo el programa es frustrante. Enséñales a leer los mensajes de error como "pistas" de un detective, no como calificaciones reprobatorias.</li>
       </ul>
@@ -135,7 +135,7 @@ const templates = [
         <li><strong>El efecto "¡Wow!":</strong> No hay nada en una pantalla que iguale el brillo en los ojos de un niño cuando el carrito que armaron con sus propias manos cobra vida en el piso del salón.</li>
       </ul>
       
-      <h2>El modelo híbrido de CultivaTec</h2>
+      <h2>El modelo híbrido de Cultivatec</h2>
       <p>El estándar de oro es el método de <strong>Prototipado Virtual a Físico</strong>. Los alumnos diseñan, programan y validan sus circuitos en el simulador. Una vez que la plataforma certifica que funciona, se ganan el derecho a armarlo en físico. Esto reduce drásticamente el daño a materiales y acelera el aprendizaje exponencialmente.</p>
     `
   },
@@ -180,13 +180,13 @@ const templates = [
       
       <div class="article-note">
         <i class="ph-fill ph-lightbulb"></i>
-        <p><strong>Apóyate en la tecnología:</strong> El panel docente de CultivaTec automatiza gran parte del seguimiento técnico (cuántos intentos hizo un alumno en el simulador, qué conceptos domina), dejándote a ti, el educador, el tiempo para evaluar las habilidades blandas y el liderazgo.</p>
+        <p><strong>Apóyate en la tecnología:</strong> El panel docente de Cultivatec automatiza gran parte del seguimiento técnico (cuántos intentos hizo un alumno en el simulador, qué conceptos domina), dejándote a ti, el educador, el tiempo para evaluar las habilidades blandas y el liderazgo.</p>
       </div>
     `
   },
   {
     name: 'rol-ia-socratica-aula-futuro.html',
-    title: 'El rol de la IA Socrática en el aula del futuro | CultivaTec',
+    title: 'El rol de la IA Socrática en el aula del futuro | Cultivatec',
     desc: 'Por qué la Inteligencia Artificial Socrática es superior a las respuestas directas de ChatGPT en la educación, fomentando el pensamiento crítico en los alumnos.',
     kw: 'IA Socrática, educación inteligencia artificial, pensamiento crítico IA, futuro aulas tecnología',
     cat: 't-ai',
@@ -208,7 +208,7 @@ const templates = [
       <p><strong>IA Tradicional:</strong> "Aquí está el código corregido: <code>motorLeft.stop(); motorRight.forward();</code>"</p>
       <p><strong>Consecuencia:</strong> El alumno copia, pega, y no aprende nada.</p>
       
-      <p><strong>IA Socrática (Chip de CultivaTec):</strong> "Veo que tienes problemas con el giro. Para girar a la izquierda, piensa en cómo se mueven las llantas de un tanque. ¿Qué debería estar haciendo la llanta izquierda mientras la derecha avanza?"</p>
+      <p><strong>IA Socrática (Chip de Cultivatec):</strong> "Veo que tienes problemas con el giro. Para girar a la izquierda, piensa en cómo se mueven las llantas de un tanque. ¿Qué debería estar haciendo la llanta izquierda mientras la derecha avanza?"</p>
       <p><strong>Consecuencia:</strong> El alumno pausa, visualiza la mecánica del tanque, deduce la lógica y escribe el código él mismo. Dopamina, orgullo y aprendizaje consolidado.</p>
       
       <h2>Escalando la atención personalizada</h2>
@@ -231,20 +231,20 @@ templates.forEach(t => {
   newHtml = newHtml.replace(/<title>.*?<\/title>/, '<title>' + t.title + '</title>');
   newHtml = newHtml.replace(/<meta name="description" content=".*?">/, '<meta name="description" content="' + t.desc + '">');
   newHtml = newHtml.replace(/<meta name="keywords" content=".*?">/, '<meta name="keywords" content="' + t.kw + '">');
-  newHtml = newHtml.replace(/<link rel="canonical" href=".*?">/, '<link rel="canonical" href="https://cultivatec.com.mx/blog/' + t.name + '">');
+  newHtml = newHtml.replace(/<link rel="canonical" href=".*?">/, '<link rel="canonical" href="https://Cultivatec.com.mx/blog/' + t.name + '">');
   newHtml = newHtml.replace(/<meta property="og:title" content=".*?">/, '<meta property="og:title" content="' + t.title + '">');
   newHtml = newHtml.replace(/<meta property="og:description" content=".*?">/, '<meta property="og:description" content="' + t.desc + '">');
-  newHtml = newHtml.replace(/<meta property="og:url" content=".*?">/, '<meta property="og:url" content="https://cultivatec.com.mx/blog/' + t.name + '">');
+  newHtml = newHtml.replace(/<meta property="og:url" content=".*?">/, '<meta property="og:url" content="https://Cultivatec.com.mx/blog/' + t.name + '">');
   newHtml = newHtml.replace(/<meta property="og:image" content=".*?">/, '<meta property="og:image" content="https://images.unsplash.com/photo-' + t.imgId + '?q=80&w=1200&auto=format&fit=crop">');
   
   // Replace schema
   newHtml = newHtml.replace(/"headline":".*?"/, '"headline":"' + t.headline + '"');
   newHtml = newHtml.replace(/"description":".*?"/, '"description":"' + t.desc + '"');
-  newHtml = newHtml.replace(/"@id":".*?"/, '"@id":"https://cultivatec.com.mx/blog/' + t.name + '"');
+  newHtml = newHtml.replace(/"@id":".*?"/, '"@id":"https://Cultivatec.com.mx/blog/' + t.name + '"');
   
   // Replace Breadcrumb
   newHtml = newHtml.replace(/"position": 3,[\s\S]*?"name": ".*?"/, '"position": 3,\n     "name": "' + t.headline + '"');
-  newHtml = newHtml.replace(/"item": ".*?"\s*}\s*]\s*}/, '"item": "https://cultivatec.com.mx/blog/' + t.name + '"\n    }\n   ]\n  }');
+  newHtml = newHtml.replace(/"item": ".*?"\s*}\s*]\s*}/, '"item": "https://Cultivatec.com.mx/blog/' + t.name + '"\n    }\n   ]\n  }');
   
   // Replace Hero
   newHtml = newHtml.replace(/<section class="page-hero .*?"/, '<section class="page-hero ' + t.cat + '"');

@@ -1,5 +1,5 @@
 /* ============================================================
-   CULTIVATEC — Mascota en 3D
+   Cultivatec — Mascota en 3D
 
    Construida con primitivas para poder separar la cabeza en su propio
    grupo: así gira sola hacia el cursor, cosa imposible con una malla

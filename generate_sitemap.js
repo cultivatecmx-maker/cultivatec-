@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const baseUrl = 'https://cultivatec.com.mx';
+const baseUrl = 'https://Cultivatec.com.mx';
 const rootDir = __dirname;
 const blogDir = path.join(__dirname, 'blog');
 

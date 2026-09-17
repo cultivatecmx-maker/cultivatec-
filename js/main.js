@@ -1,5 +1,5 @@
 /* ============================================================
-   CULTIVATEC — Interacciones compartidas por todas las páginas
+   Cultivatec — Interacciones compartidas por todas las páginas
    ============================================================ */
 
 const App = {
@@ -271,7 +271,7 @@ const App = {
      intercepta para no sacar a nadie de la página.
 
      Ojo: FormSubmit exige confirmar el destino UNA vez. El primer envío
-     manda un correo de activación a contacto@cultivatec.com.mx con un
+     manda un correo de activación a contacto@Cultivatec.com.mx con un
      enlace; hasta pulsarlo no entrega nada.
   ---------------------------------------------------------------- */
   enviar(form) {
@@ -317,7 +317,7 @@ const App = {
       }).catch(() => {
         // Si el envío no sale, se ofrece el correo directo antes que perderlo
         this.avisar(btn, original, 'ph-warning-circle',
-                    'No se pudo enviar — escríbenos a contacto@cultivatec.com.mx',
+                    'No se pudo enviar — escríbenos a contacto@Cultivatec.com.mx',
                     'linear-gradient(135deg,#B45309,#F59E0B)');
       });
     });
@@ -434,7 +434,7 @@ const App = {
         this.avisar(btn, original, 'ph-check-circle', '¡Listo! Te escribimos',
                     'linear-gradient(135deg,#047857,#34D399)', () => form.reset());
       }).catch(() => {
-        this.avisar(btn, original, 'ph-warning-circle', 'Escríbenos a contacto@cultivatec.com.mx',
+        this.avisar(btn, original, 'ph-warning-circle', 'Escríbenos a contacto@Cultivatec.com.mx',
                     'linear-gradient(135deg,#B45309,#F59E0B)');
       });
     });

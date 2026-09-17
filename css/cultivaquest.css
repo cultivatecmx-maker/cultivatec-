@@ -1,0 +1,77 @@
+/* ============================================================
+   CULTIVAQUEST — vista previa de la ruta de niveles
+   ============================================================ */
+
+.sim-hero{
+  padding:140px 0 40px;
+  background:linear-gradient(165deg, var(--sim-bg) 0%, #fff 100%);
+  text-align:center;
+}
+.sim-hero .crumbs{justify-content:center}
+.sim-hero .tag-dark{
+  color:var(--sim-dk);background:#fff;border:1px solid var(--sim-bd);
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;border-radius:var(--r-full);margin-bottom:16px;
+  font-weight:600;font-size:.875rem;
+}
+
+.quest-path{
+  max-width:420px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  position:relative;
+}
+/* Línea punteada detrás de los nodos */
+.quest-path::before{
+  content:"";
+  position:absolute;top:0;bottom:0;left:50%;
+  border-left:3px dashed var(--slate-200);
+  transform:translateX(-50%);
+  z-index:0;
+}
+
+.quest-node{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:18px 0;
+  /* Zigzag: nodos pares a la izquierda, impares a la derecha */
+  align-self:center;
+}
+.quest-node:nth-child(even){ transform:translateX(-70px); }
+.quest-node:nth-child(odd){ transform:translateX(70px); }
+@media (max-width:480px){
+  .quest-node:nth-child(even){ transform:translateX(-32px); }
+  .quest-node:nth-child(odd){ transform:translateX(32px); }
+}
+
+.quest-node-circle{
+  width:68px;height:68px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;
+  box-shadow:var(--sh-md);
+  border:4px solid #fff;
+}
+.quest-node.unlocked .quest-node-circle{
+  background:linear-gradient(160deg, var(--sim), var(--sim-dk));
+  color:#fff;
+}
+.quest-node.locked .quest-node-circle{
+  background:var(--slate-200);
+  color:var(--slate-400);
+}
+.quest-node-boss .quest-node-circle{
+  width:78px;height:78px;font-size:1.9rem;
+}
+
+.quest-node-label{
+  text-align:center;font-size:.8125rem;font-weight:600;color:var(--slate-600);
+  line-height:1.4;
+}
+.quest-node-label small{font-weight:400;color:var(--slate-400)}
+.quest-node.locked .quest-node-label{color:var(--slate-400)}
+
+.quest-note{
+  text-align:center;color:var(--slate-500);font-size:.875rem;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:32px;
+}
+.quest-note i{color:var(--sim-dk)}

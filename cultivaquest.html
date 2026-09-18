@@ -7,19 +7,19 @@
 <meta name="description" content="CultivaQuest: la ruta de aprendizaje de robótica para niños, nivel por nivel, jugando. Próximamente en Cultivatec.">
 <meta name="keywords" content="CultivaQuest, aprender robótica niños, gamificación educativa, robótica por niveles, Cultivatec">
 <meta name="author" content="Cultivatec">
-<link rel="canonical" href="https://Cultivatec.com.mx/cultivaquest.html">
+<link rel="canonical" href="https://cultivatec.com.mx/cultivaquest.html">
 <meta name="geo.region" content="MX-BCN">
 <meta name="geo.placename" content="Mexicali, Monterrey">
 <meta name="language" content="es-MX">
-<link rel="alternate" hreflang="es-mx" href="https://Cultivatec.com.mx/cultivaquest.html">
-<link rel="alternate" hreflang="x-default" href="https://Cultivatec.com.mx/cultivaquest.html">
+<link rel="alternate" hreflang="es-mx" href="https://cultivatec.com.mx/cultivaquest.html">
+<link rel="alternate" hreflang="x-default" href="https://cultivatec.com.mx/cultivaquest.html">
 <meta name="theme-color" content="#2F6BCC">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cultivatec">
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="CultivaQuest — Aprende robótica por niveles | Cultivatec">
 <meta property="og:description" content="La ruta de aprendizaje de robótica para niños, nivel por nivel, jugando.">
-<meta property="og:url" content="https://Cultivatec.com.mx/cultivaquest.html">
+<meta property="og:url" content="https://cultivatec.com.mx/cultivaquest.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="apple-touch-icon" href="logo.png">
@@ -134,45 +134,23 @@
 
 <section class="section bg-white">
   <div class="container">
-    <div class="quest-path" aria-label="Ruta de niveles de CultivaQuest">
-
-      <div class="quest-node unlocked">
-        <div class="quest-node-circle"><i class="ph-fill ph-play"></i></div>
-        <span class="quest-node-label">Nivel 1<br><small>Primeros pasos</small></span>
-      </div>
-
-      <div class="quest-node locked">
-        <div class="quest-node-circle"><i class="ph-fill ph-lock-simple"></i></div>
-        <span class="quest-node-label">Nivel 2<br><small>Sensores</small></span>
-      </div>
-
-      <div class="quest-node locked">
-        <div class="quest-node-circle"><i class="ph-fill ph-lock-simple"></i></div>
-        <span class="quest-node-label">Nivel 3<br><small>Motores</small></span>
-      </div>
-
-      <div class="quest-node locked">
-        <div class="quest-node-circle"><i class="ph-fill ph-lock-simple"></i></div>
-        <span class="quest-node-label">Nivel 4<br><small>Circuitos</small></span>
-      </div>
-
-      <div class="quest-node locked">
-        <div class="quest-node-circle"><i class="ph-fill ph-lock-simple"></i></div>
-        <span class="quest-node-label">Nivel 5<br><small>Programación</small></span>
-      </div>
-
-      <div class="quest-node locked quest-node-boss">
-        <div class="quest-node-circle"><i class="ph-fill ph-trophy"></i></div>
-        <span class="quest-node-label">Nivel 6<br><small>Reto final</small></span>
-      </div>
-
+    <div class="quest-path" id="quest-path" aria-label="Ruta de niveles de CultivaQuest">
+      <!-- Los nodos se dibujan solos con JavaScript, a partir de js/quest-data.js -->
     </div>
 
-    <p class="quest-note"><i class="ph-fill ph-info"></i> Esta es la vista previa de la ruta — todavía no puedes jugar los niveles, ¡pero muy pronto sí!</p>
+    <p class="quest-note"><i class="ph-fill ph-info"></i> Tu progreso se guarda en este navegador. Completa una lección para desbloquear la siguiente.</p>
   </div>
 </section>
 
 </main>
+
+<!-- ==================== MODAL DE LECCIÓN ==================== -->
+<div class="quest-modal" id="quest-modal">
+  <div class="quest-modal-box">
+    <button class="quest-modal-close" id="quest-modal-close" aria-label="Cerrar"><i class="ph-bold ph-x"></i></button>
+    <div class="quest-modal-body" id="quest-modal-body"></div>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
@@ -185,9 +163,9 @@
         <p>Software educativo con inteligencia artificial, kits y cursos de robótica para escuelas. Con sede en Mexicali y Monterrey, para todo México.</p>
         <div class="socials">
           <a href="https://www.facebook.com/profile.php?id=100089359082614" target="_blank" rel="noopener" class="social" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
-          <a href="https://www.instagram.com/Cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
-          <a href="https://www.tiktok.com/@Cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
-          <a href="https://www.youtube.com/@Cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
+          <a href="https://www.instagram.com/cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+          <a href="https://www.tiktok.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
+          <a href="https://www.youtube.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
         </div>
       </div>
 
@@ -221,15 +199,15 @@
           <li><a href="school.html">School</a></li>
           <li><a href="cultivaquest.html">CultivaQuest</a></li>
           <li><a href="contacto.html">Contacto</a></li>
-          <li><a href="https://app.Cultivatec.com.mx" target="_blank" rel="noopener">Entrar a la plataforma</a></li>
+          <li><a href="https://app.cultivatec.com.mx" target="_blank" rel="noopener">Entrar a la plataforma</a></li>
         </ul>
       </div>
 
       <div>
         <h4>Contacto</h4>
         <ul class="footer-links">
-          <li><a class="mail" href="mailto:contacto@Cultivatec.com.mx">contacto@Cultivatec.com.mx</a></li>
-          <li><a class="mail" href="mailto:abraham@Cultivatec.com.mx">abraham@Cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
           <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
         </ul>
       </div>
@@ -244,5 +222,7 @@
 
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
 <script src="js/main.js?v=20260729j"></script>
+<script src="js/quest-data.js"></script>
+<script src="js/cultivaquest.js" defer></script>
 </body>
 </html>

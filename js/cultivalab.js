@@ -315,4 +315,11 @@ if (btnRun) {
   });
 }
 
+// Si llegamos desde un link tipo cultivalab.html#circuitos, abrimos esa pestaña directo
+const tabDesdeHash = window.location.hash.replace('#', '');
+if (tabDesdeHash) {
+  const tabObjetivo = document.querySelector(`.lab-tab[data-tab="${tabDesdeHash}"]`);
+  if (tabObjetivo) tabObjetivo.click();
+}
+
 console.log('CultivaLab: circuitos + bloques + code, listos 🚀');

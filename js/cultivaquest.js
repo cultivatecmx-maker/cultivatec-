@@ -1,230 +1,448 @@
-/* ============================================================
-   CULTIVAQUEST — vista previa de la ruta de niveles
-   ============================================================ */
+// ============================================================
+// CULTIVAQUEST — motor (v2, con mejor diseño e interacción)
+// ============================================================
 
-.sim-hero{
-  padding:140px 0 40px;
-  background:linear-gradient(165deg, var(--sim-bg) 0%, #fff 100%);
-  text-align:center;
-}
-.sim-hero .crumbs{justify-content:center}
-.sim-hero .tag-dark{
-  color:var(--sim-dk);background:#fff;border:1px solid var(--sim-bd);
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 16px;border-radius:var(--r-full);margin-bottom:16px;
-  font-weight:600;font-size:.875rem;
-}
+const QUEST_KEY = 'cultivaquest-progreso';
+const LETRAS = ['A', 'B', 'C', 'D', 'E'];
 
-.quest-path{
-  max-width:420px;margin:0 auto;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  position:relative;
-}
-/* Línea punteada detrás de los nodos */
-.quest-path::before{
-  content:"";
-  position:absolute;top:0;bottom:0;left:50%;
-  border-left:3px dashed var(--slate-200);
-  transform:translateX(-50%);
-  z-index:0;
+function cargarProgreso() {
+  try {
+    const guardado = localStorage.getItem(QUEST_KEY);
+    return guardado ? JSON.parse(guardado) : { completadas: [] };
+  } catch (e) {
+    return { completadas: [] };
+  }
 }
 
-.quest-node{
-  position:relative;z-index:1;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:18px 0;
-  /* Zigzag: nodos pares a la izquierda, impares a la derecha */
-  align-self:center;
-}
-.quest-node:nth-child(even){ transform:translateX(-70px); }
-.quest-node:nth-child(odd){ transform:translateX(70px); }
-@media (max-width:480px){
-  .quest-node:nth-child(even){ transform:translateX(-32px); }
-  .quest-node:nth-child(odd){ transform:translateX(32px); }
+function guardarProgreso(progreso) {
+  try {
+    localStorage.setItem(QUEST_KEY, JSON.stringify(progreso));
+  } catch (e) {
+    // sin problema
+  }
 }
 
-.quest-node-circle{
-  width:68px;height:68px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.6rem;
-  box-shadow:var(--sh-md);
-  border:4px solid #fff;
-}
-.quest-node.unlocked .quest-node-circle{
-  background:linear-gradient(160deg, var(--sim), var(--sim-dk));
-  color:#fff;
-}
-.quest-node.locked .quest-node-circle{
-  background:var(--slate-200);
-  color:var(--slate-400);
-}
-.quest-node-boss .quest-node-circle{
-  width:78px;height:78px;font-size:1.9rem;
+const TODAS_LAS_LECCIONES = [];
+
+QUEST_UNITS.forEach(function(u) {
+  u.lecciones.forEach(function(l) {
+    TODAS_LAS_LECCIONES.push({
+      ...l,
+      unidad: u.nombre
+    });
+  });
+});
+
+let progreso = cargarProgreso();
+
+const pathEl = document.getElementById('quest-path');
+
+function estadoDeLeccion(index) {
+  const leccion = TODAS_LAS_LECCIONES[index];
+
+  if (progreso.completadas.includes(leccion.id)) {
+    return 'completa';
+  }
+
+  const anterior = TODAS_LAS_LECCIONES[index - 1];
+
+  if (!anterior || progreso.completadas.includes(anterior.id)) {
+    return 'desbloqueada';
+  }
+
+  return 'bloqueada';
 }
 
-.quest-node-label{
-  text-align:center;font-size:.8125rem;font-weight:600;color:var(--slate-600);
-  line-height:1.4;
-}
-.quest-node-label small{font-weight:400;color:var(--slate-400)}
-.quest-node.locked .quest-node-label{color:var(--slate-400)}
+function dibujarCamino() {
+  if (!pathEl) return;
 
-.quest-note{
-  text-align:center;color:var(--slate-500);font-size:.875rem;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:32px;
-}
-.quest-note i{color:var(--sim-dk)}
+  pathEl.innerHTML = '';
 
-/* ============================================================
-   MOTOR DE LECCIONES (modal, tarjetas, cuestionario) — v2
-   ============================================================ */
+  TODAS_LAS_LECCIONES.forEach(function(leccion, i) {
+    const estado = estadoDeLeccion(i);
 
-.quest-node{
-  cursor:pointer; border:none; background:none; font-family:inherit;
-  transition:transform .15s var(--ease);
-}
-.quest-node:hover:not(:disabled){ transform:scale(1.06) translateX(var(--tx, 0)); }
-.quest-node:nth-child(even):hover:not(:disabled){ transform:translateX(-70px) scale(1.06); }
-.quest-node:nth-child(odd):hover:not(:disabled){ transform:translateX(70px) scale(1.06); }
-.quest-node:disabled{ cursor:not-allowed }
-.quest-node-emoji{ font-size:1.6rem; line-height:1 }
-.quest-node.quest-node-done .quest-node-circle{
-  background:linear-gradient(160deg,#059669,#047857); color:#fff;
-  animation:questPop .4s var(--ease);
-}
-@keyframes questPop{ 0%{transform:scale(.7)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
+    const nodo = document.createElement('button');
 
-/* ---- Fondo oscuro + caja del modal ---- */
-.quest-modal{
-  position:fixed; inset:0; z-index:200;
-  background:rgba(15,23,42,.6);
-  backdrop-filter:blur(3px);
-  display:none; align-items:center; justify-content:center; padding:20px;
-  opacity:0; transition:opacity .2s var(--ease);
-}
-.quest-modal.open{ display:flex; opacity:1 }
-.quest-modal-box{
-  background:#fff; border-radius:24px; max-width:540px; width:100%;
-  max-height:88vh; overflow-y:auto; position:relative;
-  box-shadow:0 24px 60px -12px rgba(15,23,42,.35);
-  transform:scale(.92) translateY(12px); transition:transform .25s cubic-bezier(.34,1.56,.64,1);
-}
-.quest-modal.open .quest-modal-box{ transform:scale(1) translateY(0) }
+    nodo.type = 'button';
 
-.quest-modal-close{
-  position:absolute; top:16px; right:16px; z-index:2;
-  width:34px; height:34px; border-radius:50%; border:none;
-  background:rgba(255,255,255,.9); color:var(--slate-600); cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:var(--sh-sm);
-  transition:background .15s var(--ease), transform .15s var(--ease);
-}
-.quest-modal-close:hover{ background:#fff; transform:rotate(90deg) }
+    nodo.className =
+      'quest-node ' +
+      (estado === 'bloqueada' ? 'locked' : 'unlocked') +
+      (estado === 'completa' ? ' quest-node-done' : '');
 
-/* ---- Encabezado con el emoji de la lección ---- */
-.quest-modal-header{
-  background:linear-gradient(155deg, var(--sim), var(--sim-dk));
-  padding:28px 28px 20px; color:#fff; text-align:center;
-  border-radius:24px 24px 0 0;
-}
-.quest-modal-emoji{
-  width:64px;height:64px;margin:0 auto 10px;border-radius:50%;
-  background:rgba(255,255,255,.18); display:flex;align-items:center;justify-content:center;
-  font-size:2rem; box-shadow:0 0 0 6px rgba(255,255,255,.12);
-}
-.quest-modal-header h2{ font-family:var(--font-display); font-size:1.15rem; margin:0; }
+    nodo.disabled = estado === 'bloqueada';
 
-.quest-modal-body{ padding:24px 28px 28px }
+    nodo.innerHTML = `
+      <span class="quest-node-circle">
+        ${
+          estado === 'bloqueada'
+            ? '<i class="ph-fill ph-lock-simple"></i>'
+            : estado === 'completa'
+              ? '<i class="ph-fill ph-check-bold"></i>'
+              : `<span class="quest-node-emoji">${leccion.emoji}</span>`
+        }
+      </span>
 
-/* ---- Barra de progreso ---- */
-.quest-progress-bar{
-  height:6px; border-radius:var(--r-full); background:var(--slate-100); overflow:hidden; margin-bottom:20px;
-}
-.quest-progress-bar-fill{
-  height:100%; background:linear-gradient(90deg, var(--sim), var(--sim-dk));
-  border-radius:var(--r-full); transition:width .35s var(--ease);
+      <span class="quest-node-label">
+        ${leccion.titulo}<br>
+        <small>${leccion.unidad}</small>
+      </span>
+    `;
+
+    if (estado !== 'bloqueada') {
+      nodo.addEventListener('click', function() {
+        abrirLeccion(i);
+      });
+    }
+
+    pathEl.appendChild(nodo);
+  });
 }
 
-/* ---- Tarjetas de contenido ---- */
-.quest-card{
-  text-align:left; animation:questFadeIn .3s var(--ease);
-  border-left:4px solid var(--sim-dk); background:var(--slate-50);
-  border-radius:0 var(--r-md) var(--r-md) 0; padding:20px 20px 20px 18px;
-}
-.quest-card-ejemplo{ border-color:#7C3AED; background:#F5F3FF }
-.quest-card-dato{ border-color:#F59E0B; background:#FFFBEB }
-.quest-card-consejo{ border-color:#059669; background:#ECFDF5 }
-@keyframes questFadeIn{ from{opacity:0; transform:translateX(10px)} to{opacity:1; transform:translateX(0)} }
+// ============================================================
+// MODAL
+// ============================================================
 
-.quest-card-tag{
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
-  padding:4px 10px; border-radius:var(--r-full); margin-bottom:12px;
-  background:#fff; color:var(--sim-dk); box-shadow:var(--sh-sm);
-}
-.quest-card h3{ font-family:var(--font-display); font-size:1.2rem; color:var(--slate-800); margin:0 0 8px }
-.quest-card p{ color:var(--slate-600); line-height:1.65; margin:0; font-size:.9375rem }
+const modal = document.getElementById('quest-modal');
+const modalBody = document.getElementById('quest-modal-body');
 
-.quest-modal-nav{
-  display:flex; align-items:center; justify-content:flex-end;
-  margin-top:22px;
-}
-.quest-modal-nav .btn{ width:100%; justify-content:center }
+function cerrarModal() {
+  if (!modal || !modalBody) return;
 
-/* ---- Cuestionario ---- */
-.quest-quiz{ animation:questFadeIn .3s var(--ease) }
-.quest-quiz h3{ font-family:var(--font-display); font-size:1.15rem; color:var(--slate-800); margin:0 0 18px }
-.quest-options{ display:flex; flex-direction:column; gap:10px }
-.quest-option{
-  display:flex; align-items:center; gap:12px; text-align:left;
-  padding:14px 16px; border-radius:14px;
-  border:2px solid var(--slate-200); background:#fff; cursor:pointer;
-  font-size:.9375rem; color:var(--slate-700);
-  transition:border-color .15s var(--ease), background .15s var(--ease), transform .1s var(--ease);
-}
-.quest-option:hover:not(:disabled){ border-color:var(--sim-bd); background:var(--sim-bg); transform:translateX(3px) }
-.quest-option:active:not(:disabled){ transform:scale(.98) }
-.quest-option:disabled{ cursor:default }
-.quest-option-badge{
-  width:26px;height:26px;flex-shrink:0;border-radius:50%;
-  background:var(--slate-100); color:var(--slate-500);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem; font-weight:700;
-  transition:background .15s var(--ease), color .15s var(--ease);
-}
-.quest-option.correct{ border-color:#059669; background:#ECFDF5; color:#047857; font-weight:600; animation:questPop .3s var(--ease) }
-.quest-option.correct .quest-option-badge{ background:#059669; color:#fff }
-.quest-option.wrong{ border-color:#DC2626; background:#FEF2F2; color:#B91C1C }
-.quest-option.wrong .quest-option-badge{ background:#DC2626; color:#fff }
+  modal.classList.remove('open');
 
-.quest-explicacion{
-  display:flex; align-items:flex-start; gap:10px;
-  background:var(--slate-50); border-radius:14px; padding:14px 16px;
-  font-size:.875rem; color:var(--slate-600); margin:18px 0;
-  animation:questFadeIn .25s var(--ease);
+  setTimeout(function() {
+    modalBody.innerHTML = '';
+  }, 200);
 }
-.quest-explicacion i{ color:var(--sim-dk); flex-shrink:0; margin-top:2px; font-size:1.1rem }
 
-/* ---- Resultado final ---- */
-.quest-result{
-  text-align:center; display:flex; flex-direction:column; align-items:center; gap:8px;
-  animation:questFadeIn .3s var(--ease);
+const modalClose = document.getElementById('quest-modal-close');
+
+if (modalClose) {
+  modalClose.addEventListener('click', cerrarModal);
 }
-.quest-result-icon{
-  width:84px;height:84px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center; font-size:2.5rem;
-  margin-bottom:6px; animation:questBounce .6s var(--ease);
+
+if (modal) {
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      cerrarModal();
+    }
+  });
 }
-.quest-result.ok .quest-result-icon{ background:linear-gradient(160deg,#FDE68A,#F59E0B); color:#fff }
-.quest-result.retry .quest-result-icon{ background:var(--slate-100); color:var(--slate-400) }
-@keyframes questBounce{
-  0%{ transform:scale(0) } 50%{ transform:scale(1.15) } 75%{ transform:scale(.95) } 100%{ transform:scale(1) }
+
+// ============================================================
+// ABRIR LECCIÓN
+// ============================================================
+
+function abrirLeccion(index) {
+  const leccion = TODAS_LAS_LECCIONES[index];
+  let paso = 0;
+
+  function render() {
+    if (paso < leccion.cards.length) {
+      renderTarjeta(paso);
+    } else {
+      renderCuestionario(index, 0, 0);
+    }
+  }
+
+  function encabezado(porcentaje) {
+    return `
+      <div class="quest-modal-header">
+        <div class="quest-modal-emoji">${leccion.emoji}</div>
+        <h2>${leccion.titulo}</h2>
+      </div>
+
+      <div class="quest-modal-body">
+        <div class="quest-progress-bar">
+          <div
+            class="quest-progress-bar-fill"
+            style="width:${porcentaje}%"
+          ></div>
+        </div>
+
+        <div id="quest-slot"></div>
+      </div>
+    `;
+  }
+
+  function renderTarjeta(i) {
+    const card = leccion.cards[i];
+    const esUltima = i === leccion.cards.length - 1;
+
+    const porcentaje = Math.round(
+      (i / (leccion.cards.length + leccion.preguntas.length)) * 100
+    );
+
+    modalBody.innerHTML = encabezado(porcentaje);
+
+    document.getElementById('quest-slot').innerHTML = `
+      <div class="quest-card quest-card-${card.tipo}">
+
+        <span class="quest-card-tag">
+          <i class="ph-fill ${iconoTipo(card.tipo)}"></i>
+          ${etiquetaTipo(card.tipo)}
+        </span>
+
+        <h3>${card.titulo}</h3>
+
+        <p>${card.texto}</p>
+
+      </div>
+
+      <div class="quest-modal-nav">
+
+        <button class="btn btn-primary" id="quest-next">
+          ${esUltima ? 'Ir al cuestionario' : 'Siguiente'}
+          <i class="ph-bold ph-arrow-right"></i>
+        </button>
+
+      </div>
+    `;
+
+    document.getElementById('quest-next').addEventListener('click', function() {
+      paso++;
+      render();
+    });
+  }
+
+  function renderCuestionario(index, preguntaIdx, aciertos) {
+    const leccion = TODAS_LAS_LECCIONES[index];
+
+    if (preguntaIdx >= leccion.preguntas.length) {
+      const gano =
+        aciertos >= Math.ceil(leccion.preguntas.length * 0.6);
+
+      const xp = gano ? aciertos * 10 : 0;
+
+      modalBody.innerHTML = `
+        <div class="quest-modal-header">
+
+          <div class="quest-modal-emoji">
+            ${gano ? '🎉' : '💪'}
+          </div>
+
+          <h2>
+            ${gano ? '¡Lección completada!' : 'Casi lo logras'}
+          </h2>
+
+        </div>
+
+        <div class="quest-modal-body">
+
+          <div class="quest-result ${gano ? 'ok' : 'retry'}">
+
+            <div class="quest-result-icon">
+              <i class="ph-fill ${
+                gano ? 'ph-trophy' : 'ph-arrow-counter-clockwise'
+              }"></i>
+            </div>
+
+            ${
+              gano
+                ? `<span class="quest-result-xp">+${xp} XP</span>`
+                : ''
+            }
+
+            <h3>
+              Acertaste ${aciertos} de ${leccion.preguntas.length}
+            </h3>
+
+            <p>
+              ${
+                gano
+                  ? '¡Muy bien hecho! Sigues avanzando en tu ruta.'
+                  : 'Repasa las tarjetas e inténtalo otra vez.'
+              }
+            </p>
+
+            ${
+              leccion.practice
+                ? `
+                  <button class="btn btn-soft" id="quest-practicar">
+                    <i class="ph-bold ph-flask"></i>
+                    ${leccion.practice.etiqueta}
+                  </button>
+                `
+                : ''
+            }
+
+            <button class="btn btn-primary" id="quest-cerrar">
+              ${gano ? 'Continuar' : 'Reintentar'}
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+      if (
+        gano &&
+        !progreso.completadas.includes(leccion.id)
+      ) {
+        progreso.completadas.push(leccion.id);
+        guardarProgreso(progreso);
+      }
+
+      const botonPracticar =
+        document.getElementById('quest-practicar');
+
+      if (botonPracticar) {
+        botonPracticar.addEventListener('click', function() {
+          window.location.href =
+            'cultivalab.html#' + leccion.practice.tipo;
+        });
+      }
+
+      document.getElementById('quest-cerrar').addEventListener(
+        'click',
+        function() {
+          if (gano) {
+            cerrarModal();
+            dibujarCamino();
+          } else {
+            paso = 0;
+            render();
+          }
+        }
+      );
+
+      return;
+    }
+
+    const p = leccion.preguntas[preguntaIdx];
+
+    const porcentaje = Math.round(
+      (
+        (leccion.cards.length + preguntaIdx) /
+        (leccion.cards.length + leccion.preguntas.length)
+      ) * 100
+    );
+
+    modalBody.innerHTML = encabezado(porcentaje);
+
+    document.getElementById('quest-slot').innerHTML = `
+      <div class="quest-quiz">
+
+        <span class="quest-card-tag">
+          <i class="ph-fill ph-question"></i>
+          Pregunta ${preguntaIdx + 1} de ${leccion.preguntas.length}
+        </span>
+
+        <h3>${p.pregunta}</h3>
+
+        <div class="quest-options" id="quest-options">
+
+          ${p.opciones.map(function(op, i) {
+            return `
+              <button class="quest-option" data-i="${i}">
+                <span class="quest-option-badge">
+                  ${LETRAS[i]}
+                </span>
+                ${op}
+              </button>
+            `;
+          }).join('')}
+
+        </div>
+
+        <div id="quest-feedback"></div>
+
+      </div>
+    `;
+
+    document.querySelectorAll('.quest-option').forEach(function(btn) {
+
+      btn.addEventListener('click', function() {
+
+        document.querySelectorAll('.quest-option').forEach(function(b) {
+          b.disabled = true;
+        });
+
+        const i = parseInt(btn.dataset.i, 10);
+        const correcto = i === p.correcta;
+
+        btn.classList.add(
+          correcto ? 'correct' : 'wrong'
+        );
+
+        if (!correcto) {
+          const respuestaCorrecta =
+            document.querySelector(
+              `.quest-option[data-i="${p.correcta}"]`
+            );
+
+          if (respuestaCorrecta) {
+            respuestaCorrecta.classList.add('correct');
+          }
+        }
+
+        document.getElementById('quest-feedback').innerHTML = `
+          <p class="quest-explicacion">
+            <i class="ph-fill ${
+              correcto ? 'ph-check-circle' : 'ph-x-circle'
+            }"></i>
+            ${p.explicacion}
+          </p>
+
+          <button
+            class="btn btn-primary"
+            id="quest-siguiente-pregunta"
+            style="width:100%;justify-content:center"
+          >
+            Siguiente
+            <i class="ph-bold ph-arrow-right"></i>
+          </button>
+        `;
+
+        document
+          .getElementById('quest-siguiente-pregunta')
+          .addEventListener('click', function() {
+
+            renderCuestionario(
+              index,
+              preguntaIdx + 1,
+              aciertos + (correcto ? 1 : 0)
+            );
+
+          });
+
+      });
+
+    });
+  }
+
+  if (modal) {
+    modal.classList.add('open');
+  }
+
+  render();
 }
-.quest-result h3{ font-family:var(--font-display); font-size:1.3rem; color:var(--slate-800); margin:0 }
-.quest-result p{ color:var(--slate-500); margin:0 0 6px }
-.quest-result-xp{
-  font-weight:700; color:#B45309; background:#FFFBEB; border:1px solid #FDE68A;
-  padding:4px 14px; border-radius:var(--r-full); font-size:.8125rem; margin-bottom:8px;
+
+// ============================================================
+// TIPOS DE TARJETAS
+// ============================================================
+
+function etiquetaTipo(tipo) {
+  return {
+    concepto: 'Concepto',
+    ejemplo: 'Ejemplo',
+    dato: 'Dato curioso',
+    consejo: 'Consejo'
+  }[tipo] || tipo;
 }
-.quest-result .btn{ width:100%; justify-content:center }
+
+function iconoTipo(tipo) {
+  return {
+    concepto: 'ph-lightbulb',
+    ejemplo: 'ph-eye',
+    dato: 'ph-sparkle',
+    consejo: 'ph-hand-heart'
+  }[tipo] || 'ph-info';
+}
+
+// ============================================================
+// INICIAR CULTIVAQUEST
+// ============================================================
+
+dibujarCamino();

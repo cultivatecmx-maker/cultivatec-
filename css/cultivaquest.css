@@ -5,9 +5,18 @@
 .sim-hero{
   padding:140px 0 40px;
   background:linear-gradient(165deg, var(--sim-bg) 0%, #fff 100%);
-  text-align:center;
 }
-.sim-hero .crumbs{justify-content:center}
+.quest-hero-grid{
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;
+  text-align:left;
+}
+.quest-hero-grid .crumbs{justify-content:flex-start}
+.quest-mascota{width:220px;height:auto;justify-self:center}
+@media (max-width:760px){
+  .quest-hero-grid{grid-template-columns:1fr;text-align:center}
+  .quest-hero-grid .crumbs{justify-content:center}
+  .quest-mascota{width:160px;order:-1}
+}
 .sim-hero .tag-dark{
   color:var(--sim-dk);background:#fff;border:1px solid var(--sim-bd);
   display:inline-flex;align-items:center;gap:8px;
@@ -212,12 +221,13 @@
   animation:questFadeIn .3s var(--ease);
 }
 .quest-result-icon{
-  width:84px;height:84px;border-radius:50%;
+  min-width:84px;min-height:84px;border-radius:50%;
   display:flex;align-items:center;justify-content:center; font-size:2.5rem;
   margin-bottom:6px; animation:questBounce .6s var(--ease);
 }
-.quest-result.ok .quest-result-icon{ background:linear-gradient(160deg,#FDE68A,#F59E0B); color:#fff }
+.quest-result.ok .quest-result-icon{ background:none; width:auto; height:auto; border-radius:0 }
 .quest-result.retry .quest-result-icon{ background:var(--slate-100); color:var(--slate-400) }
+.quest-result-vale{ width:120px; height:auto; display:block }
 @keyframes questBounce{
   0%{ transform:scale(0) } 50%{ transform:scale(1.15) } 75%{ transform:scale(.95) } 100%{ transform:scale(1) }
 }

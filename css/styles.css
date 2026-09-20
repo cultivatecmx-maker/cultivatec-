@@ -1,5 +1,5 @@
 /* ============================================================
-   Cultivatec — Sistema de diseño
+   CULTIVATEC — Sistema de diseño
    Paleta clara y amable · multipágina
    ============================================================ */
 
@@ -8,8 +8,8 @@
 ------------------------------------------------------------ */
 :root {
   /* Marca — del logo (compás azul) */
-  --brand-50:#EFF6FF; --brand-100:#DBEAFE; --brand-200:#BFDBFE; --brand-300:#93C5FD;
-  --brand-400:#60A5FA; --brand-500:#3B82F6; --brand-600:#2563EB; --brand-700:#1D4ED8;
+  --brand-50:#EAF2FC; --brand-100:#D2E3F8; --brand-200:#A6C7F1; --brand-300:#79ABEA;
+  --brand-400:#3D7DD9; --brand-500:#1968CE; --brand-600:#0958C2; --brand-700:#074690;
   --brand-800:#1E40AF; --brand-900:#1E3A8A;
 
   /* Acentos por familia de producto.
@@ -192,8 +192,19 @@ ul,ol{list-style:none}
 .nav-logo{display:flex;align-items:center;gap:11px;flex-shrink:0}
 .nav-logo img{width:40px;height:40px;transition:transform .3s var(--ease)}
 .nav-logo:hover img{transform:rotate(-8deg) scale(1.06)}
-.nav-wordmark{font-family:var(--font-display);font-size:1.25rem;font-weight:700;letter-spacing:-.03em;color:var(--slate-900);transition:color .3s var(--ease)}
-.nav-wordmark b{color:var(--brand-600);font-weight:700}
+.nav-wordmark{font-family:'League Spartan',var(--font-display);font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:#0958C2;transition:color .3s var(--ease)}
+.nav-wordmark b{color:#0958C2;font-weight:800}
+
+/* El wordmark "Cultivatec" en cualquier parte del sitio: siempre League Spartan, azul de marca */
+.arr-marca,
+.hero-tag span,
+.footer-brand-logo span{
+  font-family:'League Spartan',var(--font-display);
+  font-weight:800;letter-spacing:-.02em;color:#0958C2;
+}
+.arr-marca b,
+.hero-tag span b,
+.footer-brand-logo span b{color:#0958C2;font-weight:800}
 
 /* `relative` aquí hace que los paneles se centren bajo TODO el menú,
    nunca bajo su botón: así jamás se salen del viewport. */
@@ -1386,4 +1397,20 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
     transition-duration:.01ms !important;scroll-behavior:auto !important;
   }
   .reveal,.reveal-left,.reveal-right,.stagger > *{opacity:1 !important;transform:none !important}
+}
+
+/* Boton "Recursos STEM" en el nav, junto al CTA */
+.nav-secondary{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:var(--r-full);
+  border:1px solid var(--slate-200);
+  color:var(--slate-600);font-weight:600;font-size:.8125rem;
+  transition:border-color .15s var(--ease), color .15s var(--ease), background .15s var(--ease);
+}
+.nav-secondary:hover{border-color:var(--sim-bd);color:var(--sim-dk);background:var(--sim-bg)}
+@media (max-width:900px){ .nav-secondary span{display:none} }
+
+/* Foto de ninos armando el brazo, en el hero de Plataforma */
+.hero-photo{
+  display:block;margin:32px auto 0;max-width:480px;width:100%;height:auto;
 }

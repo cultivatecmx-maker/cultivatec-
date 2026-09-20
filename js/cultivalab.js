@@ -27,7 +27,7 @@ tabs.forEach(tab => {
 });
 
 // ============================================================
-// 2) BLOQUES — clic para seleccionar y agrandar
+// 2) BLOQUES - clic para seleccionar y agrandar
 // ============================================================
 const blockChips = document.querySelectorAll('.block-chip');
 blockChips.forEach(chip => {
@@ -254,7 +254,7 @@ function evaluarCircuito() {
 }
 
 // ============================================================
-// 4) CODE — Python real en el navegador con Pyodide
+// 4) CODE - Python real en el navegador con Pyodide
 // ============================================================
 let pyodideListo = null; // promesa: evita cargar Pyodide dos veces
 
@@ -266,7 +266,7 @@ const codeStatus = document.getElementById('code-status');
 function cargarPython() {
   if (pyodideListo) return pyodideListo; // ya se está cargando o ya cargó
 
-  if (codeStatus) codeStatus.textContent = 'Cargando Python… (solo la primera vez, ~10s)';
+  if (codeStatus) codeStatus.textContent = 'Cargando Python... (solo la primera vez, ~10s)';
   if (btnRun) btnRun.disabled = true;
 
   pyodideListo = new Promise((resolve, reject) => {
@@ -293,7 +293,7 @@ if (btnRun) {
   btnRun.addEventListener('click', async () => {
     btnRun.disabled = true;
     codeOutput.classList.remove('error');
-    codeOutput.textContent = 'Ejecutando…';
+    codeOutput.textContent = 'Ejecutando...';
 
     try {
       const pyodide = await cargarPython();
@@ -305,7 +305,7 @@ if (btnRun) {
 
       await pyodide.runPythonAsync(codeInput.value);
 
-      codeOutput.textContent = salida || '(el código no imprimió nada — usa print() para ver resultados)';
+      codeOutput.textContent = salida || '(el código no imprimió nada - usa print() para ver resultados)';
     } catch (err) {
       codeOutput.classList.add('error');
       codeOutput.textContent = String(err);

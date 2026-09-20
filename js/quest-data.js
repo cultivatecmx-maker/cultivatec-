@@ -1,5 +1,5 @@
 // ============================================================
-// CULTIVAQUEST — contenido de las lecciones
+// CULTIVAQUEST - contenido de las lecciones
 // Cada "unidad" es un grupo de niveles. Cada nivel (lección) tiene:
 //   - cards: tarjetas de contenido (concepto / ejemplo / dato / consejo)
 //   - questions: el cuestionario al final
@@ -23,7 +23,7 @@ const QUEST_UNITS = [
             texto: 'Una lavadora con sensores y programa es casi un robot; una silla no lo es. Una aspiradora que esquiva muebles, ¡sí!' },
         ],
         preguntas: [
-          { pregunta: 'Un robot puede sentir, pensar y…', opciones: ['comer', 'actuar', 'dormir', 'cantar'], correcta: 1, explicacion: 'Siente, decide y actúa.' },
+          { pregunta: 'Un robot puede sentir, pensar y...', opciones: ['comer', 'actuar', 'dormir', 'cantar'], correcta: 1, explicacion: 'Siente, decide y actúa.' },
           { pregunta: 'Verdadero o Falso: una silla es un robot.', opciones: ['Verdadero', 'Falso'], correcta: 1, explicacion: 'No siente ni decide ni se mueve sola.' },
           { pregunta: '¿Cuál SÍ es un robot?', opciones: ['una aspiradora que esquiva muebles', 'una piedra', 'un cuaderno', 'un vaso'], correcta: 0, explicacion: 'Siente y decide para moverse.' },
         ],
@@ -54,7 +54,7 @@ const QUEST_UNITS = [
           { tipo: 'ejemplo', titulo: 'Ejemplos de sensores',
             texto: 'Un sensor de luz sabe si está oscuro. Un sensor de distancia sabe si hay algo enfrente. Un sensor de tacto sabe si lo tocaron.' },
           { tipo: 'dato', titulo: '¡Como tus ojos!',
-            texto: 'Tus ojos, oídos, nariz y piel también son sensores — le mandan información a tu cerebro todo el tiempo.' },
+            texto: 'Tus ojos, oídos, nariz y piel también son sensores - le mandan información a tu cerebro todo el tiempo.' },
         ],
         preguntas: [
           { pregunta: '¿Para qué sirve un sensor?', opciones: ['Para mover al robot', 'Para captar información del entorno', 'Para darle energía', 'Para pintarlo'], correcta: 1, explicacion: 'Los sensores captan lo que pasa alrededor del robot.' },
@@ -75,7 +75,7 @@ const QUEST_UNITS = [
         preguntas: [
           { pregunta: '¿Qué parte produce movimiento en un robot?', opciones: ['el sensor', 'el actuador', 'la batería', 'el cable'], correcta: 1, explicacion: 'Los actuadores son los que mueven al robot.' },
           { pregunta: '¿Cuál de estos es un actuador?', opciones: ['un motor', 'un foco de luz de la calle', 'una piedra', 'un cuaderno'], correcta: 0, explicacion: 'El motor convierte electricidad en movimiento.' },
-          { pregunta: 'Un actuador es como…', opciones: ['los ojos de un robot', 'los músculos de un robot', 'la comida de un robot', 'la piel de un robot'], correcta: 1, explicacion: 'Así como tus músculos te mueven, los actuadores mueven al robot.' },
+          { pregunta: 'Un actuador es como...', opciones: ['los ojos de un robot', 'los músculos de un robot', 'la comida de un robot', 'la piel de un robot'], correcta: 1, explicacion: 'Así como tus músculos te mueven, los actuadores mueven al robot.' },
         ],
       },
       {
@@ -90,7 +90,7 @@ const QUEST_UNITS = [
         ],
         preguntas: [
           { pregunta: '¿Qué parte decide qué hacer con la información?', opciones: ['el sensor', 'el control', 'la batería', 'la rueda'], correcta: 1, explicacion: 'El control es el cerebro que decide.' },
-          { pregunta: 'El control recibe información de…', opciones: ['los actuadores', 'los sensores', 'la batería', 'el usuario únicamente'], correcta: 1, explicacion: 'Recibe datos de los sensores para decidir.' },
+          { pregunta: 'El control recibe información de...', opciones: ['los actuadores', 'los sensores', 'la batería', 'el usuario únicamente'], correcta: 1, explicacion: 'Recibe datos de los sensores para decidir.' },
           { pregunta: 'Verdadero o Falso: el control le da órdenes a los actuadores.', opciones: ['Verdadero', 'Falso'], correcta: 0, explicacion: 'El control decide y ordena a los actuadores qué hacer.' },
         ],
       },
@@ -109,7 +109,7 @@ const QUEST_UNITS = [
         preguntas: [
           { pregunta: '¿Qué le pasa a un robot sin alimentación?', opciones: ['funciona más rápido', 'no funciona nada', 'se vuelve más inteligente', 'nada, no la necesita'], correcta: 1, explicacion: 'Sin energía, ninguna parte del robot funciona.' },
           { pregunta: '¿Cuál de estos es una fuente de alimentación?', opciones: ['una batería', 'un sensor de luz', 'una rueda', 'un cable de datos'], correcta: 0, explicacion: 'La batería almacena y da energía.' },
-          { pregunta: 'La alimentación es como…', opciones: ['los músculos', 'el cerebro', 'la comida', 'los ojos'], correcta: 2, explicacion: 'Así como tú necesitas comida para tener energía, el robot necesita su batería.' },
+          { pregunta: 'La alimentación es como...', opciones: ['los músculos', 'el cerebro', 'la comida', 'los ojos'], correcta: 2, explicacion: 'Así como tú necesitas comida para tener energía, el robot necesita su batería.' },
         ],
       },
       {
@@ -137,11 +137,11 @@ const QUEST_UNITS = [
           { tipo: 'concepto', titulo: 'Ahora, la energía',
             texto: 'Después del cuerpo, hay que conectar la parte eléctrica: la batería, los cables y los componentes que hacen que algo encienda o se mueva.' },
           { tipo: 'ejemplo', titulo: 'Tu primer circuito',
-            texto: 'Conectar una batería a un LED es el circuito más sencillo que existe: el + va al + y el − va al −.' },
+            texto: 'Conectar una batería a un LED es el circuito más sencillo que existe: el + va al + y el - va al -.' },
         ],
         preguntas: [
           { pregunta: '¿Qué conectamos después de armar el cuerpo del robot?', opciones: ['la electrónica', 'nada más', 'solo el nombre del robot', 'los dibujos'], correcta: 0, explicacion: 'Después de la mecánica, se conecta la electrónica.' },
-          { pregunta: 'En un circuito sencillo, el + de la batería va…', opciones: ['al − del LED', 'al + del LED', 'a ningún lado', 'a otra batería siempre'], correcta: 1, explicacion: 'Positivo con positivo, negativo con negativo.' },
+          { pregunta: 'En un circuito sencillo, el + de la batería va...', opciones: ['al - del LED', 'al + del LED', 'a ningún lado', 'a otra batería siempre'], correcta: 1, explicacion: 'Positivo con positivo, negativo con negativo.' },
           { pregunta: 'Verdadero o Falso: sin conectar la electrónica, el robot no enciende.', opciones: ['Verdadero', 'Falso'], correcta: 0, explicacion: 'La electrónica es la que le da vida al robot.' },
         ],
       },
@@ -154,14 +154,14 @@ const QUEST_UNITS = [
           { tipo: 'concepto', titulo: 'El robot no adivina',
             texto: 'Un robot solo hace lo que le decimos, paso a paso. A esa lista de pasos se le llama "instrucciones" o "código".' },
           { tipo: 'ejemplo', titulo: 'Ejemplo de instrucciones',
-            texto: '"Avanza", "gira a la derecha", "avanza otra vez" — cada palabra es una instrucción que el robot sigue en orden.' },
+            texto: '"Avanza", "gira a la derecha", "avanza otra vez" - cada palabra es una instrucción que el robot sigue en orden.' },
           { tipo: 'consejo', titulo: 'El orden importa',
             texto: 'Si cambias el orden de las instrucciones, ¡el robot puede terminar en un lugar totalmente distinto!' },
         ],
         preguntas: [
           { pregunta: '¿Cómo sabe un robot qué hacer?', opciones: ['lo adivina', 'siguiendo instrucciones que le damos', 'lo decide él solo sin ayuda', 'nunca sabe qué hacer'], correcta: 1, explicacion: 'El robot sigue las instrucciones que programamos.' },
-          { pregunta: 'A la lista de pasos que sigue un robot se le llama…', opciones: ['batería', 'instrucciones (código)', 'sensor', 'actuador'], correcta: 1, explicacion: 'Esa lista de pasos es el código o instrucciones.' },
-          { pregunta: 'Verdadero o Falso: el orden de las instrucciones no importa.', opciones: ['Verdadero', 'Falso'], correcta: 1, explicacion: 'El orden sí importa — cambiar el orden puede cambiar el resultado.' },
+          { pregunta: 'A la lista de pasos que sigue un robot se le llama...', opciones: ['batería', 'instrucciones (código)', 'sensor', 'actuador'], correcta: 1, explicacion: 'Esa lista de pasos es el código o instrucciones.' },
+          { pregunta: 'Verdadero o Falso: el orden de las instrucciones no importa.', opciones: ['Verdadero', 'Falso'], correcta: 1, explicacion: 'El orden sí importa - cambiar el orden puede cambiar el resultado.' },
         ],
       },
       {
@@ -176,7 +176,7 @@ const QUEST_UNITS = [
             texto: 'Primero el cuerpo, luego las conexiones, y al final el programa que lo controla.' },
         ],
         preguntas: [
-          { pregunta: 'Para que el robot se mueva primero conectas su…', opciones: ['mecánica y electrónica', 'color', 'nombre', 'sonido'], correcta: 0, explicacion: 'El cuerpo y las conexiones.' },
+          { pregunta: 'Para que el robot se mueva primero conectas su...', opciones: ['mecánica y electrónica', 'color', 'nombre', 'sonido'], correcta: 0, explicacion: 'El cuerpo y las conexiones.' },
           { pregunta: '¿Qué le dice al robot qué hacer?', opciones: ['las instrucciones (programa)', 'la pintura', 'el tamaño', 'la batería vacía'], correcta: 0, explicacion: 'El programa lo controla.' },
           { pregunta: 'Verdadero o Falso: el programa va al final.', opciones: ['Verdadero', 'Falso'], correcta: 0, explicacion: 'Primero armas, luego programas.' },
         ],

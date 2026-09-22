@@ -1440,8 +1440,22 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
 }
 .floating-contacto{ background:#0958C2; color:#fff }
 .floating-recursos{ background:#fff; color:#0958C2; border:2px solid #0958C2 }
+.floating-contacto2{ background:var(--ink-950); color:#fff }
 
 @media (max-width:640px){
   .floating-actions{ top:auto; bottom:90px; transform:none; gap:8px }
   .floating-btn{ transform:translateX(calc(100% - 40px)); padding:11px 16px 11px 12px; font-size:.75rem }
 }
+
+/* Boton especial de School, siempre visible y completo en la esquina del nav */
+.nav-school-btn{
+  display:flex; align-items:center; gap:7px;
+  padding:9px 16px; border-radius:var(--r-full);
+  background:#0958C2; color:#fff; font-weight:700; font-size:.8125rem;
+  box-shadow:0 4px 14px -3px rgba(9,88,194,.45);
+  transition:background .15s var(--ease), transform .15s var(--ease);
+  white-space:nowrap;
+}
+.nav-school-btn i{font-size:1rem}
+.nav-school-btn:hover{background:#074690;transform:translateY(-1px);color:#fff}
+@media (max-width:480px){ .nav-school-btn span{display:none} }

@@ -134,8 +134,8 @@
 
 /* Botón: cambia de color cuando está presionado */
 .sim-comp-boton{cursor:pointer}
-.sim-comp-boton.presionado{border-color:#059669;background:#ECFDF5}
-.sim-comp-boton.presionado i{color:#059669}
+.sim-comp-boton.presionado{border-color:#0958C2;background:#EAF2FC}
+.sim-comp-boton.presionado i{color:#0958C2}
 
 /* Resistencia: cursor de "editar" */
 .sim-comp-resistencia{cursor:pointer}
@@ -178,11 +178,11 @@
   transition:transform .15s var(--ease), box-shadow .15s var(--ease);
 }
 .block-chip i{font-size:1.6rem}
-.block-chip.block-move{background:linear-gradient(160deg,#2F6BCC,#1D4E9E)}
-.block-chip.block-turn{background:linear-gradient(160deg,#7C3AED,#5B21B6)}
-.block-chip.block-wait{background:linear-gradient(160deg,#F59E0B,#B45309)}
-.block-chip.block-loop{background:linear-gradient(160deg,#059669,#047857)}
-.block-chip.block-io{background:linear-gradient(160deg,#DB2777,#9D174D)}
+.block-chip.block-move{background:linear-gradient(160deg,#3D7DD9,#0958C2)}
+.block-chip.block-turn{background:linear-gradient(160deg,#1968CE,#074690)}
+.block-chip.block-wait{background:linear-gradient(160deg,#79ABEA,#1968CE)}
+.block-chip.block-loop{background:linear-gradient(160deg,#0958C2,#0B2A5C)}
+.block-chip.block-io{background:linear-gradient(160deg,#074690,#0B2A5C)}
 .block-chip:hover{box-shadow:var(--sh-md)}
 .block-chip.selected{
   transform:scale(1.18);
@@ -225,5 +225,8 @@
   position:absolute; top:-38px; right:24px; width:90px; height:auto;
   z-index:2; pointer-events:none;
   filter:drop-shadow(0 6px 10px rgba(15,23,42,.15));
+  animation:valeFloat 3.5s ease-in-out infinite;
 }
+@keyframes valeFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
 @media (max-width:600px){ .lab-mascota{ width:64px; top:-26px; right:14px } }
+

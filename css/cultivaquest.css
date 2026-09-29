@@ -11,7 +11,7 @@
   text-align:left;
 }
 .quest-hero-grid .crumbs{justify-content:flex-start}
-.quest-mascota{width:220px;height:auto;justify-self:center}
+.quest-mascota{width:220px;height:auto;justify-self:center;animation:valeFloat 3.2s ease-in-out infinite}
 @media (max-width:760px){
   .quest-hero-grid{grid-template-columns:1fr;text-align:center}
   .quest-hero-grid .crumbs{justify-content:center}
@@ -99,7 +99,7 @@
 .quest-node:disabled{ cursor:not-allowed }
 .quest-node-emoji{ font-size:1.6rem; line-height:1 }
 .quest-node.quest-node-done .quest-node-circle{
-  background:linear-gradient(160deg,#059669,#047857); color:#fff;
+  background:linear-gradient(160deg,#1968CE,#074690); color:#fff;
   animation:questPop .4s var(--ease);
 }
 @keyframes questPop{ 0%{transform:scale(.7)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
@@ -161,9 +161,9 @@
   border-left:4px solid var(--sim-dk); background:var(--slate-50);
   border-radius:0 var(--r-md) var(--r-md) 0; padding:20px 20px 20px 18px;
 }
-.quest-card-ejemplo{ border-color:#7C3AED; background:#F5F3FF }
-.quest-card-dato{ border-color:#F59E0B; background:#FFFBEB }
-.quest-card-consejo{ border-color:#059669; background:#ECFDF5 }
+.quest-card-ejemplo{ border-color:#1968CE; background:#EAF2FC }
+.quest-card-dato{ border-color:#79ABEA; background:#EAF2FC }
+.quest-card-consejo{ border-color:#074690; background:#D2E3F8 }
 @keyframes questFadeIn{ from{opacity:0; transform:translateX(10px)} to{opacity:1; transform:translateX(0)} }
 
 .quest-card-tag{
@@ -227,14 +227,16 @@
 }
 .quest-result.ok .quest-result-icon{ background:none; width:auto; height:auto; border-radius:0 }
 .quest-result.retry .quest-result-icon{ background:var(--slate-100); color:var(--slate-400) }
-.quest-result-vale{ width:120px; height:auto; display:block }
+.quest-result-vale{ width:120px; height:auto; display:block; animation:valeFloat 2.4s ease-in-out infinite }
 @keyframes questBounce{
   0%{ transform:scale(0) } 50%{ transform:scale(1.15) } 75%{ transform:scale(.95) } 100%{ transform:scale(1) }
 }
 .quest-result h3{ font-family:var(--font-display); font-size:1.3rem; color:var(--slate-800); margin:0 }
 .quest-result p{ color:var(--slate-500); margin:0 0 6px }
 .quest-result-xp{
-  font-weight:700; color:#B45309; background:#FFFBEB; border:1px solid #FDE68A;
+  font-weight:700; color:#074690; background:#EAF2FC; border:1px solid #A6C7F1;
   padding:4px 14px; border-radius:var(--r-full); font-size:.8125rem; margin-bottom:8px;
 }
 .quest-result .btn{ width:100%; justify-content:center }
+
+@keyframes valeFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}

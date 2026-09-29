@@ -190,7 +190,7 @@ ul,ol{list-style:none}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
 
 .nav-logo{display:flex;align-items:center;gap:11px;flex-shrink:0}
-.nav-logo img{width:40px;height:40px;transition:transform .3s var(--ease)}
+.nav-logo img{height:40px;width:auto;transition:transform .3s var(--ease)}
 .nav-logo:hover img{transform:rotate(-8deg) scale(1.06)}
 .nav-wordmark{font-family:'League Spartan',var(--font-display);font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:#0958C2;transition:color .3s var(--ease)}
 .nav-wordmark b{color:#0958C2;font-weight:800}

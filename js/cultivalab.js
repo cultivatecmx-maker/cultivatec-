@@ -2,7 +2,7 @@
 // CULTIVALAB
 //   1) Pestañas
 //   2) Bloques (seleccionar y agrandar)
-//   3) Circuitos (arrastrar, pines, cables, simulación)
+//   3) Circuitos (arrastrar, MOVER, pines, cables borrables, simulación, sonido)
 //   4) Code (Python real con Pyodide, carga diferida)
 // ============================================================
 
@@ -21,7 +21,6 @@ tabs.forEach(tab => {
     panel.classList.add('active');
     panel.hidden = false;
 
-    // La primera vez que se abre "Code", arrancamos Python en segundo plano
     if (target === 'code') cargarPython();
   });
 });
@@ -43,19 +42,21 @@ blockChips.forEach(chip => {
 // ============================================================
 
 const COMPONENTES = {
-  bateria:     { icono: 'ph-battery-full',      texto: 'Batería 9V' },
-  boton:       { icono: 'ph-record',            texto: 'Botón'      },
-  led:         { icono: 'ph-lightbulb',         texto: 'LED'        },
-  resistencia: { icono: 'ph-sliders-horizontal',texto: 'Resistencia'},
+  bateria:      { icono: 'ph-battery-full',       texto: 'Batería 9V'  },
+  boton:        { icono: 'ph-record',             texto: 'Botón'       },
+  interruptor:  { icono: 'ph-toggle-left',         texto: 'Interruptor' },
+  led:          { icono: 'ph-lightbulb',           texto: 'LED'         },
+  resistencia:  { icono: 'ph-sliders-horizontal',  texto: 'Resistencia' },
+  zumbador:     { icono: 'ph-speaker-high',        texto: 'Zumbador'    },
 };
 
 const board = document.getElementById('sim-board');
 const boardEmpty = document.getElementById('sim-board-empty');
 const svgWires = document.getElementById('sim-wires');
 
-let contador = 0;                 // id incremental para componentes
-const circuito = { componentes: [], cables: [] }; // "memoria" del circuito
-let pinSeleccionado = null;       // pin esperando su cable
+let contador = 0;
+const circuito = { componentes: [], cables: [] };
+let pinSeleccionado = null;
 
 // ---- Crear un componente nuevo ----
 function crearComponente(tipo, x, y) {
@@ -71,6 +72,9 @@ function crearComponente(tipo, x, y) {
   el.style.top = y + 'px';
 
   el.innerHTML = `
+    <button class="sim-comp-borrar" title="Quitar este componente" aria-label="Quitar">
+      <i class="ph-bold ph-x"></i>
+    </button>
     <i class="ph-fill ${info.icono}"></i>
     <span>${info.texto}</span>
     ${tipo === 'resistencia' ? '<span class="sim-comp-value" data-value>220 Ω</span>' : ''}
@@ -78,24 +82,31 @@ function crearComponente(tipo, x, y) {
     <span class="sim-pin pin-b" data-pin="b"></span>
   `;
 
-  // Guardamos este componente en nuestra "memoria" del circuito
   const dato = { id, tipo, presionado: false, ohms: 220 };
   circuito.componentes.push(dato);
 
-  // Botón: clic en el cuerpo lo presiona/suelta
   if (tipo === 'boton') {
     el.addEventListener('click', e => {
-      if (e.target.classList.contains('sim-pin')) return; // los pines tienen su propio clic
+      if (e.target.closest('.sim-pin, .sim-comp-borrar')) return;
       dato.presionado = !dato.presionado;
       el.classList.toggle('presionado', dato.presionado);
       evaluarCircuito();
     });
   }
 
-  // Resistencia: clic en el cuerpo permite cambiar su valor
+  if (tipo === 'interruptor') {
+    el.addEventListener('click', e => {
+      if (e.target.closest('.sim-pin, .sim-comp-borrar')) return;
+      dato.presionado = !dato.presionado;
+      el.classList.toggle('presionado', dato.presionado);
+      el.querySelector('i').className = 'ph-fill ' + (dato.presionado ? 'ph-toggle-right' : 'ph-toggle-left');
+      evaluarCircuito();
+    });
+  }
+
   if (tipo === 'resistencia') {
     el.addEventListener('click', e => {
-      if (e.target.classList.contains('sim-pin')) return;
+      if (e.target.closest('.sim-pin, .sim-comp-borrar')) return;
       const nuevo = prompt('Nuevo valor de la resistencia (en ohms):', dato.ohms);
       if (nuevo === null) return;
       const num = parseFloat(nuevo);
@@ -105,7 +116,6 @@ function crearComponente(tipo, x, y) {
     });
   }
 
-  // Los dos pines: clic para empezar/terminar un cable
   el.querySelectorAll('.sim-pin').forEach(pinEl => {
     pinEl.addEventListener('click', e => {
       e.stopPropagation();
@@ -113,10 +123,47 @@ function crearComponente(tipo, x, y) {
     });
   });
 
+  el.querySelector('.sim-comp-borrar').addEventListener('click', e => {
+    e.stopPropagation();
+    borrarComponente(id);
+  });
+
+  el.addEventListener('mousedown', e => {
+    if (e.target.closest('.sim-pin, .sim-comp-borrar')) return;
+    e.preventDefault();
+    const rectBoard = board.getBoundingClientRect();
+    const mover = (ev) => {
+      let nx = ev.clientX - rectBoard.left;
+      let ny = ev.clientY - rectBoard.top;
+      nx = Math.max(0, Math.min(rectBoard.width, nx));
+      ny = Math.max(0, Math.min(rectBoard.height, ny));
+      el.style.left = nx + 'px';
+      el.style.top = ny + 'px';
+      redibujarCables();
+    };
+    const soltar = () => {
+      document.removeEventListener('mousemove', mover);
+      document.removeEventListener('mouseup', soltar);
+    };
+    document.addEventListener('mousemove', mover);
+    document.addEventListener('mouseup', soltar);
+  });
+
   return el;
 }
 
-// ---- Arrastrar desde la paleta ----
+function borrarComponente(id) {
+  circuito.componentes = circuito.componentes.filter(c => c.id !== id);
+  circuito.cables = circuito.cables.filter(cable => {
+    const afecta = cable.a.compId === id || cable.b.compId === id;
+    if (afecta) cable.linea.remove();
+    return !afecta;
+  });
+  document.getElementById(id)?.remove();
+  if (circuito.componentes.length === 0 && boardEmpty) boardEmpty.style.display = '';
+  evaluarCircuito();
+}
+
 document.querySelectorAll('.sim-piece').forEach(pieza => {
   pieza.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', pieza.dataset.type);
@@ -146,7 +193,6 @@ if (board) {
   });
 }
 
-// ---- Limpiar tablero ----
 const btnLimpiar = document.getElementById('btn-limpiar');
 if (btnLimpiar) {
   btnLimpiar.addEventListener('click', () => {
@@ -156,10 +202,10 @@ if (btnLimpiar) {
     pinSeleccionado = null;
     svgWires.innerHTML = '';
     if (boardEmpty) boardEmpty.style.display = '';
+    pararZumbadores();
   });
 }
 
-// ---- Manejar el clic en un pin: primer clic = origen, segundo clic = destino ----
 function manejarClicPin(compId, lado, pinEl) {
   if (!pinSeleccionado) {
     pinSeleccionado = { compId, lado, pinEl };
@@ -167,28 +213,34 @@ function manejarClicPin(compId, lado, pinEl) {
     return;
   }
 
-  // Si vuelve a hacer clic en el mismo pin, cancela la selección
   if (pinSeleccionado.compId === compId && pinSeleccionado.lado === lado) {
     pinEl.classList.remove('seleccionado');
     pinSeleccionado = null;
     return;
   }
 
-  // Ya tenemos origen y destino: creamos el cable
   const origen = pinSeleccionado;
   origen.pinEl.classList.remove('seleccionado');
   crearCable(origen, { compId, lado, pinEl });
   pinSeleccionado = null;
 }
 
-// ---- Dibujar y guardar un cable entre dos pines ----
 function crearCable(origen, destino) {
-  circuito.cables.push({ a: origen, b: destino });
-
   const linea = document.createElementNS('http://www.w3.org/2000/svg', 'line');
   linea.setAttribute('class', 'sim-wire-line');
+  linea.style.cursor = 'pointer';
+
+  const cable = { a: origen, b: destino, linea };
+  circuito.cables.push(cable);
+
   actualizarLinea(linea, origen.pinEl, destino.pinEl);
   svgWires.appendChild(linea);
+
+  linea.addEventListener('click', () => {
+    circuito.cables = circuito.cables.filter(c => c !== cable);
+    linea.remove();
+    evaluarCircuito();
+  });
 
   evaluarCircuito();
 }
@@ -203,15 +255,12 @@ function actualizarLinea(linea, pinA, pinB) {
   linea.setAttribute('y2', b.top + b.height / 2 - rectBoard.top);
 }
 
-// ---- El "cerebro": decide qué LEDs deben encender ----
-// Idea: armamos un grafo donde cada pin es un nodo. Dos pines quedan
-// conectados si: (a) hay un cable entre ellos, o (b) son los dos pines
-// del MISMO componente y ese componente "deja pasar la corriente"
-// (una batería y un LED siempre; un botón solo si está presionado).
-// Luego caminamos el grafo desde la batería: todo lo que se alcance
-// está "con corriente".
+function redibujarCables() {
+  circuito.cables.forEach(cable => actualizarLinea(cable.linea, cable.a.pinEl, cable.b.pinEl));
+}
+
 function evaluarCircuito() {
-  const vecinos = {}; // pinId -> [pinId, pinId, ...]
+  const vecinos = {};
   const agregarArista = (p1, p2) => {
     (vecinos[p1] = vecinos[p1] || []).push(p2);
     (vecinos[p2] = vecinos[p2] || []).push(p1);
@@ -219,7 +268,7 @@ function evaluarCircuito() {
 
   circuito.componentes.forEach(c => {
     const pinA = c.id + '-a', pinB = c.id + '-b';
-    const conduce = c.tipo === 'boton' ? c.presionado : true;
+    const conduce = (c.tipo === 'boton' || c.tipo === 'interruptor') ? c.presionado : true;
     if (conduce) agregarArista(pinA, pinB);
   });
 
@@ -231,7 +280,6 @@ function evaluarCircuito() {
   let conCorriente = new Set();
 
   if (bateria) {
-    // Recorrido en anchura (BFS) desde el pin "a" de la batería
     const inicio = bateria.id + '-a';
     const visitados = new Set([inicio]);
     const cola = [inicio];
@@ -244,19 +292,49 @@ function evaluarCircuito() {
     conCorriente = visitados;
   }
 
-  // Un LED enciende solo si SUS DOS pines están alcanzados por la corriente
-  // (es decir, forma parte de un camino cerrado con la batería)
   circuito.componentes.filter(c => c.tipo === 'led').forEach(led => {
     const encendido = conCorriente.has(led.id + '-a') && conCorriente.has(led.id + '-b');
-    const elLed = document.getElementById(led.id);
-    if (elLed) elLed.classList.toggle('encendido', encendido);
+    document.getElementById(led.id)?.classList.toggle('encendido', encendido);
   });
+
+  circuito.componentes.filter(c => c.tipo === 'zumbador').forEach(zum => {
+    const encendido = conCorriente.has(zum.id + '-a') && conCorriente.has(zum.id + '-b');
+    const el = document.getElementById(zum.id);
+    if (el) el.classList.toggle('encendido', encendido);
+    if (encendido) iniciarZumbador(zum.id); else detenerZumbador(zum.id);
+  });
+}
+
+let audioCtx = null;
+const osciladores = {};
+function iniciarZumbador(id) {
+  if (osciladores[id]) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 440;
+    gain.gain.value = 0.05;
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osciladores[id] = { osc, gain };
+  } catch (e) { /* si el navegador bloquea audio sin interaccion, no pasa nada grave */ }
+}
+function detenerZumbador(id) {
+  if (osciladores[id]) {
+    osciladores[id].osc.stop();
+    delete osciladores[id];
+  }
+}
+function pararZumbadores() {
+  Object.keys(osciladores).forEach(detenerZumbador);
 }
 
 // ============================================================
 // 4) CODE - Python real en el navegador con Pyodide
 // ============================================================
-let pyodideListo = null; // promesa: evita cargar Pyodide dos veces
+let pyodideListo = null;
 
 const btnRun = document.getElementById('btn-run-code');
 const codeInput = document.getElementById('code-input');
@@ -264,7 +342,7 @@ const codeOutput = document.getElementById('code-output');
 const codeStatus = document.getElementById('code-status');
 
 function cargarPython() {
-  if (pyodideListo) return pyodideListo; // ya se está cargando o ya cargó
+  if (pyodideListo) return pyodideListo;
 
   if (codeStatus) codeStatus.textContent = 'Cargando Python... (solo la primera vez, ~10s)';
   if (btnRun) btnRun.disabled = true;
@@ -297,14 +375,10 @@ if (btnRun) {
 
     try {
       const pyodide = await cargarPython();
-
-      // Capturamos todo lo que el código imprima con print()
       let salida = '';
       pyodide.setStdout({ batched: (msg) => { salida += msg + '\n'; } });
       pyodide.setStderr({ batched: (msg) => { salida += msg + '\n'; } });
-
       await pyodide.runPythonAsync(codeInput.value);
-
       codeOutput.textContent = salida || '(el código no imprimió nada - usa print() para ver resultados)';
     } catch (err) {
       codeOutput.classList.add('error');
@@ -315,7 +389,6 @@ if (btnRun) {
   });
 }
 
-// Si llegamos desde un link tipo cultivalab.html#circuitos, abrimos esa pestaña directo
 const tabDesdeHash = window.location.hash.replace('#', '');
 if (tabDesdeHash) {
   const tabObjetivo = document.querySelector(`.lab-tab[data-tab="${tabDesdeHash}"]`);

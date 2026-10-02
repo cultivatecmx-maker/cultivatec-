@@ -21,8 +21,8 @@
 <meta property="og:description" content="Arma circuitos electrónicos, y muy pronto programa y diseña en 3D, directo desde el navegador.">
 <meta property="og:url" content="https://cultivatec.com.mx/cultivalab.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+<link rel="icon" type="image/png" href="logo-pestana-cultivatec.png">
+<link rel="apple-touch-icon" href="logo-pestana-cultivatec.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +59,7 @@
           </a>
           <a href="plataforma.html#ia" class="nav-panel-link" style="--pi:var(--ai-dk);--pib:var(--ai-bg);--pid:var(--ai-bd)">
             <i class="ph-fill ph-brain"></i>
-            <div><strong>POLO · IA socrática</strong><span>Guía al alumno sin darle la respuesta</span></div>
+            <div><strong>POLO · Tutor IA</strong><span>Guía al alumno sin darle la respuesta</span></div>
           </a>
           <a href="plataforma.html#docentes" class="nav-panel-link" style="--pi:var(--ok-dk);--pib:var(--ok-bg);--pid:var(--ok-bd)">
             <i class="ph-fill ph-chalkboard-teacher"></i>
@@ -125,11 +125,14 @@
 
 <!-- ==================== ENCABEZADO ==================== -->
 <section class="sim-hero">
-  <div class="container">
-    <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><span>CultivaLab</span></div>
-    <span class="tag-dark t-sim"><i class="ph-fill ph-flask"></i> Laboratorio interactivo</span>
-    <h1 class="sec-title">Bienvenido a <span class="mark mark-sky">CultivaLab</span></h1>
-    <p class="sec-sub">Arma circuitos, arma secuencias con bloques, y escribe Python de verdad — todo desde el navegador.</p>
+  <div class="container lab-hero-grid">
+    <div>
+      <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><span>CultivaLab</span></div>
+      <span class="tag-dark t-sim"><i class="ph-fill ph-flask"></i> Laboratorio interactivo</span>
+      <h1 class="sec-title">Bienvenido a <span class="mark mark-sky">CultivaLab</span></h1>
+      <p class="sec-sub">Arma circuitos, arma secuencias con bloques, y escribe Python de verdad — todo desde el navegador.</p>
+    </div>
+    <img class="lab-mascota-hero" src="img/robot-mascota.png" alt="Robot mascota de CultivaLab guiñando el ojo">
   </div>
 </section>
 
@@ -180,6 +183,11 @@
               <div class="sim-piece-txt"><strong>Botón</strong><span>Clic para presionarlo</span></div>
             </div>
 
+            <div class="sim-piece" draggable="true" data-type="interruptor">
+              <div class="sim-piece-icon"><i class="ph-fill ph-toggle-left"></i></div>
+              <div class="sim-piece-txt"><strong>Interruptor</strong><span>Clic para dejarlo prendido</span></div>
+            </div>
+
             <div class="sim-piece" draggable="true" data-type="led">
               <div class="sim-piece-icon"><i class="ph-fill ph-lightbulb"></i></div>
               <div class="sim-piece-txt"><strong>LED</strong><span>Se enciende con corriente</span></div>
@@ -188,6 +196,11 @@
             <div class="sim-piece" draggable="true" data-type="resistencia">
               <div class="sim-piece-icon"><i class="ph-fill ph-sliders-horizontal"></i></div>
               <div class="sim-piece-txt"><strong>Resistencia</strong><span>Clic para cambiar su valor</span></div>
+            </div>
+
+            <div class="sim-piece" draggable="true" data-type="zumbador">
+              <div class="sim-piece-icon"><i class="ph-fill ph-speaker-high"></i></div>
+              <div class="sim-piece-txt"><strong>Zumbador</strong><span>Suena de verdad al prender</span></div>
             </div>
           </aside>
 
@@ -280,7 +293,7 @@ for i in range(3):
         <ul class="footer-links">
           <li><a href="plataforma.html">La plataforma</a></li>
           <li><a href="plataforma.html#simuladores">Simuladores</a></li>
-          <li><a href="plataforma.html#ia">IA socrática</a></li>
+          <li><a href="plataforma.html#ia">Tutor IA</a></li>
           <li><a href="plataforma.html#docentes">Panel docente</a></li>
         </ul>
       </div>

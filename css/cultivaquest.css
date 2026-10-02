@@ -29,14 +29,18 @@
   display:flex;flex-direction:column;align-items:center;gap:8px;
   position:relative;
 }
-/* Línea punteada detrás de los nodos */
+/* Línea punteada detrás de los nodos, con un leve pulso de brillo */
 .quest-path::before{
   content:"";
   position:absolute;top:0;bottom:0;left:50%;
-  border-left:3px dashed var(--slate-200);
+  width:3px;
+  background-image:linear-gradient(var(--brand-300) 60%, transparent 40%);
+  background-size:3px 14px;
   transform:translateX(-50%);
   z-index:0;
+  animation:questLineaPulso 2.2s ease-in-out infinite;
 }
+@keyframes questLineaPulso{ 0%,100%{opacity:.55} 50%{opacity:1} }
 
 .quest-node{
   position:relative;z-index:1;
@@ -240,3 +244,18 @@
 .quest-result .btn{ width:100%; justify-content:center }
 
 @keyframes valeFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+
+/* ============================================================
+   CONFETI al completar una leccion
+   ============================================================ */
+.quest-confeti{
+  position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:5;
+  border-radius:24px;
+}
+.quest-confeti span{
+  position:absolute; top:-12px; width:8px; height:8px; border-radius:2px;
+  animation:confetiCae 1.3s ease-in forwards;
+}
+@keyframes confetiCae{
+  to{ transform:translateY(340px) rotate(360deg); opacity:0; }
+}

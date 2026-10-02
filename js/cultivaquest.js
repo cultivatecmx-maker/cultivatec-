@@ -5,6 +5,45 @@
 const QUEST_KEY = 'cultivaquest-progreso';
 const LETRAS = ['A', 'B', 'C', 'D', 'E'];
 
+// ---- Sonido (sin archivos de audio, generado con el navegador) ----
+let questAudioCtx = null;
+function questBeep(frecuencia, duracion, tipo) {
+  try {
+    questAudioCtx = questAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const osc = questAudioCtx.createOscillator();
+    const gain = questAudioCtx.createGain();
+    osc.type = tipo || 'sine';
+    osc.frequency.value = frecuencia;
+    gain.gain.value = 0.06;
+    gain.gain.exponentialRampToValueAtTime(0.0001, questAudioCtx.currentTime + duracion);
+    osc.connect(gain).connect(questAudioCtx.destination);
+    osc.start();
+    osc.stop(questAudioCtx.currentTime + duracion);
+  } catch (e) { /* si el navegador bloquea audio, no pasa nada grave */ }
+}
+function sonidoCorrecto() { questBeep(880, 0.15, 'sine'); setTimeout(() => questBeep(1175, 0.18, 'sine'), 90); }
+function sonidoIncorrecto() { questBeep(180, 0.3, 'sawtooth'); }
+function sonidoVictoria() {
+  [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => questBeep(f, 0.22, 'sine'), i * 110));
+}
+
+// ---- Confeti, para cuando se completa una leccion ----
+function lanzarConfeti(contenedor) {
+  const colores = ['#0958C2', '#3D7DD9', '#79ABEA', '#074690', '#A6C7F1'];
+  const capa = document.createElement('div');
+  capa.className = 'quest-confeti';
+  for (let i = 0; i < 26; i++) {
+    const pieza = document.createElement('span');
+    pieza.style.left = Math.random() * 100 + '%';
+    pieza.style.background = colores[i % colores.length];
+    pieza.style.animationDelay = (Math.random() * 0.3) + 's';
+    pieza.style.animationDuration = (1 + Math.random() * 0.6) + 's';
+    capa.appendChild(pieza);
+  }
+  contenedor.appendChild(capa);
+  setTimeout(() => capa.remove(), 2000);
+}
+
 function cargarProgreso() {
   try {
     const guardado = localStorage.getItem(QUEST_KEY);
@@ -134,6 +173,10 @@ function abrirLeccion(index) {
         progreso.completadas.push(leccion.id);
         guardarProgreso(progreso);
       }
+      if (gano) {
+        sonidoVictoria();
+        lanzarConfeti(document.querySelector('.quest-modal-box'));
+      }
       document.getElementById('quest-practicar')?.addEventListener('click', () => {
         window.location.href = 'cultivalab.html#' + leccion.practice.tipo;
       });
@@ -169,6 +212,7 @@ function abrirLeccion(index) {
         const correcto = i === p.correcta;
         btn.classList.add(correcto ? 'correct' : 'wrong');
         if (!correcto) document.querySelector(`.quest-option[data-i="${p.correcta}"]`).classList.add('correct');
+        correcto ? sonidoCorrecto() : sonidoIncorrecto();
 
         document.getElementById('quest-feedback').innerHTML = `
           <p class="quest-explicacion"><i class="ph-fill ${correcto ? 'ph-check-circle' : 'ph-x-circle'}"></i> ${p.explicacion}</p>

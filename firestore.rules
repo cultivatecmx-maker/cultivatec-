@@ -1,0 +1,89 @@
+rules_version = '2';
+
+// CultivaTec — Firestore security rules for project `cultivatec-appstore`.
+// Mirrors the collections used by the app (users, usernames, userScores,
+// friendRequests, friends, leagues).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    // Allows another signed-in user to bump only social counters on someone
+    // else's profile (used when accepting/removing friends).
+    function onlySocialCounterChange() {
+      return isSignedIn() &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['friendsCount', 'lastActive']);
+    }
+
+    // ---- User profiles -----------------------------------------------------
+    // Readable by any signed-in user (ranking, friend search, friend lists).
+    // Writable only by the owner (others may only touch social counters).
+    match /users/{uid} {
+      allow read:   if isSignedIn();
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid) || onlySocialCounterChange();
+      allow delete: if false;
+    }
+
+    // ---- Username registry -------------------------------------------------
+    // Public read so username availability + username→email login work before
+    // authentication. A user may only reserve a username for their own uid.
+    match /usernames/{name} {
+      allow read:   if true;
+      allow create: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // ---- Per-user module / quiz scores ------------------------------------
+    match /userScores/{uid} {
+      allow read:  if isSignedIn();
+      allow write: if isOwner(uid);
+    }
+
+    // ---- Friend requests ---------------------------------------------------
+    match /friendRequests/{reqId} {
+      allow read:   if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.fromUid == request.auth.uid;
+      allow update, delete: if isSignedIn() &&
+        (resource.data.toUid == request.auth.uid || resource.data.fromUid == request.auth.uid);
+    }
+
+    // ---- Friends lists: friends/{uid}/list/{friendUid} --------------------
+    match /friends/{uid}/list/{friendUid} {
+      allow read:  if isSignedIn();
+      allow write: if isSignedIn() &&
+        (request.auth.uid == uid || request.auth.uid == friendUid);
+    }
+
+    // ---- Tournaments / weekly leagues (future phases) ---------------------
+    // A signed-in player may submit/update only their own entry.
+    match /leagues/{leagueId}/entries/{uid} {
+      allow read:  if isSignedIn();
+      allow write: if isOwner(uid);
+    }
+    match /leagues/{leagueId} {
+      allow read:  if isSignedIn();
+      allow write: if false; // league metadata managed server-side / by admin
+    }
+
+    // ---- Friend duels (Phase 2) -------------------------------------------
+    // Only the two players may read/update; the challenger creates it.
+    match /duels/{duelId} {
+      allow read:   if isSignedIn() && request.auth.uid in resource.data.players;
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.challengerUid;
+      allow update: if isSignedIn() && request.auth.uid in resource.data.players;
+      allow delete: if false;
+    }
+
+    // Read-only shared question bank (when migrated to Firestore).
+    match /questionBank/{doc=**} {
+      allow read:  if isSignedIn();
+      allow write: if false;
+    }
+  }
+}

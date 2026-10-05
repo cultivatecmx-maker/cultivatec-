@@ -1,0 +1,83 @@
+# =============================================================================
+# CultivaTec — archivos que NUNCA deben subirse al repositorio
+# =============================================================================
+
+# --- Artefactos de compilación -----------------------------------------------
+# Los binarios se generan localmente o se publican como GitHub Release.
+# Versionarlos hace que cada clon pese cientos de MB.
+*.apk
+*.aab
+*.ipa
+*.app.zip
+build/
+cultivatec_flutter/build/
+
+# --- Flutter / Dart ----------------------------------------------------------
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+**/doc/api/
+app.*.symbols
+app.*.map.json
+migrate_working_dir/
+
+# NOTA: pubspec.lock SÍ se versiona. Es una app, no un paquete: fijar las
+# versiones exactas garantiza que todo el equipo compile exactamente lo mismo.
+
+# --- Android -----------------------------------------------------------------
+cultivatec_flutter/android/.gradle/
+cultivatec_flutter/android/local.properties
+cultivatec_flutter/android/app/debug/
+cultivatec_flutter/android/app/profile/
+cultivatec_flutter/android/app/release/
+cultivatec_flutter/android/key.properties
+*.jks
+*.keystore
+
+# --- iOS / macOS -------------------------------------------------------------
+cultivatec_flutter/ios/Pods/
+cultivatec_flutter/ios/.symlinks/
+cultivatec_flutter/ios/Flutter/.last_build_id
+cultivatec_flutter/ios/Flutter/App.framework
+cultivatec_flutter/ios/Flutter/Flutter.framework
+cultivatec_flutter/ios/Flutter/ephemeral/
+cultivatec_flutter/macos/Pods/
+cultivatec_flutter/macos/Flutter/ephemeral/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+
+# --- Windows / Linux ---------------------------------------------------------
+cultivatec_flutter/windows/flutter/ephemeral/
+cultivatec_flutter/linux/flutter/ephemeral/
+
+# --- Editores e IDEs ---------------------------------------------------------
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.history/
+.atom/
+
+# --- Sistema operativo -------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.log
+
+# --- Secretos ----------------------------------------------------------------
+# La configuración de Firebase del CLIENTE sí está versionada a propósito
+# (ver docs/CONFIGURACION_FIREBASE.md). Lo que nunca debe entrar aquí son
+# credenciales de servidor o claves de firma.
+*service-account*.json
+*-adminsdk-*.json
+.env
+.env.*
+!.env.example
+
+# Registros locales de depuración
+logcat*.txt

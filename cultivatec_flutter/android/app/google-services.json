@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906949781222",
+    "project_id": "cultivatec-appstore",
+    "storage_bucket": "cultivatec-appstore.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906949781222:android:518023c8cb0f18cabf3d27",
+        "android_client_info": {
+          "package_name": "com.cultivatec.cultivatec_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyqnhckZN65hv37vuCTh0BXtw9_LPVcw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

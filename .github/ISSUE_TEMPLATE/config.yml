@@ -1,0 +1,15 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 Reportar un problema de seguridad
+    url: https://github.com/cultivatecmx-maker/Cultivatec-app/security/advisories/new
+    about: >-
+      NO abras un issue público para vulnerabilidades. Usa este canal privado.
+      Lee SECURITY.md antes de reportar.
+  - name: 📖 Documentación para colaboradores
+    url: https://github.com/cultivatecmx-maker/Cultivatec-app/blob/main/CONTRIBUTING.md
+    about: >-
+      Guía de colaboración, reglas de código y cómo subir tus cambios.
+  - name: 🏗️ Cómo está construida la app
+    url: https://github.com/cultivatecmx-maker/Cultivatec-app/blob/main/docs/ARQUITECTURA.md
+    about: >-
+      Capas, providers y flujo de datos. Léelo antes de proponer un cambio grande.

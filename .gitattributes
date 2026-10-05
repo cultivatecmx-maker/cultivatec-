@@ -1,0 +1,48 @@
+# =============================================================================
+# Normalización de archivos — evita diffs falsos entre Windows, macOS y Linux
+# =============================================================================
+
+# Por defecto: Git detecta si un archivo es texto y guarda LF en el repositorio.
+* text=auto eol=lf
+
+# --- Scripts que dependen del final de línea ---------------------------------
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+*.ps1    text eol=crlf
+*.sh     text eol=lf
+gradlew  text eol=lf
+
+# --- Binarios: Git nunca debe intentar convertirlos ni mostrarlos como texto --
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.webp   binary
+*.ico    binary
+*.svg    text
+*.ttf    binary
+*.otf    binary
+*.woff   binary
+*.woff2  binary
+*.mp3    binary
+*.wav    binary
+*.ogg    binary
+*.pdf    binary
+*.apk    binary
+*.aab    binary
+*.jks    binary
+*.keystore binary
+
+# --- Archivos generados: se ocultan del diff en los pull requests -------------
+# Siguen versionados, pero GitHub los colapsa para que la revisión se centre
+# en el código escrito a mano.
+pubspec.lock                                   linguist-generated=true
+**/generated_plugin_registrant.*               linguist-generated=true
+**/GeneratedPluginRegistrant.*                 linguist-generated=true
+**/generated_plugins.cmake                     linguist-generated=true
+
+# --- Detección de lenguaje del repositorio -----------------------------------
+cultivatec_flutter/ios/**       linguist-vendored
+cultivatec_flutter/macos/**     linguist-vendored
+cultivatec_flutter/windows/**   linguist-vendored
+cultivatec_flutter/linux/**     linguist-vendored

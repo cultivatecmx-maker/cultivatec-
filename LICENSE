@@ -1,7 +1,149 @@
-Copyright (c) 2026 Cultivatec. Todos los derechos reservados.
+LICENCIA DE SOFTWARE PROPIETARIO
+CultivaTec
 
-Este código y su contenido son propiedad de Cultivatec y están
-protegidos por las leyes de derechos de autor de México e
-internacionales. Queda prohibida su copia, modificación,
-distribución o uso, total o parcial, sin autorización previa
-y por escrito de Cultivatec.
+Copyright (c) 2026 CultivaTec. Todos los derechos reservados.
+All rights reserved.
+
+===============================================================================
+1. TITULARIDAD
+===============================================================================
+
+Este repositorio y todo su contenido —incluyendo sin limitación el código
+fuente, el código objeto, los diseños, la interfaz de usuario, los recursos
+gráficos, las ilustraciones, los personajes, las skins, los sonidos, el
+contenido educativo, los planes de estudio, los cuestionarios, la
+documentación, las bases de datos y la marca "CultivaTec" (en adelante, el
+"Software")— son propiedad exclusiva de CultivaTec y están protegidos por la
+Ley Federal del Derecho de Autor de los Estados Unidos Mexicanos, por los
+tratados internacionales aplicables y por la legislación de propiedad
+intelectual vigente.
+
+El Software NO es software libre ni de código abierto. No se concede ninguna
+licencia de tipo MIT, Apache, GPL ni ninguna otra licencia pública.
+
+===============================================================================
+2. ALCANCE DE LA AUTORIZACIÓN
+===============================================================================
+
+El acceso a este repositorio se otorga de forma personal, revocable, no
+exclusiva, no transferible y limitada, y ÚNICAMENTE a las personas que
+CultivaTec haya autorizado expresamente por escrito (en adelante, las
+"Personas Autorizadas"), con el único fin de desarrollar, mantener, probar y
+mejorar el Software por cuenta y en beneficio de CultivaTec.
+
+El acceso al repositorio no transfiere ningún derecho de propiedad.
+
+===============================================================================
+3. CONDUCTAS PROHIBIDAS
+===============================================================================
+
+Salvo autorización previa, expresa y por escrito de CultivaTec, queda
+estrictamente prohibido:
+
+  a) Copiar, reproducir, publicar o distribuir el Software, total o
+     parcialmente, por cualquier medio.
+  b) Hacer público el repositorio, sus archivos, capturas de pantalla o
+     cualquier fragmento de código, incluyendo su publicación en repositorios
+     públicos, foros, redes sociales, portafolios personales o servicios de
+     terceros.
+  c) Subir, pegar o transmitir el código a servicios externos de terceros que
+     conserven, entrenen sobre o reutilicen el contenido.
+  d) Crear obras derivadas, adaptaciones o traducciones del Software.
+  e) Usar el Software, su contenido educativo o su marca con fines comerciales
+     propios o de terceros distintos de CultivaTec.
+  f) Sublicenciar, vender, arrendar, prestar, ceder o transferir el Software o
+     los derechos de acceso a él.
+  g) Realizar ingeniería inversa, descompilar o desensamblar el Software fuera
+     de las labores expresamente encomendadas.
+  h) Retirar, alterar u ocultar los avisos de copyright, marcas o cualquier
+     otra indicación de titularidad.
+  i) Conservar copias del Software una vez terminada la relación con
+     CultivaTec.
+
+===============================================================================
+4. APORTACIONES DE COLABORADORES
+===============================================================================
+
+Toda aportación al Software —código, contenido educativo, diseño gráfico,
+documentación o cualquier otro material— realizada por una Persona Autorizada
+(en adelante, una "Aportación") se rige por lo siguiente:
+
+  a) La Persona Autorizada cede a CultivaTec, de forma total, exclusiva,
+     irrevocable, mundial y por toda la vigencia legal de los derechos, la
+     titularidad patrimonial de la Aportación, sin contraprestación adicional
+     a la ya pactada en su contrato o acuerdo de colaboración.
+  b) La Persona Autorizada declara y garantiza que la Aportación es original,
+     que tiene todos los derechos necesarios para cederla y que no infringe
+     derechos de propiedad intelectual de terceros.
+  c) La Persona Autorizada no incorporará al Software código, imágenes,
+     fuentes tipográficas, sonidos ni contenido de terceros sin verificar su
+     licencia y sin obtener la aprobación previa de CultivaTec. Toda
+     dependencia de terceros debe ser compatible con un producto propietario
+     y debe quedar registrada en el archivo THIRD_PARTY_NOTICES.md.
+  d) CultivaTec conserva el derecho moral de la Persona Autorizada a ser
+     reconocida como autora de su Aportación conforme a la ley aplicable, sin
+     que ello limite la cesión patrimonial anterior.
+
+===============================================================================
+5. CONFIDENCIALIDAD
+===============================================================================
+
+El Software constituye información confidencial y secreto industrial de
+CultivaTec. Las Personas Autorizadas se obligan a mantenerlo bajo estricta
+confidencialidad, a no divulgarlo a terceros y a proteger con la misma
+diligencia las credenciales, claves de acceso y configuraciones que reciban.
+
+Esta obligación de confidencialidad subsiste indefinidamente, incluso después
+de terminada la relación con CultivaTec.
+
+===============================================================================
+6. DATOS PERSONALES DE MENORES DE EDAD
+===============================================================================
+
+El Software está dirigido a población infantil y adolescente y procesa datos
+personales de menores de edad. Las Personas Autorizadas se obligan a:
+
+  a) No extraer, copiar, compartir ni utilizar datos de personas usuarias
+     reales fuera de las tareas expresamente encomendadas.
+  b) Utilizar exclusivamente cuentas y datos de prueba durante el desarrollo.
+  c) Notificar de inmediato a CultivaTec cualquier incidente de seguridad o
+     exposición de datos, conforme a lo indicado en SECURITY.md.
+
+===============================================================================
+7. AUSENCIA DE GARANTÍA Y LIMITACIÓN DE RESPONSABILIDAD
+===============================================================================
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O
+IMPLÍCITA, INCLUYENDO SIN LIMITACIÓN LAS GARANTÍAS DE COMERCIABILIDAD,
+IDONEIDAD PARA UN FIN DETERMINADO Y NO INFRACCIÓN.
+
+EN NINGÚN CASO CULTIVATEC SERÁ RESPONSABLE POR RECLAMACIONES, DAÑOS U OTRAS
+RESPONSABILIDADES DERIVADAS DEL SOFTWARE O DE SU USO.
+
+===============================================================================
+8. TERMINACIÓN
+===============================================================================
+
+CultivaTec puede revocar el acceso al repositorio en cualquier momento y sin
+necesidad de justificación. Al terminar la autorización, la Persona Autorizada
+deberá eliminar de inmediato todas las copias locales del Software que obren
+en su poder y confirmarlo por escrito si CultivaTec así lo solicita.
+
+Las secciones 4 (Aportaciones), 5 (Confidencialidad), 6 (Datos personales) y 7
+(Ausencia de garantía) sobreviven a la terminación.
+
+===============================================================================
+9. LEY APLICABLE
+===============================================================================
+
+Esta licencia se rige por las leyes de los Estados Unidos Mexicanos. Cualquier
+controversia se someterá a los tribunales competentes de dicha jurisdicción,
+renunciando las partes a cualquier otro fuero que pudiera corresponderles.
+
+===============================================================================
+CONTACTO
+===============================================================================
+
+Para solicitar permisos, reportar un uso indebido o resolver dudas sobre esta
+licencia, contacta a la dirección del proyecto a través del repositorio
+privado en GitHub.

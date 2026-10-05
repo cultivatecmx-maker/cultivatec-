@@ -1,0 +1,81 @@
+# =============================================================================
+# Wokov — archivos que NUNCA deben subirse al repositorio
+# =============================================================================
+
+# --- Artefactos de compilación -----------------------------------------------
+# Los binarios se generan localmente o se publican como GitHub Release.
+# Versionarlos hace que cada clon pese cientos de MB.
+*.apk
+*.aab
+*.ipa
+*.app.zip
+build/
+
+# --- Flutter / Dart ----------------------------------------------------------
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+**/doc/api/
+app.*.symbols
+app.*.map.json
+migrate_working_dir/
+
+# NOTA: pubspec.lock SÍ se versiona. Es una app, no un paquete: fijar las
+# versiones exactas garantiza que todo el equipo compile exactamente lo mismo.
+
+# --- Android -----------------------------------------------------------------
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/key.properties
+*.jks
+*.keystore
+
+# --- iOS / macOS -------------------------------------------------------------
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/.last_build_id
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/ephemeral/
+macos/Pods/
+macos/Flutter/ephemeral/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+
+# --- Windows / Linux ---------------------------------------------------------
+windows/flutter/ephemeral/
+linux/flutter/ephemeral/
+
+# --- Editores e IDEs ---------------------------------------------------------
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.history/
+.atom/
+
+# --- Sistema operativo -------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.log
+
+# --- Secretos ----------------------------------------------------------------
+# La configuración de Firebase del CLIENTE sí está versionada a propósito.
+# Lo que nunca debe entrar aquí son credenciales de servidor o claves de firma.
+*service-account*.json
+*-adminsdk-*.json
+.env
+.env.*
+!.env.example
+
+# Registros locales de depuración
+logcat*.txt

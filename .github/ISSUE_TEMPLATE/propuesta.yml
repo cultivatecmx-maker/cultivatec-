@@ -1,0 +1,95 @@
+name: ✨ Propuesta de función o mejora
+description: Una idea nueva para la app
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Abre esta propuesta **antes de escribir código**. Así evitamos que
+        dediques días a algo que no encaja en el plan del producto.
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qué problema resuelve
+      description: Empieza por el problema, no por la solución.
+      placeholder: |
+        Los estudiantes que fallan un quiz no saben qué repasar: solo ven la
+        puntuación final, sin indicación de qué conceptos les faltaron.
+    validations:
+      required: true
+
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Qué propones
+      description: Describe la solución que imaginas.
+      placeholder: |
+        Al terminar el quiz, mostrar una lista de las tarjetas de contenido
+        relacionadas con las preguntas falladas, con acceso directo a cada una.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afectada
+      multiple: true
+      options:
+        - Contenido educativo (lecciones, quizzes, glosario)
+        - Aprendizaje (camino de lecciones, progresión)
+        - Simulador de circuitos
+        - Programación por bloques
+        - Robot y skins
+        - Social (amigos, ranking, logros)
+        - Torneos y duelos
+        - Aula y docentes
+        - Interfaz y diseño
+        - Rendimiento
+        - Infraestructura y herramientas
+    validations:
+      required: true
+
+  - type: dropdown
+    id: publico
+    attributes:
+      label: A quién beneficia
+      options:
+        - Estudiantes
+        - Docentes
+        - Equipo de desarrollo
+        - A todos
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad que le darías
+      options:
+        - Alta — bloquea algo importante
+        - Media — mejora notable
+        - Baja — estaría bien tenerlo
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas que consideraste
+      description: ¿Hay otra forma de resolver el mismo problema?
+
+  - type: textarea
+    id: referencias
+    attributes:
+      label: Referencias o bocetos
+      description: Capturas de otras apps, dibujos, enlaces. Todo ayuda.
+
+  - type: checkboxes
+    id: comprobaciones
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Busqué entre los issues abiertos y esta propuesta no existía
+          required: true

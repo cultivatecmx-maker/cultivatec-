@@ -159,7 +159,7 @@ function abrirLeccion(index) {
         </div>
         <div class="quest-modal-body">
           <div class="quest-result ${gano ? 'ok' : 'retry'}">
-            <div class="quest-result-icon">${gano ? '<img src="img/valeonpulgararriba.png" alt="Vale celebrando" class="quest-result-vale">' : '<i class="ph-fill ph-arrow-counter-clockwise"></i>'}</div>
+            <div class="quest-result-icon">${gano ? '<img src="img/valeonpulgararriba.png" alt="Vale celebrando" class="quest-result-vale">' : '<img src="img/valeon-mejillas.webp" alt="Vale animándote a intentarlo otra vez" class="quest-result-vale">'}</div>
             ${gano ? `<span class="quest-result-xp">+${xp} XP</span>` : ''}
             <h3>Acertaste ${aciertos} de ${leccion.preguntas.length}</h3>
             <p>${gano ? '¡Muy bien hecho! Sigues avanzando en tu ruta.' : 'Repasa las tarjetas e inténtalo otra vez.'}</p>

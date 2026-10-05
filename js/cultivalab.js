@@ -22,8 +22,23 @@ tabs.forEach(tab => {
     panel.hidden = false;
 
     if (target === 'code') cargarPython();
+    if (target === '3d') cargarVisor3D();
   });
 });
+
+// ---- Visor 3D (carga diferida, solo cuando se abre la pestaña) ----
+let visor3DListo = null;
+function cargarVisor3D() {
+  if (visor3DListo) return visor3DListo;
+  const host = document.getElementById('comp3d-host');
+  if (!host) return;
+  visor3DListo = import('./js/componente3d.js')
+    .then(m => m.montarComponente3D(host))
+    .catch(() => {
+      host.innerHTML = '<p style="padding:40px;color:var(--slate-400)">No se pudo cargar la vista 3D en este navegador.</p>';
+    });
+  return visor3DListo;
+}
 
 // ============================================================
 // 2) BLOQUES - clic para seleccionar y agrandar

@@ -230,7 +230,7 @@
   margin-bottom:6px; animation:questBounce .6s var(--ease);
 }
 .quest-result.ok .quest-result-icon{ background:none; width:auto; height:auto; border-radius:0 }
-.quest-result.retry .quest-result-icon{ background:var(--slate-100); color:var(--slate-400) }
+.quest-result.retry .quest-result-icon{ background:none; width:auto; height:auto; border-radius:0 }
 .quest-result-vale{ width:120px; height:auto; display:block; animation:valeFloat 2.4s ease-in-out infinite }
 @keyframes questBounce{
   0%{ transform:scale(0) } 50%{ transform:scale(1.15) } 75%{ transform:scale(.95) } 100%{ transform:scale(1) }

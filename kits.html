@@ -27,6 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=League+Spartan:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 <link rel="stylesheet" href="css/styles.css?v=20260729j">
 <script src="js/analitica.js?v=20260729j" defer></script>
@@ -239,14 +240,17 @@
 
 <main id="main">
 
-<section class="page-hero" style="--ph1:var(--kit-bg)">
-  <div class="container">
-    <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><span>Kits de robótica</span></div>
-    <span class="tag-dark">Hardware educativo</span>
-    <h1>Lo que se simula en pantalla, <span class="mark mark-sun">se arma con las manos</span></h1>
-    <p>Nuestros kits usan exactamente los mismos componentes que aparecen en la Mesa de Circuitos.
-       El alumno prueba sin miedo en el simulador y después lo construye de verdad.</p>
-    <a href="contacto.html" class="btn btn-primary btn-lg"><i class="ph-bold ph-shopping-cart-simple"></i> Pedir cotización</a>
+<section class="page-hero kit-hero-grid azul-curvo" style="--ph1:var(--kit-bg)">
+  <div class="container kit-hero-inner">
+    <div>
+      <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><span>Kits de robótica</span></div>
+      <span class="tag-dark">Hardware educativo</span>
+      <h1>Lo que se simula en pantalla, <span class="mark mark-sun">se arma con las manos</span></h1>
+      <p>Nuestros kits usan exactamente los mismos componentes que aparecen en la Mesa de Circuitos.
+         El alumno prueba sin miedo en el simulador y después lo construye de verdad.</p>
+      <a href="contacto.html" class="btn btn-primary btn-lg"><i class="ph-bold ph-shopping-cart-simple"></i> Pedir cotización</a>
+    </div>
+    <img class="kit-hero-valeon" src="img/valeon-robot.webp" alt="Valeon armando un carrito robot con destornillador">
   </div>
 </section>
 
@@ -447,13 +451,52 @@
   </div>
 </section>
 
+<!-- ==================== PRECIOS CULTIVAKIT ==================== -->
+<section class="section bg-sky">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="tag-dark"><i class="ph-fill ph-package"></i> Kits especiales</span>
+      <h2 class="sec-title">
+        Kits accesibles para todos
+        <a href="contacto.html" class="kit-help-badge" title="¿Cuál kit me conviene? Pregúntanos">
+          <i class="ph-bold ph-question"></i>
+        </a>
+      </h2>
+      <p class="sec-sub">Pensados para aprender robótica con la metodología Cultivatec, paso a paso —
+         sin que el precio sea la barrera para que un salón entero pueda tocar, armar y equivocarse.</p>
+    </div>
+
+    <div class="kit-pricing-grid reveal">
+      <div class="kit-price-card">
+        <span class="kit-price-tag">CultivaKit 1.0</span>
+        <div class="kit-price-amount"><span class="kit-price-currency">$</span>120<span class="kit-price-mxn">MXN</span></div>
+        <p class="kit-price-desc">El punto de entrada: circuitos básicos, LEDs, botones y resistencias — lo mismo que se practica en la Mesa de Circuitos.</p>
+        <a href="mailto:ventas@cultivatec.com.mx?subject=Quiero%20cotizar%20CultivaKit%201.0" class="btn btn-soft kit-price-btn"><i class="ph-bold ph-envelope-simple"></i> Contactar ventas</a>
+      </div>
+      <div class="kit-price-card kit-price-destacado">
+        <span class="kit-price-tag">CultivaKit 2.0</span>
+        <div class="kit-price-amount"><span class="kit-price-currency">$</span>130<span class="kit-price-mxn">MXN</span></div>
+        <p class="kit-price-desc">Suma sensores y motores: el alumno pasa de armar circuitos a programar su primer comportamiento.</p>
+        <a href="mailto:ventas@cultivatec.com.mx?subject=Quiero%20cotizar%20CultivaKit%202.0" class="btn btn-primary kit-price-btn"><i class="ph-bold ph-envelope-simple"></i> Contactar ventas</a>
+      </div>
+      <div class="kit-price-card">
+        <span class="kit-price-tag">CultivaKit 3.0</span>
+        <div class="kit-price-amount"><span class="kit-price-currency">$</span>150<span class="kit-price-mxn">MXN</span></div>
+        <p class="kit-price-desc">El kit completo: microcontrolador, múltiples sensores y todo lo necesario para un proyecto final.</p>
+        <a href="mailto:ventas@cultivatec.com.mx?subject=Quiero%20cotizar%20CultivaKit%203.0" class="btn btn-soft kit-price-btn"><i class="ph-bold ph-envelope-simple"></i> Contactar ventas</a>
+      </div>
+    </div>
+    <p class="kit-price-nota">Precio por alumno, con descuento por volumen para escuelas. Escríbenos a <a href="mailto:ventas@cultivatec.com.mx">ventas@cultivatec.com.mx</a> y te armamos la cotización.</p>
+  </div>
+</section>
+
 <section class="section-sm cta">
   <div class="container reveal">
     <h2>Pide tu cotización de kits</h2>
     <p>Dinos cuántos grupos tienes y de qué edades, y te mandamos la propuesta con precio por volumen.</p>
     <div class="cta-actions">
       <a href="contacto.html" class="btn btn-white btn-lg"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
-      <a href="mailto:contacto@cultivatec.com.mx" class="btn btn-glass btn-lg"><i class="ph-bold ph-envelope-simple"></i> Escríbenos</a>
+      <a href="mailto:ventas@cultivatec.com.mx" class="btn btn-glass btn-lg"><i class="ph-bold ph-envelope-simple"></i> Escríbenos a ventas</a>
     </div>
   </div>
 </section>
@@ -510,6 +553,7 @@
         <h4>Contacto</h4>
         <ul class="footer-links">
           <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:ventas@cultivatec.com.mx">ventas@cultivatec.com.mx</a></li>
           <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
           <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
         </ul>

@@ -32,6 +32,7 @@
 <link rel="preconnect" href="https://esm.sh" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=League+Spartan:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 <link rel="stylesheet" href="css/styles.css?v=20260729j">
 <script src="js/analitica.js?v=20260729j" defer></script>
@@ -247,6 +248,7 @@
 }
 .arr-marca b{color:#0958C2;font-weight:700}
 @keyframes arr-marca{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.arr-gif{width:220px;height:auto;display:block}
 
 .arr-barra{
   width:min(148px,60vw);height:2px;border-radius:2px;overflow:hidden;
@@ -268,25 +270,7 @@
 
 <!-- ==================== ARRANQUE ==================== -->
 <div class="arranque" id="arranque" role="presentation" aria-hidden="true">
-  <div class="arr-nucleo">
-    <svg class="arr-aro" viewBox="0 0 104 104" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-      <circle class="base" cx="52" cy="52" r="46"/>
-      <circle class="traza" cx="52" cy="52" r="46"/>
-    </svg>
-    <svg class="arr-brazo" viewBox="0 0 132 190" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-      <rect x="56" y="0" width="20" height="70" rx="10" fill="#074690"/>
-      <circle cx="66" cy="72" r="14" fill="#0958C2"/>
-      <circle cx="66" cy="72" r="5.5" fill="#A6C7F1"/>
-      <rect x="58" y="78" width="16" height="52" rx="8" fill="#1968CE"/>
-      <circle cx="66" cy="132" r="11" fill="#0958C2"/>
-      <circle cx="66" cy="132" r="4" fill="#A6C7F1"/>
-      <g class="arr-pinza-a"><path d="M66 136 L44 180" stroke="#074690" stroke-width="10" stroke-linecap="round" fill="none"/></g>
-      <g class="arr-pinza-b"><path d="M66 136 L88 180" stroke="#074690" stroke-width="10" stroke-linecap="round" fill="none"/></g>
-    </svg>
-    <img class="arr-logo" src="logo.png" alt="" width="96" height="81">
-  </div>
-
-  <p class="arr-marca">Cultiva<b>tec</b></p>
+  <img class="arr-gif" src="img/cultivatec-logo-animado.gif" alt="">
   <div class="arr-barra"><span></span></div>
 </div>
 <script>
@@ -303,7 +287,7 @@
      de una consola: así nadie ve el dibujo de reserva mientras three.js
      viaja por la red. El tope de 4.2 s vive en el CSS — si este guion
      fallara, la salida corre igual y nadie se queda con el sitio tapado. */
-  raiz.style.setProperty('--arr-espera', '4.2s');
+  raiz.style.setProperty('--arr-espera', '5.1s');
   window.__arranqueListo = function () {
     raiz.style.setProperty('--arr-espera',
       Math.max(1.5, performance.now() / 1000).toFixed(2) + 's');
@@ -521,9 +505,23 @@
       </div>
     </div>
   </div>
+  <img class="hero-valeon-saluda" src="img/valeon-saludando.webp" alt="Valeon, la mascota de Cultivatec, saludando">
 </header>
 
 <!-- ==================== TRES CAMINOS ==================== -->
+<!-- ==================== IMPACTO ==================== -->
+<section class="section impacto-section">
+  <div class="container">
+    <div class="impacto-card reveal">
+      <img src="img/testimonio-nino.jpg" alt="Alumno de Cultivatec mostrando su primer circuito armado en un taller, con Valeon de fondo" loading="eager" fetchpriority="high">
+      <div class="impacto-overlay">
+        <p class="impacto-frase">"No me gustó,<br>me encantó"</p>
+        <span class="impacto-autor">— Alumno, después del taller de robótica de Cultivatec</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section tres-caminos">
   <div class="container">
 
@@ -959,6 +957,7 @@
         <h4>Contacto</h4>
         <ul class="footer-links">
           <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:ventas@cultivatec.com.mx">ventas@cultivatec.com.mx</a></li>
           <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
           <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
         </ul>

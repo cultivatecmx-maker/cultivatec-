@@ -22,10 +22,6 @@
 			"isBackground": true,
 			"problemMatcher": []
 		},
-		{
-			"label": "Git init and push",
-			"type": "shell",
-			"command": "cd \"c:\\Users\\diego\\Desktop\\Cultivatec\" && git init && git add . && git commit -m \"Rediseño profesional completo de Cultivatec\" && git branch -M main && git remote add origin https://github.com/deimosvn/Cultivatec.git && git push -u origin main --force"
-		}
+
 	]
 }

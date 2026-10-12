@@ -25,8 +25,8 @@
 <meta property="og:image" content="https://cultivatec.com.mx/img/producto/sim-circuitos.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" type="image/png" href="logo-pestana-cultivatec.png">
-<link rel="apple-touch-icon" href="logo-pestana-cultivatec.png">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://esm.sh" crossorigin>
@@ -248,7 +248,28 @@
 }
 .arr-marca b{color:#0958C2;font-weight:700}
 @keyframes arr-marca{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.arr-gif{width:220px;height:auto;display:block}
+.arr-gif{width:220px;height:auto;display:block;position:relative;z-index:1}
+
+.arr-brazo-lado{
+  position:absolute; top:50%; width:140px; height:175px; margin-top:-100px;
+  opacity:0; z-index:0;
+}
+.arr-brazo-izq{ left:calc(50% - 280px); animation:arrBrazoIzq 1.3s cubic-bezier(.3,0,.2,1) .25s forwards }
+.arr-brazo-der{ right:calc(50% - 280px); animation:arrBrazoDer 1.3s cubic-bezier(.3,0,.2,1) .25s forwards }
+@keyframes arrBrazoIzq{ 0%{opacity:0;transform:translateX(-50px) rotate(-6deg)} 55%{opacity:1} 100%{opacity:1;transform:translateX(0) rotate(0)} }
+@keyframes arrBrazoDer{ 0%{opacity:0;transform:translateX(50px) rotate(6deg)} 55%{opacity:1} 100%{opacity:1;transform:translateX(0) rotate(0)} }
+
+.arr-pinza-l1,.arr-pinza-l2,.arr-pinza-r1,.arr-pinza-r2{ transform-box:fill-box; transform-origin:0% 50% }
+.arr-pinza-l1{ animation:arrPinzaL1 1.6s ease-in-out 1.1s forwards }
+.arr-pinza-l2{ animation:arrPinzaL2 1.6s ease-in-out 1.1s forwards }
+.arr-pinza-r1{ animation:arrPinzaR1 1.6s ease-in-out 1.1s forwards }
+.arr-pinza-r2{ animation:arrPinzaR2 1.6s ease-in-out 1.1s forwards }
+@keyframes arrPinzaL1{ 0%{transform:rotate(0)} 40%,100%{transform:rotate(14deg)} }
+@keyframes arrPinzaL2{ 0%{transform:rotate(0)} 40%,100%{transform:rotate(-14deg)} }
+@keyframes arrPinzaR1{ 0%{transform:rotate(0)} 40%,100%{transform:rotate(-14deg)} }
+@keyframes arrPinzaR2{ 0%{transform:rotate(0)} 40%,100%{transform:rotate(14deg)} }
+
+@media (max-width:640px){ .arr-brazo-lado{ display:none } }
 
 .arr-barra{
   width:min(148px,60vw);height:2px;border-radius:2px;overflow:hidden;
@@ -270,7 +291,25 @@
 
 <!-- ==================== ARRANQUE ==================== -->
 <div class="arranque" id="arranque" role="presentation" aria-hidden="true">
+  <svg class="arr-brazo-lado arr-brazo-izq" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="190" r="10" fill="#074690"/>
+    <rect x="2" y="110" width="18" height="84" rx="9" fill="#0958C2" transform="rotate(14 10 190)"/>
+    <circle cx="30" cy="112" r="11" fill="#074690"/>
+    <rect x="22" y="48" width="16" height="68" rx="8" fill="#1968CE" transform="rotate(-18 30 112)"/>
+    <circle cx="62" cy="58" r="9" fill="#074690"/>
+    <g class="arr-pinza-l1"><path d="M62 58 L96 40" stroke="#074690" stroke-width="9" stroke-linecap="round"/></g>
+    <g class="arr-pinza-l2"><path d="M62 58 L96 76" stroke="#074690" stroke-width="9" stroke-linecap="round"/></g>
+  </svg>
   <img class="arr-gif" src="img/cultivatec-logo-animado.gif" alt="">
+  <svg class="arr-brazo-lado arr-brazo-der" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="150" cy="190" r="10" fill="#074690"/>
+    <rect x="140" y="110" width="18" height="84" rx="9" fill="#0958C2" transform="rotate(-14 150 190)"/>
+    <circle cx="130" cy="112" r="11" fill="#074690"/>
+    <rect x="122" y="48" width="16" height="68" rx="8" fill="#1968CE" transform="rotate(18 130 112)"/>
+    <circle cx="98" cy="58" r="9" fill="#074690"/>
+    <g class="arr-pinza-r1"><path d="M98 58 L64 40" stroke="#074690" stroke-width="9" stroke-linecap="round"/></g>
+    <g class="arr-pinza-r2"><path d="M98 58 L64 76" stroke="#074690" stroke-width="9" stroke-linecap="round"/></g>
+  </svg>
   <div class="arr-barra"><span></span></div>
 </div>
 <script>
@@ -426,14 +465,12 @@
 
     <!-- Información -->
     <div class="hero-copy">
-      <div class="hero-tag h-an h-an-1">
-        <img src="logo.png" alt="" width="85" height="72">
-        <span>Cultiva<b>tec</b></span>
+      <div class="hero-marca h-an h-an-1">
+        <img src="logo.png" alt="" width="42" height="35">
+        <span>Aprende con la metodología Cultivatec</span>
       </div>
 
-      <div class="hero-linea h-an h-an-2">Aprende con la metodología Cultivatec</div>
-
-      <h1 class="h-an h-an-2">Llevamos la <em>Educación STEM</em> a Todos</h1>
+      <h1 class="h-an h-an-2">Llevamos la <em>Educación STEM<svg class="hero-swoosh" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 13 C 52 2, 96 19, 148 9 S 240 3, 296 11"/></svg></em> a Todos</h1>
 
       <p class="hero-lead h-an h-an-3">
         Simuladores con inteligencia artificial, kits para armar y profesores que van a tu escuela.
@@ -446,12 +483,17 @@
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
         <input type="email" name="correo" placeholder="Tu correo institucional" aria-label="Tu correo institucional" required>
-        <button type="submit"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</button>
+        <button type="submit"><i class="ph-bold ph-paper-plane-tilt"></i> Contáctanos</button>
       </form>
 
+      <div class="hero-prueba h-an h-an-5">
+        <div><strong>+1,000</strong><span>alumnos</span></div>
+        <div><strong>3</strong><span>ciudades</span></div>
+        <div><strong>Perú</strong><span>muy pronto</span></div>
+      </div>
+
       <p class="hero-alt h-an h-an-5">
-        O escribe a <a href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a>
-        &nbsp;·&nbsp; +1,000 alumnos en Mexicali y Monterrey
+        ¿Prefieres escribirnos? <a href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a>
       </p>
     </div>
 
@@ -505,6 +547,7 @@
       </div>
     </div>
   </div>
+  <svg class="hero-ola" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 220 102, 470 -4, 730 44 S 1190 96, 1440 34 L1440 90 L0 90 Z"/></svg>
   <img class="hero-valeon-saluda" src="img/valeon-saludando.webp" alt="Valeon, la mascota de Cultivatec, saludando">
 </header>
 

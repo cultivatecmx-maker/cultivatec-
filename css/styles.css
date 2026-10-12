@@ -1744,3 +1744,71 @@ a,button,.tab,.faq-q,.nav-item{-webkit-tap-highlight-color:rgba(37,99,235,.14)}
 
 /* Divisor de ola azul, entre dos secciones */
 .ola-azul{ display:block; width:100%; height:auto; margin-bottom:-2px }
+
+/* ============================================================
+   HERO REDISEÑADO — tagline real, subrayado curvo, datos, ola
+   ============================================================ */
+.hero-marca{
+  display:flex; align-items:center; gap:12px; margin:0 0 22px;
+}
+.hero-marca img{ width:42px; height:auto; filter:drop-shadow(0 4px 10px rgba(9,88,194,.35)) }
+.hero-marca span{
+  font-family:'League Spartan',var(--font-display);
+  font-size:1.2rem; font-weight:700; letter-spacing:-.01em; color:#0958C2;
+}
+
+.hero h1{
+  font-family:'League Spartan',var(--font-display); font-weight:800;
+  font-size:clamp(2.2rem,1rem + 3vw,3.7rem); line-height:1.02; letter-spacing:-.035em;
+}
+.hero h1 em{ display:block; width:fit-content; position:relative; padding-bottom:.14em; white-space:nowrap }
+.hero-swoosh{
+  position:absolute; left:0; bottom:-.06em; width:100%; height:.3em; overflow:visible;
+  -webkit-text-fill-color:initial;
+}
+.hero-swoosh path{
+  fill:none; stroke:#3D9CF9; stroke-width:5; stroke-linecap:round;
+  stroke-dasharray:340; stroke-dashoffset:340;
+  animation:heroSwoosh .9s cubic-bezier(.4,0,.2,1) calc(var(--arr-espera,5.1s) + .35s) forwards;
+}
+@keyframes heroSwoosh{ to{ stroke-dashoffset:0 } }
+
+/* Datos de impacto: una linea, sin cajas */
+.hero-prueba{ display:flex; flex-wrap:wrap; gap:14px 30px; margin:26px 0 16px }
+.hero-prueba > div{ display:flex; flex-direction:column; line-height:1.1 }
+.hero-prueba > div + div{ padding-left:30px; border-left:2px solid rgba(9,88,194,.22) }
+.hero-prueba strong{
+  font-family:'League Spartan',var(--font-display); font-weight:800;
+  font-size:2rem; color:#0958C2; letter-spacing:-.02em;
+}
+.hero-prueba span{ font-size:.82rem; color:#2C3E63; margin-top:4px }
+.hero-alt{ margin-top:0 }
+
+/* Ola curva que une el hero con la seccion siguiente */
+.hero-ola{
+  position:absolute; left:0; right:0; bottom:-1px; width:100%; height:72px;
+  display:block; z-index:2; fill:#fff; pointer-events:none;
+}
+.hero-placas{ margin-bottom:54px }
+
+@media (max-width:560px){
+  .hero-prueba > div + div{ padding-left:18px }
+  .hero-prueba{ gap:12px 18px }
+  .hero-prueba strong{ font-size:1.6rem }
+  .hero-ola{ height:44px }
+  .hero-placas{ margin-bottom:34px }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-swoosh path{ animation:none; stroke-dashoffset:0 }
+}
+
+@media (max-width:860px){
+  .hero-marca{ justify-content:center; text-align:center }
+  .hero h1 em{ margin-left:auto; margin-right:auto }
+  .hero-prueba{ justify-content:center; text-align:center }
+  .hero-prueba > div{ align-items:center }
+  .hero-alt{ text-align:center }
+}
+@media (max-width:560px){
+  .hero-marca{ flex-direction:column; gap:8px }
+}

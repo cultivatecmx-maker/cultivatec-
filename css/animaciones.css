@@ -1,0 +1,76 @@
+/* Animaciones ligeras (solo transform/opacity). Todo se apaga con "reducir movimiento". */
+.progreso{position:fixed;top:0;left:0;right:0;height:4px;z-index:10000;pointer-events:none}
+.progreso i{display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(var(--sp,0));background:linear-gradient(90deg,#3B80E8,#79ABEA 60%,#FFD54A)}
+.hero-deco{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.hero-deco svg,.hero-deco span{position:absolute;opacity:.0}
+.ruta{position:relative}.ruta-pista{display:none}
+.cta-valeon{display:none}
+.bloque-cta{position:relative;overflow-x:clip}
+@media (prefers-reduced-motion:no-preference){
+  /* hero: sincronizado con el intro de la primera visita */
+  .h-an{animation-delay:calc(max(0s,var(--arr-espera,0s) - .55s) + var(--d,.1s))}
+  .h-an-1{--d:.1s}.h-an-2{--d:.22s}.h-an-3{--d:.34s}.h-an-4{--d:.46s}.h-an-5{--d:.58s}.h-an-6{--d:.8s}
+  .hero-nota{clip-path:inset(0 100% 0 0);animation:an-escribe 1.1s steps(18,end) forwards;animation-delay:calc(max(0s,var(--arr-espera,0s)) + .5s)}
+  @keyframes an-escribe{to{clip-path:inset(0 0 0 0)}}
+  .hero-deco svg,.hero-deco span{animation:an-flota var(--t,7s) ease-in-out var(--dl,0s) infinite alternate;opacity:.5}
+  @keyframes an-flota{from{transform:translateY(0) rotate(0)}to{transform:translateY(-16px) rotate(14deg)}}
+  .hero-deco .g{animation-name:an-gira;animation-timing-function:linear;animation-direction:normal;--t:22s}
+  @keyframes an-gira{to{transform:rotate(360deg)}}
+  .hero .btn-primary{animation:an-pulso 3.6s ease-out 4s infinite}
+  @keyframes an-pulso{0%{box-shadow:0 0 0 0 rgba(121,171,234,.65)}70%,100%{box-shadow:0 0 0 16px rgba(121,171,234,0)}}
+  .hero-valeon-saluda{animation:an-bob 3.2s ease-in-out infinite alternate}
+  @keyframes an-bob{from{translate:0 0}to{translate:0 -9px}}
+  .hero-valeon-saluda:hover{animation:an-hola .9s ease-in-out}
+  @keyframes an-hola{25%{rotate:-8deg}60%{rotate:7deg}}
+  /* títulos con subrayado que se dibuja */
+  .sec-head .sec-title{position:relative;padding-bottom:16px}
+  .sec-head .sec-title::after{content:"";position:absolute;left:0;bottom:0;width:84px;height:5px;border-radius:5px;background:linear-gradient(90deg,#0958C2,#79ABEA);transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.22,1,.3,1) .25s}
+  .sec-head.center .sec-title::after{left:50%;margin-left:-42px}
+  .sec-head.visible .sec-title::after,.sec-head .sec-title.visible::after{transform:scaleX(1)}
+  .panel-navy .sec-head .sec-title::after{background:linear-gradient(90deg,#79ABEA,#FFD54A)}
+  /* tarjetas: iconos juguetones */
+  .via-card:hover .via-icono,.curso-mini:hover i,.course:hover .course-icon{animation:an-wiggle .6s ease-in-out}
+  @keyframes an-wiggle{25%{transform:rotate(-10deg) scale(1.08)}60%{transform:rotate(8deg) scale(1.08)}}
+  .cursos-grid.visible .curso-mini{animation:an-pop .6s cubic-bezier(.34,1.45,.64,1) both}
+  .cursos-grid.visible .curso-mini:nth-child(2){animation-delay:.07s}.cursos-grid.visible .curso-mini:nth-child(3){animation-delay:.14s}.cursos-grid.visible .curso-mini:nth-child(4){animation-delay:.21s}
+  .cursos-grid.visible .curso-mini:nth-child(5){animation-delay:.28s}.cursos-grid.visible .curso-mini:nth-child(6){animation-delay:.35s}.cursos-grid.visible .curso-mini:nth-child(7){animation-delay:.42s}.cursos-grid.visible .curso-mini:nth-child(8){animation-delay:.49s}
+  @keyframes an-pop{from{opacity:0;transform:translateY(26px) scale(.92)}to{opacity:1;transform:none}}
+  .cursos-kids{animation:an-sube-kids 1s cubic-bezier(.22,1,.3,1) both;animation-timeline:view();animation-range:entry 0% cover 45%}
+  @keyframes an-sube-kids{from{translate:0 70px;opacity:0}to{translate:0 0;opacity:1}}
+  /* talleres en arcos: asoman desde abajo y respiran */
+  .arcos.visible .arco{animation:an-arco .8s cubic-bezier(.34,1.35,.64,1) both}
+  .arcos.visible .arco:nth-child(2){animation-delay:.14s}.arcos.visible .arco:nth-child(3){animation-delay:.28s}
+  @keyframes an-arco{from{opacity:0;transform:translateY(50px) scale(.94)}to{opacity:1;transform:none}}
+  .arco img{transition:transform .5s cubic-bezier(.22,1,.3,1)}.arco:hover img{transform:scale(1.05)}
+  .arco.c:hover img{transform:translateX(-50%) scale(1.05)}
+  /* noticias */
+  .nota-curso img{transition:transform .5s}.nota-curso:hover img{transform:scale(1.04) rotate(-1deg)}
+  .nota-curso .nota-etiqueta::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#E0A400;margin-right:8px;animation:an-punto 1.6s ease-in-out infinite}
+  @keyframes an-punto{50%{transform:scale(1.7);opacity:.45}}
+  .nota-beca::before{animation:an-beca 1.2s cubic-bezier(.22,1,.3,1) both}
+  @keyframes an-beca{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+  /* metodología: Valeon recorre la ruta con el scroll */
+  @media (min-width:901px){
+    .ruta-pista{display:block;position:relative;height:84px;margin:0 12.5% 4px}
+    .ruta-pista::before,.ruta-avance{content:"";position:absolute;left:0;right:0;bottom:6px;height:4px;border-radius:4px;background:var(--brand-100,#D2E3F8)}
+    .ruta-avance{background:var(--brand-600,#0958C2);right:auto;width:calc(var(--p,1)*100%)}
+    .ruta-valeon{position:absolute;bottom:6px;left:calc(var(--p,1)*100%);width:46px;height:auto;margin-left:-23px;transform-origin:bottom center;animation:an-paso .7s ease-in-out infinite alternate;pointer-events:none}
+    .ruta.llego .ruta-valeon{animation:an-salto .9s ease-out 2}
+  }
+  @keyframes an-paso{from{transform:rotate(-4deg) translateY(0)}to{transform:rotate(4deg) translateY(-3px)}}
+  @keyframes an-salto{40%{transform:translateY(-22px) scale(1.06)}to{transform:none}}
+  .pasos.cuatro li{transition:transform .4s,box-shadow .4s,border-color .4s}
+  .pasos.cuatro li.on{border-color:var(--brand-600,#0958C2);box-shadow:0 10px 24px -12px rgba(9,88,194,.45);transform:translateY(-4px)}
+  /* Valeon saluda en el banner y llega con su carrito en el cierre */
+  .banner-escuela img{transform-origin:bottom center}
+  .banner-escuela.visible img{animation:an-hola 1.4s ease-in-out .5s 1}
+  @media (min-width:1000px){
+    .bloque-cta{padding-left:200px;padding-right:200px}
+    .cta-valeon{display:block;position:absolute;right:28px;bottom:0;width:150px;height:auto;opacity:0;transform:translateX(160px);transition:transform 1s cubic-bezier(.34,1.4,.64,1) .3s,opacity .5s .3s}
+    .bloque-cta.visible .cta-valeon{opacity:1;transform:none}
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-deco{display:none}.progreso{display:none}
+  .cta-valeon{display:none}
+}

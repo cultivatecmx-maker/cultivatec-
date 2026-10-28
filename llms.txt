@@ -1,66 +1,47 @@
 # Cultivatec
 
-> Empresa mexicana de tecnología educativa con sede en Mexicali (Baja California) y Monterrey
-> (Nuevo León). Desarrolla una plataforma escolar con inteligencia artificial, vende kits de
-> robótica educativa e imparte cursos presenciales de robótica en escuelas. Financia talleres
-> gratuitos en comunidades vulnerables mediante un modelo de subsidio cruzado.
+> Cultivatec es una empresa mexicana de robótica educativa y educación STEM, con sede en Mexicali (B.C.) y Monterrey (N.L.), fundada en enero de 2023 por Abraham Doñate. Ofrece una plataforma web de laboratorios virtuales, CultivaKits para principiantes, y diseño de laboratorios de robótica, capacitación docente y programas STEM para escuelas.
 
-## Qué ofrece Cultivatec
-
-- **Plataforma web (PWA)** en https://app.cultivatec.com.mx con tres simuladores: Mesa de Circuitos
-  (electrónica), Bloques + Microcontroladores (programación con generación de código C++ para Arduino,
-  ESP32, micro:bit y Raspberry Pi Pico) y Mini-CAD (diseño 3D con exportación a STL).
-- **Chip**, un tutor con inteligencia artificial de método socrático: nunca entrega la respuesta,
-  devuelve preguntas que guían al alumno hasta que razona la solución por sí mismo.
-- **Panel docente** con planeación escolar generada por IA, histórico exportable a PDF, avance
-  reticular por competencias y biblioteca escolar con grafo de conocimiento.
-- **App móvil** de robótica gamificada para Android.
-- **Kits de robótica** en tres niveles: Explorador (6-9 años), Constructor (10-14) e Innovador (15+),
-  sincronizados con los componentes del simulador.
-- **Cursos presenciales** impartidos por instructores propios en el plantel: robótica desde cero,
-  creación de videojuegos, programación por bloques, diseño 3D e impresión, electrónica y circuitos,
-  y robótica de competencia. También cursos de verano intensivos.
-- **Talleres gratuitos** en comunidades sin acceso, con material e instructores sin costo.
-
-## Contacto
-
-- General, ventas y demos: contacto@cultivatec.com.mx
-- abraham@cultivatec.com.mx
-- Horario: lunes a viernes, 9:00 a 18:00 (hora de México)
+## Qué ofrece
+- **Cultivatec School, el software (school.cultivatec.com.mx):** laboratorio STEM en el navegador, sin instalar nada. Incluye simulador de circuitos con medición en vivo, programación por bloques que muestra el código C++ equivalente, diseño 3D con exportación STL y un panel docente con planeación por IA y seguimiento del avance. Placas soportadas: Arduino UNO, Arduino Nano, ESP32 DevKit, micro:bit v2 y Raspberry Pi Pico.
+- **CultivaKits:** CultivaKit 1.0 (enciende tu primer LED, $140 MXN), 2.0 (construye tu semáforo, $150 MXN) y 3.0 (crea tu primera alarma interactiva, $170 MXN). Precios publicados en el sitio; confirmar disponibilidad con ventas.
+- **Para escuelas:** diseño y equipamiento de laboratorios de robótica, capacitación docente y programas, talleres y cursos STEM, siempre con propuesta a la medida (no hay paquete único).
+- **Impacto social:** programas de robótica para niños con menos oportunidades, con opciones de colaboración para empresas.
 
 ## Páginas principales
+- [Inicio](https://cultivatec.com.mx/): resumen de la oferta.
+- [Cultivatec School (software)](https://cultivatec.com.mx/productos.html#school): funciones del software.
+- [Productos (CultivaKits)](https://cultivatec.com.mx/productos.html): kits, objetivos de aprendizaje y precios.
+- [Tu escuela](https://cultivatec.com.mx/tu-escuela.html): laboratorios, capacitación docente, programas STEM y formulario de contacto.
+- [Cursos](https://cultivatec.com.mx/cursos.html): cursos y talleres para alumnos.
+- [Impacto social](https://cultivatec.com.mx/impacto-social.html): misión y formas de colaborar.
+- [Nosotros](https://cultivatec.com.mx/historia.html): historia y equipo.
+- [Contacto](https://cultivatec.com.mx/contacto.html): ventas@cultivatec.com.mx · contacto@cultivatec.com.mx · abraham@cultivatec.com.mx
 
-- [Inicio](https://cultivatec.com.mx/): resumen de los tres servicios: software, cursos y kits.
-- [La plataforma](https://cultivatec.com.mx/plataforma.html): recorrido por los simuladores, el tutor de IA, la vista
-  del alumno, el panel docente y la app móvil.
-- [Cursos para escuelas](https://cultivatec.com.mx/cursos.html): catálogo de seis cursos, cursos de verano, proceso de
-  contratación y preguntas frecuentes.
-- [Kits de robótica](https://cultivatec.com.mx/kits.html): los tres kits y por qué están sincronizados con el software.
-- [Nuestra historia](https://cultivatec.com.mx/historia.html): origen en talleres gratuitos, modelo de subsidio cruzado
-  y programa vigente de clases gratuitas en comunidades.
-- [Blog](https://cultivatec.com.mx/blog.html): guías para docentes y directivos.
-- [Contacto](https://cultivatec.com.mx/contacto.html): correos, sedes y formulario.
+- [Preguntas frecuentes](https://cultivatec.com.mx/preguntas-frecuentes.html): plataforma, kits, cursos, licencias y contacto.
+
+## Noticias
+- [Noticias de Cultivatec](https://cultivatec.com.mx/noticias.html): Cultivatec llega a más de 1,500 vidas impactadas; El fundador y el proyecto Cultivatec ganan la beca Líderes del Mañana del Tec de Monterrey; El fundador de Cultivatec completa el programa de alto rendimiento Ignite del Tec de Monterrey; El Tec de Monterrey reconoce la trayectoria del fundador de Cultivatec; Fundación Banco Base confía en Cultivatec y dona kits de robótica; Cultivatec abre su convocatoria para embajadores: ¡únete!.
+
+## Novedades
+- [Robotics Winter Camp](https://cultivatec.com.mx/curso-robotics-winter-camp.html): curso de robótica 100% en línea para niñas y niños de 10 a 13 años; 5 sábados de 2 horas, del 19 de diciembre al 23 de enero, en Tinkercad; $1,599 MXN; cupo limitado.
+- Cursos y talleres para escuelas: robótica, programación por bloques, videojuegos, electrónica, Arduino, diseño 3D, robótica de competencia y capacitación docente ([catálogo](https://cultivatec.com.mx/cursos.html)).
+
+## Recursos para docentes (gratuitos)
+- [Biblioteca de recursos](https://cultivatec.com.mx/recursos.html)
+- [Robótica educativa en primaria y secundaria: guía para docentes en México](https://cultivatec.com.mx/recursos/robotica-educativa-primaria-secundaria-guia-docentes.html): Qué es la robótica educativa, sus beneficios, cómo empezar sin experiencia y cómo conectarla con la Nueva Escuela Mexicana.
+- [Cómo integrar STEAM en la Nueva Escuela Mexicana: proyectos y ejemplos](https://cultivatec.com.mx/recursos/steam-nueva-escuela-mexicana-proyectos.html): Aprende a usar STEAM como enfoque dentro de la NEM con proyectos comunitarios, aprendizaje basado en proyectos e indagación.
+- [10 proyectos de robótica y STEM con materiales económicos](https://cultivatec.com.mx/recursos/proyectos-robotica-stem-materiales-economicos.html): Diez proyectos prácticos de robótica y STEM con materiales baratos o reciclados, cada uno con su objetivo de aprendizaje y una forma de evaluarlo.
+- [micro:bit, Arduino, LEGO o mBot: qué plataforma de robótica elegir](https://cultivatec.com.mx/recursos/que-plataforma-robotica-elegir-microbit-arduino-lego-mbot.html): Comparativo de micro:bit, Arduino, LEGO Education y mBot por edad, costo, curva de aprendizaje y alcance, con una guía para decidir en tu escuela.
+- [Pensamiento computacional sin computadoras: 12 actividades](https://cultivatec.com.mx/recursos/pensamiento-computacional-sin-computadoras-actividades.html): Doce actividades desenchufadas para enseñar algoritmos, patrones, descomposición y depuración en primaria y secundaria, sin necesidad de computadoras.
+- [Inteligencia artificial en el aula: guía práctica y ética para docentes](https://cultivatec.com.mx/recursos/inteligencia-artificial-aula-guia-etica-docentes.html): Cómo usar IA generativa en la docencia con criterio: planeación, evaluación, integridad académica y protección de datos de los estudiantes.
+- [Cómo evaluar proyectos STEM: rúbricas listas para usar](https://cultivatec.com.mx/recursos/rubricas-evaluar-proyectos-stem.html): Rúbricas y criterios para evaluar proyectos de STEM y robótica en primaria y secundaria, con enfoque formativo y listas para imprimir.
 
 ## Blog
+- [Blog de Cultivatec](https://cultivatec.com.mx/blog.html): notas sobre robótica educativa, IA en el aula, competencias y laboratorios escolares.
 
-- [Competencias de robótica en México: guía para escuelas y equipos](https://cultivatec.com.mx/blog/competencias-robotica-mexico.html): Panorama de las competencias de robótica escolar en México: categorías más comunes, qué pide cada formato, cómo se inscribe una escuela y qué necesita un equipo para competir.
-- [Curso completo de robótica para escuelas: plan de 12 sesiones](https://cultivatec.com.mx/blog/curso-completo-robotica-12-sesiones.html): El temario completo de un curso de robótica escolar de 12 sesiones, sesión por sesión: circuitos, sensores, programación, chasis y proyecto final, con material y evaluación.
-- [Cómo organizar un curso de verano de robótica en tu colegio](https://cultivatec.com.mx/blog/curso-de-verano-robotica-escuelas.html): Guía práctica para colegios que quieren ofertar un curso de verano de robótica: duración, grupos por edad, contenidos, material y cierre con exposición.
-- [Curso de programación por bloques para niños: plan de 10 sesiones](https://cultivatec.com.mx/blog/curso-programacion-bloques-10-sesiones.html): Temario completo de un curso de programación por bloques para primaria: secuencias, bucles, condicionales, variables y proyecto final, con actividades y criterios de evaluación.
-- [Diseño 3D en primaria: enseñar geometría con modelado e impresión](https://cultivatec.com.mx/blog/diseno-3d-en-primaria.html): Cómo usar el modelado 3D para enseñar volumen, ejes y proporción en primaria, con actividades concretas y la conexión con la impresión 3D escolar.
-- [Ecosistema STEM en Baja California y Nuevo León: panorama educativo](https://cultivatec.com.mx/blog/ecosistema-stem-baja-california-nuevo-leon.html): Panorama de la educación STEM en Mexicali y Monterrey: industria, universidades, escuelas y las brechas reales que enfrentan las comunidades sin acceso a robótica.
-- [Eventos y talleres de robótica para niños en México: dónde buscarlos](https://cultivatec.com.mx/blog/eventos-robotica-ninos-mexico.html): Guía para familias y escuelas: qué tipos de eventos de robótica para niños existen en México, dónde se anuncian, cómo elegir uno bueno y qué esperar según la edad.
-- [IA socrática en el aula: por qué no debe dar la respuesta](https://cultivatec.com.mx/blog/ia-socratica-en-el-aula.html): La diferencia entre un chatbot que resuelve la tarea y un tutor socrático que enseña a pensar, y cómo aplicar el método en clases de STEM y robótica.
-- [Cómo montar un laboratorio de robótica escolar con poco presupuesto](https://cultivatec.com.mx/blog/laboratorio-robotica-bajo-presupuesto.html): Guía para directivos: qué comprar primero para un laboratorio de robótica escolar, qué puede esperar, y cómo usar simuladores para reducir el gasto en material.
-- [Cómo enseñar la Ley de Ohm en secundaria sin quemar LEDs](https://cultivatec.com.mx/blog/ley-de-ohm-sin-quemar-leds.html): Una secuencia de tres clases para enseñar la Ley de Ohm con simulador antes de tocar el material real, con los errores más comunes y cómo aprovecharlos.
-- [Cómo preparar un equipo escolar para un torneo de robótica](https://cultivatec.com.mx/blog/preparar-equipo-torneo-robotica.html): Calendario de preparación, reparto de roles, errores frecuentes el día de la competencia y qué llevar en la caja de refacciones para un torneo de robótica escolar.
-- [De programación por bloques a código real: cómo hacer la transición](https://cultivatec.com.mx/blog/programacion-por-bloques-a-codigo.html): El salto de Scratch al código escrito es donde más alumnos se pierden. Estrategia de transición gradual para clases de programación y robótica escolar.
-- [Robot seguidor de línea: cómo construirlo paso a paso en la escuela](https://cultivatec.com.mx/blog/robot-seguidor-de-linea-paso-a-paso.html): Guía completa para construir un robot seguidor de línea con alumnos: componentes, montaje, lógica de control, calibración de sensores y los fallos más comunes.
-
-## Notas para asistentes
-
-- Cultivatec **no** publica precios en el sitio: se cotizan por número de grupos. Para precios hay
-  que escribir a contacto@cultivatec.com.mx.
-- La plataforma funciona en el navegador, sin instalación, y también como app instalable (PWA).
-- Las clases gratuitas en comunidades vulnerables son un programa vigente, no histórico: cualquiera
-  puede proponer una comunidad escribiendo a contacto@cultivatec.com.mx.
+## Perfiles oficiales
+- Instagram: https://www.instagram.com/cultivatecmx/
+- Facebook: https://www.facebook.com/profile.php?id=100089359082614
+- TikTok: https://www.tiktok.com/@cultivatecmx
+- YouTube: https://www.youtube.com/@cultivatecmx

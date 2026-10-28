@@ -1,0 +1,98 @@
+/* Portada: azul oscuro, paneles curvos y fotos de niños con contorno blanco */
+.portada-azul{--nv:#0B2A5C;--nv2:#08204A;--cielo:#EEF4FD}
+/* ---------- Hero oscuro ---------- */
+.portada-azul .hero{background:radial-gradient(900px 620px at 76% 34%,#1B58C8 0%,rgba(27,88,200,0) 62%),linear-gradient(165deg,#0B2A5C 0%,#08204A 100%);color:#fff}
+.portada-azul .hero-ola{fill:var(--cielo)}
+.portada-azul .orbe{background:radial-gradient(circle at 42% 38%,rgba(121,171,234,.55) 0%,rgba(27,88,200,.28) 45%,rgba(11,42,92,0) 70%)}
+.portada-azul .aurora{opacity:.45}
+.portada-azul .hero-dots{background-image:radial-gradient(rgba(255,255,255,.14) 1px,transparent 1px)}
+.portada-azul .cable{stroke:#3D7DD9}.portada-azul .conector{fill:var(--nv);stroke:#79ABEA}
+.portada-azul .hero-copy::before,.portada-azul .hero-copy::after{border-color:rgba(255,255,255,.28)}
+.portada-azul .hero-marca span{color:#9CC7FF}
+.portada-azul .hero-marca img{background:#fff;border-radius:50%;padding:3px;filter:none}
+.portada-azul .hero h1{color:#fff}
+.portada-azul .hero h1 em{background:linear-gradient(100deg,#79ABEA,#A9CCFA 50%,#D4E5FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.portada-azul .hero-swoosh path{stroke:#79ABEA}
+.portada-azul .hero-sub{color:#DCE8FA}
+.portada-azul .hero .btn-soft{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6);box-shadow:none}
+.portada-azul .hero .btn-soft:hover{background:rgba(255,255,255,.12)}
+.portada-azul .hero-prueba strong{color:#9CC7FF}
+.portada-azul .hero-prueba span{color:#B9CCEA}
+.portada-azul .hero-prueba>div+div{border-left-color:rgba(255,255,255,.25)}
+.portada-azul .hero-alt{color:#B9CCEA}
+.portada-azul .hero-alt a{color:#fff}
+.portada-azul .hero-valeon-saluda{left:auto;right:3%}
+.portada-azul .pedestal{background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.4),transparent 70%)}
+.hero-nota{position:absolute;right:3%;top:calc(var(--nav-h,76px) + 28px);z-index:4;font:600 clamp(1.4rem,2.2vw,2rem)/1.05 "Caveat",cursive;color:#9CC7FF;transform:rotate(-6deg);text-align:left;pointer-events:none}
+.hero-nota::after{content:"";display:block;width:70%;height:3px;border-radius:3px;background:#79ABEA;margin-top:6px}
+@media(max-width:900px){.hero-nota{display:none}}
+/* ---------- Paneles curvos ---------- */
+.portada-azul .panel-curvo{position:relative;z-index:1;border-radius:56px 56px 0 0;margin-top:-56px;padding-top:calc(var(--sec-y,96px) + 24px)}
+.portada-azul .panel-cielo{background:var(--cielo)}
+.portada-azul .panel-navy{background:linear-gradient(180deg,var(--nv),var(--nv2));color:#fff}
+.portada-azul .panel-navy .sec-title,.portada-azul .panel-navy h2{color:#fff}
+.portada-azul .panel-navy .sec-sub{color:#CFE0FA}
+.portada-azul .panel-navy .eyebrow{background:rgba(255,255,255,.1);color:#CFE3FF;border-color:rgba(255,255,255,.25)}
+.portada-azul .panel-navy .btn-soft{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6)}
+@media(max-width:700px){.portada-azul .panel-curvo{border-radius:32px 32px 0 0;margin-top:-32px}}
+/* ---------- Noticias ---------- */
+.noticias{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;margin-top:8px}
+.nota{border-radius:28px;overflow:hidden;position:relative}
+.nota-etiqueta{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.nota h3{font-family:"Outfit",Nunito,sans-serif;font-weight:700;line-height:1.12;margin:14px 0 10px}
+.nota p{margin:0 0 14px;line-height:1.6}
+.nota-beca{background:linear-gradient(150deg,#0B2A5C 0%,#124A9E 100%);color:#fff;padding:34px 34px 30px;display:flex;flex-direction:column;justify-content:flex-end;min-height:360px}
+.nota-beca::before{content:"100%";position:absolute;right:-8px;top:-18px;font:800 clamp(6rem,11vw,9rem)/1 "Outfit",Nunito,sans-serif;color:rgba(255,255,255,.09);letter-spacing:-.04em}
+.nota-beca .nota-etiqueta{background:rgba(255,255,255,.14);color:#CFE3FF;align-self:flex-start}
+.nota-beca h3{font-size:clamp(1.5rem,2.4vw,2rem);color:#fff;position:relative}
+.nota-beca p{color:#DCE8FA;position:relative}
+.nota-beca a{color:#fff;font-weight:600;position:relative;border-bottom:1.5px solid rgba(255,255,255,.5);align-self:flex-start}
+.nota-curso{background:#fff;border:1px solid var(--brand-100,#D2E3F8);display:grid;grid-template-columns:250px 1fr;gap:0}
+.nota-curso img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#1B55D6}
+.nota-curso .cuerpo{padding:30px 30px 26px}
+.nota-curso .nota-etiqueta{background:#FFF3C4;color:#7A5200}
+.nota-curso h3{font-size:clamp(1.4rem,2.2vw,1.85rem);color:var(--brand-900,#0B2A5C)}
+.nota-curso p{color:var(--slate-700,#334155);font-size:.9688rem}
+.nota-datos{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.nota-datos li{font-size:.8125rem;font-weight:600;color:var(--brand-700,#074690);background:var(--brand-50,#EAF2FC);border-radius:999px;padding:6px 12px}
+.nota-acciones{display:flex;gap:10px;flex-wrap:wrap}
+/* ---------- Cursos ---------- */
+.portada-azul .cursos-sec{padding-bottom:0;overflow:hidden}
+.cursos-aud{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 32px}
+.cursos-aud span{font-size:.875rem;font-weight:600;color:#CFE3FF;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:7px 16px}
+.cursos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.curso-mini{background:#fff;color:var(--slate-700,#334155);border-radius:22px;padding:22px 20px 18px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.curso-mini:hover{transform:translateY(-4px);box-shadow:0 18px 32px -16px rgba(0,0,0,.5)}
+.curso-mini i{width:44px;height:44px;border-radius:14px;background:var(--brand-50,#EAF2FC);color:var(--brand-600,#0958C2);display:grid;place-items:center;font-size:1.35rem;margin-bottom:14px}
+.curso-mini small{font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand-600,#0958C2)}
+.curso-mini h3{font:700 1.2rem/1.15 "Outfit",Nunito,sans-serif;color:var(--brand-900,#0B2A5C);margin:6px 0 8px}
+.curso-mini p{font-size:.9rem;line-height:1.5;margin:0 0 12px;flex:1}
+.curso-mini .ed{font-size:.8125rem;color:var(--slate-600,#475569)}
+.cursos-pie{display:flex;gap:12px;flex-wrap:wrap;margin:34px 0 0;padding-bottom:250px}
+.cursos-kids{position:absolute;right:0;bottom:0;width:clamp(180px,18vw,270px);height:auto;pointer-events:none}
+/* ---------- Galería de talleres con arcos ---------- */
+.arcos{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:0 0 34px}
+.arco{position:relative;height:clamp(300px,30vw,400px);border-radius:999px 999px 26px 26px;overflow:hidden;background:linear-gradient(180deg,#3B80E8 0%,#0E3F8F 100%);border:6px solid #fff;box-shadow:0 22px 40px -20px rgba(0,0,0,.55)}
+.arco img{position:absolute;display:block;height:auto}
+.arco.c img{height:86%;width:auto;left:50%;transform:translateX(-50%);bottom:6%}
+.arco.led img{width:132%;right:-7%;top:-4%}
+.arco.proto img{height:104%;width:auto;left:-7%;bottom:-3%}
+.arco figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;text-align:center;font-size:.8125rem;font-weight:600;color:#fff;background:linear-gradient(0deg,rgba(8,32,74,.9),rgba(8,32,74,0))}
+.portada-azul .imp-sec .impacto-card{border-radius:28px}
+/* ---------- Responsive ---------- */
+@media(max-width:1100px){.cursos-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.noticias{grid-template-columns:1fr}.nota-curso{grid-template-columns:1fr}.nota-curso img{height:auto;max-height:420px}.arcos{grid-template-columns:1fr 1fr}.arco:nth-child(3){display:none}.cursos-kids{width:150px}}
+@media(max-width:560px){.cursos-grid{grid-template-columns:1fr}.arcos{grid-template-columns:1fr}.arco:nth-child(2){display:none}.arco{height:300px}.cursos-pie{padding-bottom:120px}}
+@media(prefers-reduced-motion:reduce){.curso-mini{transition:none}}
+.portada-azul .panel-blanco{background:#fff}
+.nt-mas{text-align:center;margin:30px 0 0}.portada-azul .nt-destacada{margin-top:8px}.portada-azul .nt-destacada .nt-img{min-height:320px}.portada-azul .nt-destacada .nt-img img{object-position:center 30%}
+
+/* tarjetas de cursos con foto */
+.curso-mini{padding:0;overflow:hidden}
+.cm-foto{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--brand-50,#EAF2FC)}
+.cm-foto img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}.curso-mini:hover .cm-foto img{transform:scale(1.06)}
+.cm-body{display:flex;flex-direction:column;flex:1;padding:0 20px 18px}
+.curso-mini .cm-body i{margin-top:-22px;margin-bottom:12px;box-shadow:0 6px 14px -6px rgba(11,42,92,.45);border:3px solid #fff;width:48px;height:48px}
+.wokov-sec{overflow:hidden}
+.wokov-asoma{position:absolute;left:0;bottom:-4px;width:112px;height:auto;z-index:2;pointer-events:none}
+@media(max-width:1100px){.wokov-asoma{display:none}}

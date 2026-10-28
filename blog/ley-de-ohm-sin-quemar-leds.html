@@ -20,13 +20,16 @@
 <meta property="og:url" content="https://cultivatec.com.mx/blog/ley-de-ohm-sin-quemar-leds.html">
 <meta property="og:image" content="https://cultivatec.com.mx/img/producto/sim-circuitos.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="../logo.png">
-<link rel="apple-touch-icon" href="../logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link rel="preload" href="../css/fonts/Phosphor-Fill.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/phosphor.css">
+<link rel="icon" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="preload" href="../css/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../css/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/styles.css?v=20260729j">
+<link rel="stylesheet" href="../css/sitio.css">
+<link rel="stylesheet" href="../css/fuentes.css">
+<link rel="stylesheet" href="../css/estilo-azul.css">
 <script src="../js/analitica.js?v=20260729j" defer></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting",
@@ -74,78 +77,23 @@
 <nav class="navbar" role="navigation" aria-label="Navegación principal">
   <div class="container nav-inner">
     <a href="/" class="nav-logo" aria-label="Cultivatec — Inicio">
-      <img src="../logo.png" alt="Cultivatec" width="40" height="40">
+      <img src="../logo.png" alt="Cultivatec" width="47" height="40">
       <span class="nav-wordmark">Cultiva<b>tec</b></span>
     </a>
 
     <ul class="nav-menu" id="nav-menu">
-      <li>
-        <button class="nav-item" data-panel="panel-software" aria-expanded="false" aria-controls="panel-software">
-          Software <i class="ph-bold ph-caret-down caret"></i>
-        </button>
-        <div class="nav-panel" id="panel-software">
-          <a href="../plataforma.html" class="nav-panel-link" style="--pi:var(--brand-700);--pib:var(--brand-50);--pid:var(--brand-100)">
-            <i class="ph-fill ph-squares-four"></i>
-            <div><strong>La plataforma</strong><span>Todo el software escolar en un recorrido</span></div>
-          </a>
-          <a href="../plataforma.html#simuladores" class="nav-panel-link" style="--pi:var(--sim-dk);--pib:var(--sim-bg);--pid:var(--sim-bd)">
-            <i class="ph-fill ph-circuitry"></i>
-            <div><strong>Simuladores</strong><span>Electrónica, programación y diseño 3D</span></div>
-          </a>
-          <a href="../plataforma.html#ia" class="nav-panel-link" style="--pi:var(--ai-dk);--pib:var(--ai-bg);--pid:var(--ai-bd)">
-            <i class="ph-fill ph-brain"></i>
-            <div><strong>Chip · IA socrática</strong><span>Guía al alumno sin darle la respuesta</span></div>
-          </a>
-          <a href="../plataforma.html#docentes" class="nav-panel-link" style="--pi:var(--ok-dk);--pib:var(--ok-bg);--pid:var(--ok-bd)">
-            <i class="ph-fill ph-chalkboard-teacher"></i>
-            <div><strong>Panel docente</strong><span>Planeación con IA y avance reticular</span></div>
-          </a>
-          <a href="../plataforma.html#app" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
-            <i class="ph-fill ph-device-mobile"></i>
-            <div><strong>App móvil</strong><span>Robótica gamificada en Google Play</span></div>
-          </a>
-          <div class="nav-panel-foot">
-            <p><strong>¿Prefieres verlo funcionando?</strong> Te damos una demo de 20 minutos.</p>
-            <a href="../contacto.html" class="btn btn-primary btn-sm"><i class="ph-bold ph-calendar-check"></i> Agendar demo</a>
-          </div>
-        </div>
-      </li>
-
-      <li>
-        <button class="nav-item" data-panel="panel-cursos" aria-expanded="false" aria-controls="panel-cursos">
-          Cursos <i class="ph-bold ph-caret-down caret"></i>
-        </button>
-        <div class="nav-panel" id="panel-cursos">
-          <a href="../cursos.html" class="nav-panel-link" style="--pi:var(--brand-700);--pib:var(--brand-50);--pid:var(--brand-100)">
-            <i class="ph-fill ph-graduation-cap"></i>
-            <div><strong>Cursos para escuelas</strong><span>Programas completos por ciclo escolar</span></div>
-          </a>
-          <a href="../cursos.html#verano" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
-            <i class="ph-fill ph-sun-horizon"></i>
-            <div><strong>Cursos de verano</strong><span>Talleres intensivos en tu plantel</span></div>
-          </a>
-          <a href="../kits.html" class="nav-panel-link" style="--pi:var(--kit-dk);--pib:var(--kit-bg);--pid:var(--kit-bd)">
-            <i class="ph-fill ph-toolbox"></i>
-            <div><strong>Kits de robótica</strong><span>Hardware sincronizado con la plataforma</span></div>
-          </a>
-          <a href="../historia.html#gratuitas" class="nav-panel-link" style="--pi:var(--rose-dk);--pib:var(--rose-bg);--pid:var(--rose-bd)">
-            <i class="ph-fill ph-hand-heart"></i>
-            <div><strong>Clases gratuitas</strong><span>Llevamos robótica a tu comunidad</span></div>
-          </a>
-          <div class="nav-panel-foot">
-            <p><strong>Nuestros profesores van a tu escuela.</strong> Talleres desde 8 sesiones.</p>
-            <a href="../cursos.html" class="btn btn-primary btn-sm"><i class="ph-bold ph-arrow-right"></i> Ver catálogo</a>
-          </div>
-        </div>
-      </li>
-
-      <li><a href="../historia.html" class="nav-item">Historia</a></li>
-      <li><a href="../blog.html" class="nav-item">Blog</a></li>
+      <li><a href="/" class="nav-item">Inicio</a></li>
+      <li><a href="../productos.html" class="nav-item">Productos</a></li>
+      <li><a href="../tu-escuela.html" class="nav-item">Tu escuela</a></li>
+      <li><a href="../recursos.html" class="nav-item">Recursos</a></li>
+      <li><a href="../impacto-social.html" class="nav-item">Impacto social</a></li>
+      <li><a href="../historia.html" class="nav-item">Nosotros</a></li>
       <li><a href="../contacto.html" class="nav-item">Contacto</a></li>
+      <li class="nav-menu-cta"><a href="../productos.html#school" class="btn btn-primary">School</a></li>
     </ul>
 
     <div class="nav-actions">
-      <a href="../contacto.html" class="nav-cta"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a>
+      <a href="../productos.html#school" class="nav-cta">School</a>
       <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
         <span></span><span></span><span></span>
       </button>
@@ -157,7 +105,7 @@
 
 <section class="page-hero t-sim" style="--ph1:var(--accent-bg)">
   <div class="container">
-    <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><a href="../blog.html">Blog</a><i class="ph-bold ph-caret-right"></i><span>Electrónica</span></div>
+    <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><a href="../blog.html">Blog</a><i class="ph-bold ph-caret-right"></i><span>Cómo enseñar la Ley de Ohm sin quemar un…</span></div>
     <span class="eyebrow t-sim"><i class="ph-fill ph-circuitry"></i> Electrónica</span>
     <h1>Cómo enseñar la Ley de Ohm sin quemar un solo LED</h1>
     <p style="font-size:.9375rem;color:var(--slate-500);margin-top:20px">
@@ -229,8 +177,7 @@ potenciómetro. Los obliga a aplicar la relación en un caso que no estaba en el
 <h2>Los tres errores que más vas a ver</h2>
 
 <ul>
-  <li><strong>Polaridad invertida.</strong> El LED no enciende y todo parece bien conectado. Es la
-      duda número uno en nuestro tutor de IA. En vez de señalarles el error, pregúntales qué tiene
+  <li><strong>Polaridad invertida.</strong> El LED no enciende y todo parece bien conectado. Es el error más frecuente en el primer circuito. En vez de señalarles el error, pregúntales qué tiene
       de especial un LED frente a un foco común.</li>
   <li><strong>Confundir voltaje con corriente.</strong> «Le puse más volts para que alumbre más».
       Aquí ayuda la analogía hidráulica: el voltaje es la presión, la corriente es el caudal.</li>
@@ -280,7 +227,7 @@ a dar clases, un componente quemado sí significaba un niño menos construyendo.
   </div>
 </article></div>
     <div style="text-align:center;margin-top:36px">
-      <a href="../blog.html" class="btn btn-soft"><i class="ph-bold ph-articles-medium"></i> Ver todas las notas</a>
+      <a href="../blog.html" class="btn btn-soft"><i class="ph-bold ph-arrow-right"></i> Ver todas las notas</a>
     </div>
   </div>
 </section>
@@ -303,62 +250,72 @@ a dar clases, un componente quemado sí significaba un niño menos construyendo.
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="/" class="footer-brand-logo">
-          <img src="../logo.png" alt="" width="40" height="40">
-          <span>Cultiva<b>tec</b></span>
+          <img src="../img/logo-cultivatec-nombre.png" alt="Cultivatec" width="150" height="140" loading="lazy">
         </a>
-        <p>Software educativo con inteligencia artificial, kits y cursos de robótica para escuelas. Con sede en Mexicali y Monterrey, para todo México.</p>
+        <p>Robótica educativa accesible: CultivaKits, laboratorios y capacitación docente para escuelas, con sede en Mexicali y Monterrey.</p>
         <div class="socials">
           <a href="https://www.facebook.com/profile.php?id=100089359082614" target="_blank" rel="noopener" class="social" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
-          <a href="https://www.instagram.com/Cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
-          <a href="https://www.tiktok.com/@Cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
-          <a href="https://www.youtube.com/@Cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
+          <a href="https://www.instagram.com/cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+          <a href="https://www.tiktok.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
+          <a href="https://www.youtube.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
         </div>
       </div>
       <div>
-        <h4>Software</h4>
+        <h4>Productos</h4>
         <ul class="footer-links">
-          <li><a href="../plataforma.html">La plataforma</a></li>
-          <li><a href="../plataforma.html#simuladores">Simuladores</a></li>
-          <li><a href="../plataforma.html#ia">IA socrática</a></li>
-          <li><a href="../plataforma.html#docentes">Panel docente</a></li>
+          <li><a href="../productos.html#kit-1">CultivaKit 1.0</a></li>
+          <li><a href="../productos.html#kit-2">CultivaKit 2.0</a></li>
+          <li><a href="../productos.html#kit-3">CultivaKit 3.0</a></li>
+          <li><a href="mailto:ventas@cultivatec.com.mx">Pedir cotización</a></li>
         </ul>
       </div>
       <div>
-        <h4>Servicios</h4>
+        <h4>Tu escuela</h4>
         <ul class="footer-links">
-          <li><a href="../cursos.html">Cursos para escuelas</a></li>
-          <li><a href="../cursos.html#verano">Cursos de verano</a></li>
-          <li><a href="../kits.html">Kits de robótica</a></li>
-          <li><a href="../historia.html#gratuitas">Clases gratuitas</a></li>
-          <li><a href="https://play.google.com/store/search?q=Cultivatec&c=apps" target="_blank" rel="noopener">App en Google Play</a></li>
+          <li><a href="../tu-escuela.html#laboratorios">Laboratorios de robótica</a></li>
+          <li><a href="../tu-escuela.html#capacitacion">Capacitación docente</a></li>
+          <li><a href="../tu-escuela.html#programas">Programas STEM</a></li>
+          <li><a href="../productos.html#school">Cultivatec School (software)</a></li>
+          <li><a href="../cursos.html">Cursos</a></li>
         </ul>
       </div>
       <div>
         <h4>Cultivatec</h4>
         <ul class="footer-links">
-          <li><a href="../historia.html">Nuestra historia</a></li>
+          <li><a href="../historia.html">Nosotros</a></li>
+          <li><a href="../impacto-social.html">Impacto social</a></li>
+          <li><a href="../recursos.html">Recursos para docentes</a></li>
+          <li><a href="../preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+          <li><a href="../noticias.html">Noticias</a></li>
           <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../productos.html#school">School (próximamente)</a></li>
           <li><a href="../contacto.html">Contacto</a></li>
-          <li><a href="https://app.cultivatec.com.mx" target="_blank" rel="noopener">Entrar a la plataforma</a></li>
         </ul>
       </div>
       <div>
         <h4>Contacto</h4>
         <ul class="footer-links">
-          <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:ventas@cultivatec.com.mx">ventas@cultivatec.com.mx</a></li>
           <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
           <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; <span class="js-year">2026</span> Cultivatec. Todos los derechos reservados.</span>
-      <span>Hecho con <i class="ph-fill ph-heart"></i> en Mexicali para los niños del mundo.</span>
+      <span class="footer-legal"><a href="../aviso-de-privacidad.html">Aviso de privacidad</a> · <a href="../terminos-y-condiciones.html">Términos y condiciones</a></span>
     </div>
   </div>
 </footer>
 
+<div class="floating-actions" aria-label="Accesos rápidos">
+  <a href="../tu-escuela.html#formulario" class="floating-btn floating-contacto"><i class="ph-bold ph-flask"></i> <span>Diseñemos tu laboratorio</span></a>
+  <a href="mailto:ventas@cultivatec.com.mx" class="floating-btn floating-recursos"><i class="ph-bold ph-envelope-simple"></i> <span>Escribir a ventas</span></a>
+</div>
+<div class="cta-movil" id="cta-movil"><a href="../tu-escuela.html#formulario" class="btn btn-primary">Diseñemos tu laboratorio</a></div>
 <button class="back-to-top" aria-label="Volver arriba"><i class="ph-bold ph-caret-up"></i></button>
 <script src="../js/main.js?v=20260729j"></script>
+<script src="../js/sitio.js" defer></script>
 </body>
 </html>

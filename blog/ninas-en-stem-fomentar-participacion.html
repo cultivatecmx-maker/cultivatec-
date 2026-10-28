@@ -18,15 +18,18 @@
 <meta property="og:title" content="Niñas en STEM: Fomentando la participación | Cultivatec">
 <meta property="og:description" content="Estrategias prácticas para fomentar la participación femenina en clubes de robótica y áreas STEM. Rompiendo estereotipos desde primaria.">
 <meta property="og:url" content="https://cultivatec.com.mx/blog/ninas-en-stem-fomentar-participacion.html">
-<meta property="og:image" content="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1200&auto=format&fit=crop">
+<meta property="og:image" content="https://cultivatec.com.mx/img/aula/alumnas-trabajando-circuito.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="../logo.png">
-<link rel="apple-touch-icon" href="../logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link rel="preload" href="../css/fonts/Phosphor-Fill.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/phosphor.css">
+<link rel="icon" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="preload" href="../css/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../css/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/styles.css?v=20260729j">
+<link rel="stylesheet" href="../css/sitio.css">
+<link rel="stylesheet" href="../css/fuentes.css">
+<link rel="stylesheet" href="../css/estilo-azul.css">
 <script src="../js/analitica.js?v=20260729j" defer></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting",
@@ -43,24 +46,36 @@
 <a href="#main" class="skip-link">Saltar al contenido</a>
 
 <nav class="navbar" role="navigation" aria-label="Navegación principal">
-  <!-- Navbar content omitted for brevity but standard -->
   <div class="container nav-inner">
-    <a href="/" class="nav-logo" aria-label="Cultivatec — Inicio"><img src="../logo.png" alt="Cultivatec" width="40" height="40"><span class="nav-wordmark">Cultiva<b>tec</b></span></a>
+    <a href="/" class="nav-logo" aria-label="Cultivatec — Inicio">
+      <img src="../logo.png" alt="Cultivatec" width="47" height="40">
+      <span class="nav-wordmark">Cultiva<b>tec</b></span>
+    </a>
+
     <ul class="nav-menu" id="nav-menu">
-      <li><a href="../plataforma.html" class="nav-item">Software</a></li>
-      <li><a href="../cursos.html" class="nav-item">Cursos</a></li>
-      <li><a href="../historia.html" class="nav-item">Historia</a></li>
-      <li><a href="../blog.html" class="nav-item">Blog</a></li>
+      <li><a href="/" class="nav-item">Inicio</a></li>
+      <li><a href="../productos.html" class="nav-item">Productos</a></li>
+      <li><a href="../tu-escuela.html" class="nav-item">Tu escuela</a></li>
+      <li><a href="../recursos.html" class="nav-item">Recursos</a></li>
+      <li><a href="../impacto-social.html" class="nav-item">Impacto social</a></li>
+      <li><a href="../historia.html" class="nav-item">Nosotros</a></li>
       <li><a href="../contacto.html" class="nav-item">Contacto</a></li>
+      <li class="nav-menu-cta"><a href="../productos.html#school" class="btn btn-primary">School</a></li>
     </ul>
-    <div class="nav-actions"><a href="../contacto.html" class="nav-cta"><i class="ph-bold ph-calendar-check"></i> Solicitar demo</a></div>
+
+    <div class="nav-actions">
+      <a href="../productos.html#school" class="nav-cta">School</a>
+      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
 <main id="main">
 <section class="page-hero t-brand" style="--ph1:var(--accent-bg)">
   <div class="container">
-    <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><a href="../blog.html">Blog</a><i class="ph-bold ph-caret-right"></i><span>Niñas en STEM</span></div>
+    <div class="crumbs"><a href="/">Inicio</a><i class="ph-bold ph-caret-right"></i><a href="../blog.html">Blog</a><i class="ph-bold ph-caret-right"></i><span>Niñas en STEM: Cómo fomentar la…</span></div>
     <span class="eyebrow t-brand"><i class="ph-fill ph-users"></i> Equidad</span>
     <h1>Niñas en STEM: Cómo fomentar la participación en clubes de robótica</h1>
     <p style="font-size:.9375rem;color:var(--slate-500);margin-top:20px">
@@ -75,7 +90,7 @@
     <div class="article">
       
       <figure style="margin:0 0 32px 0;">
-        <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1200&auto=format&fit=crop" alt="Niña sonriendo mientras arma un robot" style="width:100%; border-radius:var(--r-md); box-shadow:var(--sh-sm); object-fit:cover; max-height:400px;">
+        <img src="https://cultivatec.com.mx/img/aula/alumnas-trabajando-circuito.jpg" alt="Niña sonriendo mientras arma un robot" style="width:100%; border-radius:var(--r-md); box-shadow:var(--sh-sm); object-fit:cover; max-height:400px;" loading="lazy" decoding="async">
       </figure>
 
 <p>A pesar de los avances, si te asomas a muchos clubes de robótica escolar, verás un mar de niños y, con suerte, una o dos niñas. Este desbalance no ocurre porque a ellas no les interese la tecnología, sino porque los entornos y metodologías a veces resultan poco acogedores o se basan en estereotipos.</p>
@@ -99,7 +114,70 @@
 </article>
 
 </main>
-<footer class="footer"><!-- Footer standard --></footer>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">
+          <img src="../img/logo-cultivatec-nombre.png" alt="Cultivatec" width="150" height="140" loading="lazy">
+        </a>
+        <p>Robótica educativa accesible: CultivaKits, laboratorios y capacitación docente para escuelas, con sede en Mexicali y Monterrey.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/profile.php?id=100089359082614" target="_blank" rel="noopener" class="social" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+          <a href="https://www.instagram.com/cultivatecmx/" target="_blank" rel="noopener" class="social" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+          <a href="https://www.tiktok.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="TikTok"><i class="ph-bold ph-tiktok-logo"></i></a>
+          <a href="https://www.youtube.com/@cultivatecmx" target="_blank" rel="noopener" class="social" aria-label="YouTube"><i class="ph-bold ph-youtube-logo"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Productos</h4>
+        <ul class="footer-links">
+          <li><a href="../productos.html#kit-1">CultivaKit 1.0</a></li>
+          <li><a href="../productos.html#kit-2">CultivaKit 2.0</a></li>
+          <li><a href="../productos.html#kit-3">CultivaKit 3.0</a></li>
+          <li><a href="mailto:ventas@cultivatec.com.mx">Pedir cotización</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tu escuela</h4>
+        <ul class="footer-links">
+          <li><a href="../tu-escuela.html#laboratorios">Laboratorios de robótica</a></li>
+          <li><a href="../tu-escuela.html#capacitacion">Capacitación docente</a></li>
+          <li><a href="../tu-escuela.html#programas">Programas STEM</a></li>
+          <li><a href="../productos.html#school">Cultivatec School (software)</a></li>
+          <li><a href="../cursos.html">Cursos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Cultivatec</h4>
+        <ul class="footer-links">
+          <li><a href="../historia.html">Nosotros</a></li>
+          <li><a href="../impacto-social.html">Impacto social</a></li>
+          <li><a href="../recursos.html">Recursos para docentes</a></li>
+          <li><a href="../preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+          <li><a href="../noticias.html">Noticias</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../productos.html#school">School (próximamente)</a></li>
+          <li><a href="../contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul class="footer-links">
+          <li><a class="mail" href="mailto:ventas@cultivatec.com.mx">ventas@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:abraham@cultivatec.com.mx">abraham@cultivatec.com.mx</a></li>
+          <li><a class="mail" href="mailto:contacto@cultivatec.com.mx">contacto@cultivatec.com.mx</a></li>
+          <li><span>Mexicali, B.C. · Monterrey, N.L.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span class="js-year">2026</span> Cultivatec. Todos los derechos reservados.</span>
+      <span class="footer-legal"><a href="../aviso-de-privacidad.html">Aviso de privacidad</a> · <a href="../terminos-y-condiciones.html">Términos y condiciones</a></span>
+    </div>
+  </div>
+</footer>
 <script src="../js/main.js?v=20260729j"></script>
+<script src="../js/sitio.js" defer></script>
 </body>
 </html>

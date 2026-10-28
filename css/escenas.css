@@ -1,0 +1,59 @@
+/* Escenas ligadas al scroll: mosaico con paralaje + "así se arma un proyecto" */
+/* ---------- Mosaico de talleres (reemplaza los arcos) ---------- */
+.mosaico{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:230px 230px;gap:16px;margin:0 0 34px}
+.mz{position:relative;margin:0;overflow:hidden;border-radius:26px;background:#0E3F8F;box-shadow:0 22px 40px -22px rgba(0,0,0,.6)}
+.mz img{position:absolute;left:0;top:-14%;width:100%;height:128%;object-fit:cover;display:block;transform:translateY(calc((var(--mp,.5) - .5)*var(--k,20)*1px));transition:filter .4s}
+.mz:hover img{filter:saturate(1.15) brightness(1.05)}
+.mz-1{grid-row:1 / span 2}.mz-1 img{object-position:center 35%}
+.mz-2 img{object-position:center 45%}.mz-3 img{object-position:center 30%}.mz-4 img{object-position:center 60%}.mz-5 img{object-position:center 40%}
+.mz figcaption{position:absolute;left:14px;bottom:14px;font-size:.8125rem;font-weight:700;color:#0B2A5C;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:999px;padding:7px 14px}
+@media(max-width:900px){.mosaico{grid-template-columns:1fr 1fr;grid-template-rows:260px 170px 170px}.mz-1{grid-column:1 / span 2;grid-row:1}}
+/* ---------- Escena: así se arma un proyecto ---------- */
+.armado{position:relative;height:340vh}
+.armado-stage{position:sticky;top:calc(var(--nav-h,76px) + 6px);height:calc(100vh - var(--nav-h,76px) - 16px);min-height:520px;display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.armado .pasos.cuatro{display:grid;grid-template-columns:1fr;gap:14px;position:relative;padding-left:34px;margin:0;list-style:none}
+.armado .pasos.cuatro::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:4px;border-radius:4px;background:var(--brand-100,#D2E3F8)}
+.armado .pasos.cuatro::after{content:"";position:absolute;left:11px;top:8px;width:4px;border-radius:4px;background:var(--brand-600,#0958C2);height:calc((100% - 16px)*var(--ap,0))}
+.armado .pasos.cuatro li{opacity:.45;transition:opacity .4s,transform .4s,box-shadow .4s,border-color .4s}
+.armado .pasos.cuatro li.on{opacity:1}
+.armado .pasos.cuatro li.act{border-color:var(--brand-600,#0958C2);box-shadow:0 14px 28px -14px rgba(9,88,194,.5);transform:translateX(8px)}
+.armado-valeon{position:absolute;left:-10px;top:calc(8px + (100% - 76px)*var(--ap,0));width:44px;height:auto;pointer-events:none;z-index:2;transition:top .2s linear}
+.armado-escena{position:relative;height:100%;max-height:min(66vh,560px);aspect-ratio:4/5;justify-self:center}
+.armado-visor{position:relative;width:100%;height:100%;border-radius:32px;overflow:hidden;background:#0B2A5C;box-shadow:0 34px 60px -28px rgba(11,42,92,.6)}
+.armado-visor>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.12);transition:opacity .7s ease,transform 1.4s cubic-bezier(.22,1,.3,1)}
+.armado[data-paso="0"] .ph-0,.armado[data-paso="1"] .ph-1,.armado[data-paso="2"] .ph-2,.armado[data-paso="3"] .ph-3{opacity:1;transform:scale(1.02)}
+.armado-etiqueta{position:absolute;left:16px;top:16px;background:rgba(255,255,255,.94);color:#0B2A5C;font-weight:800;font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:8px 14px;z-index:3}
+.armado-robot{position:absolute;right:-46px;bottom:-30px;width:50%;max-width:230px;z-index:4;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))}
+.armado-robot svg{display:block;width:100%;height:auto;overflow:visible}
+.rb-p{opacity:0;transition:opacity .5s ease,transform .8s cubic-bezier(.34,1.4,.64,1)}
+.rb-plano{opacity:.9;stroke-dasharray:6 6}
+.rb-base{transform:translateY(60px)}.rb-torso{transform:translateY(-40px)}.rb-brazoi{transform:translateX(-50px) rotate(-20deg);transform-origin:70px 160px}.rb-brazod{transform:translateX(50px) rotate(20deg);transform-origin:170px 160px}
+.rb-cabeza{transform:translateY(-70px)}.rb-antena{transform:translateY(-30px)}
+.armado.p1 .rb-base,.armado.p1 .rb-torso,.armado.p1 .rb-brazoi,.armado.p1 .rb-brazod{opacity:1;transform:none}
+.armado.p2 .rb-cabeza,.armado.p2 .rb-antena{opacity:1;transform:none}
+.rb-ojos{fill:#2F5C9E;transition:fill .4s}
+.armado.p3 .rb-ojos{fill:#7FD6FF}
+.armado.p3 .rb-antena circle{fill:#FFD54A}
+.armado.p3 .rb-brazod{animation:rb-saluda .9s ease-in-out infinite alternate}
+.armado.p3 .rb-chispas{opacity:1}
+.rb-chispas{opacity:0;transition:opacity .4s .3s}
+@keyframes rb-saluda{from{transform:rotate(0)}to{transform:rotate(-28deg)}}
+.armado.p3 .armado-robot{animation:rb-rueda 1.6s ease-in-out infinite alternate}
+@keyframes rb-rueda{to{transform:translateX(-10px)}}
+.armado.p2:not(.p3) .rb-ojos{animation:rb-parpadeo 1s steps(2,jump-none) infinite}
+@keyframes rb-parpadeo{50%{fill:#7FD6FF}}
+@media(max-width:900px){
+  .armado{height:300vh}
+  .armado-stage{grid-template-columns:1fr;gap:14px;align-content:center;min-height:0}
+  .armado-escena{order:-1;aspect-ratio:16/10;max-height:34vh;width:100%;height:auto}
+  .armado .pasos.cuatro li:not(.act){display:none}
+  .armado .pasos.cuatro{padding-left:28px}.armado-valeon{display:none}
+  .armado-robot{width:30%;right:-4px;bottom:-16px}
+}
+/* ---------- Titular que se ilumina palabra por palabra ---------- */
+[data-palabras] .w{opacity:.22;transition:opacity .35s}[data-palabras] .w.on{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  .armado{height:auto}.armado-stage{position:static;height:auto;display:grid}
+  .armado .pasos.cuatro li{opacity:1;display:block!important}.armado-valeon{display:none}
+  .mz img{transform:none}[data-palabras] .w{opacity:1}
+}

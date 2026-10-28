@@ -1,0 +1,19 @@
+/* Páginas interiores con el mismo lenguaje de la portada: azul oscuro y paneles curvos */
+body:not(.portada-azul) .page-hero{background:radial-gradient(820px 440px at 82% 0%,#1B58C8 0%,rgba(27,88,200,0) 66%),linear-gradient(165deg,#0B2A5C 0%,#08204A 100%);border-bottom:0;color:#fff;padding-bottom:112px}
+body:not(.portada-azul) .page-hero h1,body:not(.portada-azul) .page-hero h2.h-school{color:#fff}
+body:not(.portada-azul) .page-hero p{color:#DCE8FA}
+body:not(.portada-azul) .page-hero strong{color:#fff}
+body:not(.portada-azul) .page-hero a:not(.btn){color:#fff;border-bottom:1px solid rgba(255,255,255,.35)}
+body:not(.portada-azul) .page-hero .crumbs{color:#B9CCEA}
+body:not(.portada-azul) .page-hero .crumbs a{border-bottom:0;color:#CFE3FF}
+body:not(.portada-azul) .page-hero .crumbs i{color:#6F8FC4}
+body:not(.portada-azul) .page-hero .eyebrow,body:not(.portada-azul) .page-hero .tag-dark{background:rgba(255,255,255,.12);color:#CFE3FF;border-color:rgba(255,255,255,.28)}
+body:not(.portada-azul) .page-hero .btn-soft{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6);box-shadow:none}
+body:not(.portada-azul) .page-hero .btn-soft:hover{background:rgba(255,255,255,.12)}
+body:not(.portada-azul) .page-hero .btn-compartir{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
+body:not(.portada-azul) .page-hero .hl,body:not(.portada-azul) .page-hero em{color:#9CC7FF;background:transparent;-webkit-text-fill-color:currentColor}
+body:not(.portada-azul) .azul-curvo::before{background:radial-gradient(circle,rgba(121,171,234,.35) 0%,rgba(121,171,234,0) 70%)}
+body:not(.portada-azul) .azul-curvo::after{background:radial-gradient(circle,rgba(27,88,200,.45) 0%,rgba(27,88,200,0) 70%)}
+/* el panel que sigue sube con esquinas curvas, como en la portada */
+body:not(.portada-azul) .page-hero + section:not(.page-hero){position:relative;z-index:1;border-radius:52px 52px 0 0;margin-top:-52px;padding-top:calc(52px + 40px)}
+@media(max-width:700px){body:not(.portada-azul) .page-hero + section:not(.page-hero){border-radius:30px 30px 0 0;margin-top:-30px;padding-top:calc(30px + 28px)}body:not(.portada-azul) .page-hero{padding-bottom:84px}}
